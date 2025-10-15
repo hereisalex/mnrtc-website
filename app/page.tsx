@@ -1,6 +1,7 @@
 import Image from "next/image";
 import GeoCitiesWindow from "@/components/geocities/GeoCitiesWindow";
 import GeoCitiesButton from "@/components/geocities/GeoCitiesButton";
+import VisitorCounter from "@/components/geocities/VisitorCounter";
 import { FaDiscord } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 
@@ -190,19 +191,7 @@ export default function Home() {
           x={800}
           y={80}
         >
-          <div style={{ textAlign: 'center' }}>
-            <div style={{ 
-              fontSize: '20px', 
-              fontWeight: 'bold', 
-              color: '#ff0000',
-              marginBottom: '5px'
-            }}>
-              000001
-            </div>
-            <div style={{ fontSize: '10px' }}>
-              visitors since 1995!
-            </div>
-          </div>
+          <VisitorCounter />
         </GeoCitiesWindow>
 
         {/* Webring Badges Window */}
