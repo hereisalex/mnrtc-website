@@ -1,8 +1,10 @@
 import { notFound } from "next/navigation";
-import MacWindow from "@/components/mac-ui/MacWindow";
-import MacButton from "@/components/mac-ui/MacButton";
+import GeoCitiesWindow from "@/components/geocities/GeoCitiesWindow";
+import GeoCitiesButton from "@/components/geocities/GeoCitiesButton";
 import { getAllPosts, getPostBySlug } from "@/lib/blog";
 import { format } from "date-fns";
+
+export const dynamic = 'force-static';
 
 export async function generateStaticParams() {
   const posts = getAllPosts();
@@ -36,42 +38,69 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
-      <MacWindow title={post.title} width="100%">
-        <div className="mb-6">
-          <h1 className="text-3xl font-chicago mb-3">{post.title}</h1>
-          <div className="flex flex-wrap items-center gap-3 text-sm font-geneva text-mac-gray-dark mb-4">
-            <span>By {post.author}</span>
-            <span>•</span>
-            <time>{format(new Date(post.date), 'MMMM d, yyyy')}</time>
-          </div>
-          {post.tags && post.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-4">
-              {post.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="px-2 py-1 text-xs font-geneva bg-mac-platinum-dark border border-mac-gray"
-                >
-                  {tag}
-                </span>
-              ))}
+    <div style={{ marginTop: '30px', padding: '20px' }}>
+      <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+        <h1 className="geocities-title geocities-rainbow">
+          <span className="geocities-blink geocities-spin">📝</span> Blog Post <span className="geocities-blink geocities-spin">📝</span>
+        </h1>
+      </div>
+      
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <GeoCitiesWindow 
+          title={post.title} 
+          width="800px" 
+          height="600px"
+          x={0}
+          y={0}
+        >
+          <div style={{ overflowY: 'auto', height: '520px', padding: '10px' }}>
+            <div style={{ marginBottom: '20px' }}>
+              <h1 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '10px', color: '#4169e1' }}>
+                {post.title}
+              </h1>
+              <div style={{ fontSize: '11px', color: '#666666', marginBottom: '10px' }}>
+                <span>By {post.author}</span>
+                <span style={{ margin: '0 5px' }}>•</span>
+                <time>{format(new Date(post.date), 'MMMM d, yyyy')}</time>
+              </div>
+              {post.tags && post.tags.length > 0 && (
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginBottom: '15px' }}>
+                  {post.tags.map((tag) => (
+                    <div
+                      key={tag}
+                      className="geocities-badge"
+                      style={{ fontSize: '10px' }}
+                    >
+                      {tag}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
-          )}
-        </div>
 
-        <div className="prose prose-sm max-w-none font-geneva blog-content">
-          <div dangerouslySetInnerHTML={{ __html: post.content }} />
-        </div>
+            <div style={{ 
+              fontSize: '12px', 
+              lineHeight: '1.4',
+              fontFamily: 'Arial, sans-serif'
+            }}>
+              <div dangerouslySetInnerHTML={{ __html: post.content }} />
+            </div>
 
-        <hr className="my-8 border-mac-gray" />
-
-        <div className="flex gap-3">
-          <MacButton href="/blog">← Back to Blog</MacButton>
-          <MacButton href="/" variant="primary">
-            Home
-          </MacButton>
-        </div>
-      </MacWindow>
+            <div style={{ 
+              borderTop: '1px solid #000000', 
+              margin: '20px 0', 
+              paddingTop: '15px' 
+            }}>
+              <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+                <GeoCitiesButton href="/blog">← Back to Blog</GeoCitiesButton>
+                <GeoCitiesButton href="/" variant="primary">
+                  🏠 Home
+                </GeoCitiesButton>
+              </div>
+            </div>
+          </div>
+        </GeoCitiesWindow>
+      </div>
     </div>
   );
 }

@@ -1,8 +1,10 @@
 import { MetadataRoute } from 'next';
 import { getAllPosts } from '@/lib/blog';
 
+export const dynamic = 'force-static';
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://mnretrotech.org';
+  const baseUrl = 'https://hereisalex.github.io/mnrtc-website';
   const posts = getAllPosts();
 
   const blogUrls = posts.map((post) => ({
