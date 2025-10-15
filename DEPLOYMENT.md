@@ -1,158 +1,93 @@
-# Deployment Guide
+# GitHub Pages Deployment Guide
 
-## Quick Deploy to Vercel (Recommended)
+This guide will help you deploy the Minnesota Retro Technology Club website to GitHub Pages.
 
-The easiest way to deploy this Next.js application is using [Vercel](https://vercel.com):
+## Prerequisites
 
-1. Push your code to a Git repository (GitHub, GitLab, or Bitbucket)
-2. Go to [vercel.com](https://vercel.com) and sign in
-3. Click "New Project"
-4. Import your repository
-5. Vercel will auto-detect Next.js settings - just click "Deploy"
+- GitHub repository: `hereisalex/mnrtc-website`
+- GitHub Pages enabled on your repository
 
-That's it! Your site will be live in minutes.
+## Setup Instructions
 
-### Custom Domain
+### 1. Enable GitHub Pages
 
-To use `mnretrotech.org`:
-1. In your Vercel project settings, go to "Domains"
-2. Add `mnretrotech.org`
-3. Follow Vercel's instructions to update your DNS records
+1. Go to your repository on GitHub
+2. Navigate to **Settings** → **Pages**
+3. Under **Source**, select **GitHub Actions**
+4. The workflow will automatically deploy when you push to the `main` branch
 
-## Alternative Deployment Options
+### 2. Repository Settings
 
-### Netlify
+Make sure your repository has the following settings:
+- **Repository visibility**: Public (required for GitHub Pages)
+- **Pages source**: GitHub Actions
 
-1. Push code to Git repository
-2. Go to [netlify.com](https://netlify.com)
-3. Click "New site from Git"
-4. Connect your repository
-5. Build command: `npm run build`
-6. Publish directory: `.next`
+### 3. Automatic Deployment
 
-### Self-Hosted (VPS/Server)
+The site will automatically deploy when you:
+- Push commits to the `main` branch
+- Merge pull requests to `main`
+- Manually trigger the workflow from the Actions tab
 
-Requirements:
-- Node.js 18+
-- PM2 (recommended for process management)
+## Manual Deployment
+
+If you need to deploy manually:
 
 ```bash
-# Clone the repository
-git clone <your-repo-url>
-cd mnrtc-website
-
 # Install dependencies
 npm install
 
-# Build for production
+# Build the site
 npm run build
 
-# Start the server (runs on port 3000 by default)
-npm start
-
-# Or use PM2 for production
-npm install -g pm2
-pm2 start npm --name "mnrtc-website" -- start
-pm2 save
-pm2 startup
+# The static files will be generated in the `out/` directory
 ```
 
-### Docker
+## Site URL
 
-Create a `Dockerfile`:
+Once deployed, your site will be available at:
+`https://hereisalex.github.io/mnrtc-website/`
 
-```dockerfile
-FROM node:18-alpine
+## Configuration Details
 
-WORKDIR /app
-
-COPY package*.json ./
-RUN npm ci --only=production
-
-COPY . .
-RUN npm run build
-
-EXPOSE 3000
-
-CMD ["npm", "start"]
-```
-
-Build and run:
-```bash
-docker build -t mnrtc-website .
-docker run -p 3000:3000 mnrtc-website
-```
-
-## Environment Variables
-
-If you need environment variables (API keys, etc.), create a `.env.local` file:
-
-```
-# Example
-NEXT_PUBLIC_SITE_URL=https://mnretrotech.org
-```
-
-Never commit `.env.local` to Git!
-
-## Post-Deployment Checklist
-
-- [ ] Verify all pages load correctly
-- [ ] Test navigation between pages
-- [ ] Check that external links work
-- [ ] Test on mobile devices
-- [ ] Verify blog posts are displaying
-- [ ] Test contact links (email, Discord, etc.)
-- [ ] Set up analytics (if desired)
-- [ ] Submit sitemap to search engines
-
-## Updating Content
-
-### Adding Blog Posts
-
-1. Create a new `.mdx` file in `content/blog/`
-2. Include frontmatter with title, date, description, author, and tags
-3. Commit and push changes
-4. Vercel will automatically rebuild and deploy
-
-### Updating Events
-
-Currently, events are managed in `app/events/page.tsx`. To add dynamic events:
-1. Create event files in `content/events/`
-2. Update the events page to read from these files
-
-## Performance Optimization
-
-The site is already optimized, but for additional improvements:
-
-- Enable Vercel's Image Optimization (automatic)
-- Add a CDN (Vercel includes this)
-- Enable gzip/brotli compression (automatic on Vercel)
-- Monitor Core Web Vitals in Vercel Analytics
+- **Static Export**: Configured for static site generation
+- **Image Optimization**: Disabled for static export compatibility
+- **Trailing Slashes**: Enabled for better GitHub Pages compatibility
+- **Output Directory**: `out/`
 
 ## Troubleshooting
 
 ### Build Fails
+- Check that all dependencies are properly installed
+- Ensure all image files are present in the `public/images/` directory
+- Verify that all external links are accessible
 
-- Check Node.js version (needs 18+)
-- Clear `.next` folder and rebuild: `rm -rf .next && npm run build`
-- Check for TypeScript errors: `npx tsc --noEmit`
+### Pages Not Loading
+- Check the Actions tab for deployment logs
+- Verify GitHub Pages is enabled in repository settings
+- Ensure the repository is public
 
-### Images Not Loading
-
-- Ensure images are in `public/images/`
-- Check that paths start with `/images/` not `./images/`
-- Verify image files were committed to Git
-
-### Styles Not Applied
-
+### Styling Issues
 - Clear browser cache
-- Check that Tailwind CSS is properly configured
-- Verify `globals.css` is imported in `layout.tsx`
+- Check that CSS files are properly generated in the `out/` directory
+
+## Local Testing
+
+To test the static export locally:
+
+```bash
+# Build and export
+npm run build
+
+# Serve the static files (install serve globally first)
+npx serve out
+```
 
 ## Support
 
-For deployment issues:
-- Email: hello@mnretrotech.org
-- Check Next.js docs: https://nextjs.org/docs
-- Check Vercel docs: https://vercel.com/docs
+For issues with deployment, check:
+1. GitHub Actions workflow logs
+2. Repository settings
+3. This deployment guide
 
+The site features a retro GeoCities aesthetic with moveable and resizable windows, perfect for showcasing the Minnesota Retro Technology Club!
