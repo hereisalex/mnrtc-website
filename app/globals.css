@@ -1,26 +1,507 @@
-@import "tailwindcss";
+@import "tailwindcss/preflight";
+@import "tailwindcss/utilities";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* GeoCities Color Palette */
+  --geocities-bg: #c0c0c0;
+  --geocities-window-bg: #ffffff;
+  --geocities-title-bar: #008080;
+  --geocities-title-bar-light: #00cccc;
+  --geocities-border: #000000;
+  --geocities-border-light: #ffffff;
+  --geocities-text: #000000;
+  --geocities-text-white: #ffffff;
+  --geocities-accent-pink: #ff69b4;
+  --geocities-accent-blue: #4169e1;
+  --geocities-accent-yellow: #ffff00;
+  --geocities-accent-green: #00ff00;
+  --geocities-accent-purple: #9932cc;
+  --geocities-accent-orange: #ff8c00;
+  
+  /* Pattern backgrounds */
+  --geocities-grid: #d3d3d3;
+  --geocities-pattern: #f0f0f0;
+  
+  /* Button colors */
+  --geocities-button-bg: #e0e0e0;
+  --geocities-button-hover: #d0d0d0;
+  --geocities-button-active: #c0c0c0;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* Using web-safe fallback fonts instead of custom font files */
+/* Chicago font fallback: Impact, Arial Black, sans-serif */
+/* Geneva font fallback: Helvetica Neue, Arial, sans-serif */
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Arial', 'Helvetica', sans-serif;
+  background-color: var(--geocities-bg);
+  background-image: 
+    repeating-linear-gradient(
+      90deg,
+      var(--geocities-grid),
+      var(--geocities-grid) 1px,
+      var(--geocities-pattern) 1px,
+      var(--geocities-pattern) 4px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      var(--geocities-grid),
+      var(--geocities-grid) 1px,
+      var(--geocities-pattern) 1px,
+      var(--geocities-pattern) 4px
+    );
+  color: var(--geocities-text);
+  min-height: 100vh;
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 16 24"><path d="M 0,0 L 0,16 L 4,12 L 6,18 L 8,17 L 6,11 L 10,11 Z" fill="%23ff69b4" stroke="%23000000" stroke-width="0.5"/></svg>') 0 0, default !important;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  image-rendering: pixelated;
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 0;
+  padding: 0;
+}
+
+/* Mac OS 9 Desktop Pattern */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 1px, transparent 1px),
+    radial-gradient(circle at 75% 75%, rgba(0,0,0,0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Mac OS 9 Scrollbar */
+::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--mac-platinum);
+  border: 1px solid var(--mac-border-dark);
+  box-shadow: inset 1px 1px 0 var(--mac-border-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--mac-platinum-dark);
+  border: 1px solid var(--mac-border-dark);
+  border-radius: 0;
+  box-shadow: inset -1px -1px 0 var(--mac-border-light);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--mac-gray);
+}
+
+::-webkit-scrollbar-button {
+  background: var(--mac-platinum);
+  border: 1px solid var(--mac-border-dark);
+  height: 16px;
+  width: 16px;
+  box-shadow: inset -1px -1px 0 var(--mac-border-light);
+}
+
+::-webkit-scrollbar-button:vertical:start:decrement {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cpolygon fill='%23666666' points='0,6 4,2 8,6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+::-webkit-scrollbar-button:vertical:end:increment {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cpolygon fill='%23666666' points='0,2 4,6 8,2'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Chicago font for headings */
+h1, h2, h3, .chicago {
+  font-family: 'Impact', 'Arial Black', sans-serif;
+  font-weight: normal;
+  letter-spacing: 0.5px;
+}
+
+/* Mac OS 9 Cursor */
+* {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 16 24"><path d="M 0,0 L 0,16 L 4,12 L 6,18 L 8,17 L 6,11 L 10,11 Z" fill="black" stroke="white" stroke-width="0.5"/></svg>') 0 0, default !important;
+}
+
+a, button, [role="button"], .mac-button {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 16 24"><path d="M 0,0 L 0,16 L 4,12 L 6,18 L 8,17 L 6,11 L 10,11 Z" fill="black" stroke="white" stroke-width="0.5"/></svg>') 0 0, pointer !important;
+}
+
+/* Mac OS 9 selection */
+::selection {
+  background-color: var(--mac-blue);
+  color: var(--mac-white);
+}
+
+::-moz-selection {
+  background-color: var(--mac-blue);
+  color: var(--mac-white);
+}
+
+/* GeoCities Window Styling */
+.geocities-window {
+  position: relative;
+  background: var(--geocities-window-bg);
+  border: 2px solid var(--geocities-border);
+  box-shadow: 
+    2px 2px 0 var(--geocities-border),
+    4px 4px 0 rgba(0, 0, 0, 0.2);
+  min-height: 200px;
+  margin: 10px;
+  float: left;
+  z-index: 1;
+}
+
+.geocities-window:hover {
+  z-index: 10;
+}
+
+.geocities-window-title {
+  background: linear-gradient(to right, var(--geocities-title-bar), var(--geocities-title-bar-light));
+  border-bottom: 1px solid var(--geocities-border);
+  height: 22px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 0 8px;
+}
+
+.geocities-window-title::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--geocities-text-white), transparent);
+}
+
+.mac-window-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--mac-platinum-light), transparent);
+}
+
+/* Mac OS 9 Window Controls */
+.mac-window-controls {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  padding: 2px 6px;
+}
+
+.mac-window-control {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.2);
+  position: relative;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.mac-window-control.close {
+  background: var(--aqua-red);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.3);
+}
+
+.mac-window-control.minimize {
+  background: var(--aqua-yellow);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.3);
+}
+
+.mac-window-control.maximize {
+  background: var(--aqua-green);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.3);
+}
+
+.mac-window-control:hover {
+  transform: scale(1.1);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.4), 0 1px 2px rgba(0,0,0,0.2);
+}
+
+/* Mac OS 9 Menu Bar Styling */
+.mac-menu-bar {
+  background: linear-gradient(to bottom, var(--mac-platinum), var(--mac-platinum-dark));
+  border-bottom: 1px solid var(--mac-black);
+  box-shadow: inset 0 1px 0 var(--mac-platinum-light);
+}
+
+/* Mac OS 9 Dropdown Menus */
+.mac-dropdown {
+  background: var(--mac-platinum);
+  border: 1px solid var(--mac-black);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  border-radius: 0;
+}
+
+/* Disable smooth scrolling for authentic feel */
+* {
+  scroll-behavior: auto;
+}
+
+/* GeoCities-specific styling */
+.geocities-title {
+  font-family: 'Arial Black', 'Arial', sans-serif;
+  font-size: 24px;
+  color: var(--geocities-accent-pink);
+  text-shadow: 2px 2px 0 var(--geocities-border);
+  margin: 10px 0;
+  text-align: center;
+}
+
+.geocities-blink {
+  animation: geocities-blink 1s infinite;
+}
+
+@keyframes geocities-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.geocities-marquee {
+  animation: geocities-marquee 10s linear infinite;
+  white-space: nowrap;
+}
+
+@keyframes geocities-marquee {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Animated cursor effects */
+.geocities-cursor {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 16 24"><path d="M 0,0 L 0,16 L 4,12 L 6,18 L 8,17 L 6,11 L 10,11 Z" fill="%23ff69b4" stroke="%23000000" stroke-width="0.5"/></svg>') 0 0, pointer !important;
+}
+
+/* Glitter effects */
+.geocities-glitter {
+  background: linear-gradient(45deg, #ff69b4, #ffff00, #00ff00, #4169e1, #9932cc, #ff69b4);
+  background-size: 400% 400%;
+  animation: geocities-glitter 2s ease-in-out infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@keyframes geocities-glitter {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Spinning elements */
+.geocities-spin {
+  animation: geocities-spin 3s linear infinite;
+}
+
+@keyframes geocities-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Bouncing elements */
+.geocities-bounce {
+  animation: geocities-bounce 1s infinite;
+}
+
+@keyframes geocities-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Rainbow text */
+.geocities-rainbow {
+  background: linear-gradient(45deg, #ff0000, #ff8000, #ffff00, #80ff00, #00ff80, #00ffff, #8000ff, #ff0080);
+  background-size: 400% 400%;
+  animation: geocities-rainbow 3s ease-in-out infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@keyframes geocities-rainbow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.geocities-badge {
+  display: inline-block;
+  background: var(--geocities-accent-yellow);
+  color: var(--geocities-border);
+  padding: 2px 6px;
+  border: 1px solid var(--geocities-border);
+  font-size: 10px;
+  font-weight: bold;
+  margin: 2px;
+  text-decoration: none;
+}
+
+.geocities-badge:hover {
+  background: var(--geocities-accent-orange);
+  color: var(--geocities-text-white);
+}
+
+/* Prevent text selection on UI elements */
+.geocities-window-title, .geocities-button {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+/* Pixelated images */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* GeoCities Button Styling */
+.geocities-button {
+  background: var(--geocities-button-bg) !important;
+  border: 2px solid !important;
+  border-color: var(--geocities-border-light) var(--geocities-border) var(--geocities-border) var(--geocities-border-light) !important;
+  box-shadow: 
+    inset -1px -1px 0 var(--geocities-border-light),
+    inset 1px 1px 0 var(--geocities-border),
+    1px 1px 0 var(--geocities-border) !important;
+  font-weight: bold !important;
+  text-align: center !important;
+  font-family: 'Arial', sans-serif !important;
+  font-size: 11px !important;
+  padding: 3px 8px !important;
+  min-height: 18px !important;
+  color: var(--geocities-text) !important;
+  text-decoration: none !important;
+}
+
+.geocities-button:hover {
+  background: var(--geocities-button-hover) !important;
+  border-color: var(--geocities-border-light) var(--geocities-border) var(--geocities-border) var(--geocities-border-light) !important;
+}
+
+.geocities-button:active {
+  background: var(--geocities-button-active) !important;
+  border-color: var(--geocities-border) var(--geocities-border-light) var(--geocities-border-light) var(--geocities-border) !important;
+  box-shadow: 
+    inset 1px 1px 0 var(--geocities-border),
+    inset -1px -1px 0 var(--geocities-border-light) !important;
+  transform: translate(1px, 1px) !important;
+}
+
+/* Blog content styling */
+.blog-content h1,
+.blog-content h2,
+.blog-content h3,
+.blog-content h4 {
+  font-family: 'Impact', 'Arial Black', sans-serif;
+  margin-top: 1.5em;
+  margin-bottom: 0.75em;
+}
+
+.blog-content h1 {
+  font-size: 2em;
+}
+
+.blog-content h2 {
+  font-size: 1.5em;
+}
+
+.blog-content h3 {
+  font-size: 1.25em;
+}
+
+.blog-content p {
+  margin-bottom: 1em;
+  line-height: 1.6;
+}
+
+.blog-content ul,
+.blog-content ol {
+  margin-bottom: 1em;
+  padding-left: 2em;
+}
+
+.blog-content li {
+  margin-bottom: 0.5em;
+}
+
+.blog-content a {
+  color: var(--mac-blue);
+  text-decoration: underline;
+}
+
+.blog-content a:hover {
+  color: var(--mac-blue-highlight);
+}
+
+.blog-content strong {
+  font-weight: bold;
+}
+
+.blog-content em {
+  font-style: italic;
+}
+
+.blog-content code {
+  background-color: var(--mac-platinum-dark);
+  padding: 0.2em 0.4em;
+  border-radius: 2px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+.blog-content pre {
+  background-color: var(--mac-platinum-dark);
+  padding: 1em;
+  overflow-x: auto;
+  margin-bottom: 1em;
+  border: 1px solid var(--mac-gray);
+}
+
+.blog-content pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+@layer utilities {
+  .mac-inset-border {
+    box-shadow: 
+      inset 1px 1px 0 var(--mac-border-dark),
+      inset -1px -1px 0 var(--mac-border-light);
+  }
+  
+  .mac-outset-border {
+    box-shadow: 
+      inset -1px -1px 0 var(--mac-border-dark),
+      inset 1px 1px 0 var(--mac-border-light);
+  }
+  
+  .mac-3d-border {
+    border-top: 1px solid var(--mac-border-light);
+    border-left: 1px solid var(--mac-border-light);
+    border-right: 1px solid var(--mac-border-dark);
+    border-bottom: 1px solid var(--mac-border-dark);
+  }
+  
+  .mac-3d-border-inset {
+    border-top: 1px solid var(--mac-border-dark);
+    border-left: 1px solid var(--mac-border-dark);
+    border-right: 1px solid var(--mac-border-light);
+    border-bottom: 1px solid var(--mac-border-light);
+  }
 }
