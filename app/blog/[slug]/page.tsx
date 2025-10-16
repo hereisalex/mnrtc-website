@@ -50,8 +50,6 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           title={post.title} 
           width="800px" 
           height="600px"
-          x={0}
-          y={0}
         >
           <div style={{ overflowY: 'auto', height: '520px', padding: '10px' }}>
             <div style={{ marginBottom: '20px' }}>

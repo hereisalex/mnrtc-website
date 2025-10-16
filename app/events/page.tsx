@@ -50,8 +50,6 @@ export default function EventsPage() {
           title="Upcoming Events" 
           width="600px" 
           height="400px"
-          x={50}
-          y={50}
         >
           <div style={{ marginBottom: '15px' }}>
             <p style={{ fontSize: '12px', color: '#666666', marginBottom: '15px' }}>
@@ -114,8 +112,6 @@ export default function EventsPage() {
           title="Get Notified" 
           width="250px" 
           height="200px"
-          x={500}
-          y={100}
         >
           <div>
             <p style={{ fontSize: '11px', marginBottom: '15px' }}>
@@ -137,8 +133,6 @@ export default function EventsPage() {
           title="Discord Chat" 
           width="250px" 
           height="200px"
-          x={500}
-          y={320}
         >
           <div>
             <p style={{ fontSize: '11px', marginBottom: '15px' }}>
@@ -160,8 +154,6 @@ export default function EventsPage() {
           title="Meetup.com" 
           width="250px" 
           height="150px"
-          x={500}
-          y={480}
         >
           <div>
             <p style={{ fontSize: '11px', marginBottom: '15px' }}>
@@ -179,8 +171,6 @@ export default function EventsPage() {
             title={selectedEvent.title} 
             width="400px" 
             height="350px"
-            x={150}
-            y={200}
             closable
             onClose={() => setSelectedEvent(null)}
           >

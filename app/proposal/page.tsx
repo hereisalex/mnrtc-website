@@ -32,8 +32,6 @@ export default function ProposalPage() {
         title="Club Proposal" 
         width="800px" 
         height="600px"
-        x={50}
-        y={50}
       >
         <div style={{ overflowY: 'auto', height: '520px', padding: '10px' }}>
           {/* Disclaimer */}
@@ -157,8 +155,6 @@ export default function ProposalPage() {
         title="Proposal Stats" 
         width="200px" 
         height="150px"
-        x={870}
-        y={100}
       >
         <div style={{ textAlign: 'center' }}>
           <div style={{ 
