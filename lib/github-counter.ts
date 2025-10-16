@@ -105,13 +105,17 @@ async function findCounterIssue(): Promise<GitHubIssue | null> {
     );
 
     if (!response.ok) {
+      if (response.status === 401) {
+        console.warn('GitHub API authentication failed - using fallback counter');
+        return null;
+      }
       throw new Error(`GitHub API error: ${response.status}`);
     }
 
     const issues: GitHubIssue[] = await response.json();
     return issues.find(issue => issue.title === COUNTER_ISSUE_TITLE) || null;
   } catch (error) {
-    console.error('Failed to find counter issue:', error);
+    console.warn('Failed to find counter issue, using fallback:', error);
     return null;
   }
 }
