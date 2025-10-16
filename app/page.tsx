@@ -1,216 +1,178 @@
 import Image from "next/image";
-import GeoCitiesWindow from "@/components/geocities/GeoCitiesWindow";
-import GeoCitiesButton from "@/components/geocities/GeoCitiesButton";
 import VisitorCounter from "@/components/geocities/VisitorCounter";
-import { FaDiscord } from "react-icons/fa";
-import { MdEmail } from "react-icons/md";
 
 export default function Home() {
   return (
-    <div style={{ marginTop: '30px', position: 'relative', minHeight: 'calc(100vh - 30px)' }}>
-      {/* Main Title */}
-      <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-        <h1 className="geocities-title geocities-glitter">
-          <span className="geocities-blink geocities-spin">★</span> Minnesota Retro Technology Club <span className="geocities-blink geocities-spin">★</span>
-        </h1>
-        <div style={{ 
-          background: '#ffff00', 
-          color: '#000000', 
-          padding: '2px 8px', 
-          border: '2px solid #000000',
-          display: 'inline-block',
-          fontSize: '12px',
-          fontWeight: 'bold',
-          marginTop: '10px'
-        }}>
-          WELCOME TO THE FUTURE OF THE PAST!
+    <>
+    <div className="geocities-container">
+        {/* Header */}
+        <div style={{ textAlign: 'center', marginBottom: '30px' }}>
+          <h1 className="geocities-title geocities-glitter">
+            <span className="geocities-blink geocities-spin">★</span> Minnesota Retro Technology Club <span className="geocities-blink geocities-spin">★</span>
+          </h1>
+          <div style={{ 
+            background: '#ffff00', 
+            color: '#000000', 
+            padding: '2px 8px', 
+            border: '2px solid #000000',
+            display: 'inline-block',
+            fontSize: '12px',
+            fontWeight: 'bold',
+            marginTop: '10px'
+          }}>
+            WELCOME TO THE FUTURE OF THE PAST!
+          </div>
+          
+          {/* Search Box with FrogFind */}
+          <div style={{ marginTop: '15px' }}>
+            <form action="https://frogfind.com/" method="get" target="_blank" style={{ display: 'inline-block' }}>
+              <input 
+                type="text" 
+                name="q" 
+                placeholder="Search the web with FrogFind!" 
+                style={{
+                  padding: '5px 10px',
+                  border: '2px solid #000000',
+                  fontSize: '12px',
+                  width: '250px',
+                  marginRight: '5px'
+                }}
+              />
+              <button type="submit" className="geocities-button">
+                🐸 Search
+              </button>
+            </form>
+          </div>
         </div>
-        
-        {/* Search Box with FrogFind */}
-        <div style={{ marginTop: '15px' }}>
-          <form action="https://frogfind.com/" method="get" target="_blank" style={{ display: 'inline-block' }}>
-            <input 
-              type="text" 
-              name="q" 
-              placeholder="Search the web with FrogFind!" 
-              style={{
-                padding: '5px 10px',
-                border: '2px solid #000000',
-                fontSize: '12px',
-                width: '250px',
-                marginRight: '5px'
-              }}
-            />
-            <GeoCitiesButton type="submit" variant="accent">
-              🐸 Search
-            </GeoCitiesButton>
-          </form>
-        </div>
-      </div>
 
-      {/* Overlapping Windows */}
-      <div style={{ 
-        position: 'relative', 
-        width: '100%', 
-        minHeight: 'calc(100vh - 200px)', 
-        padding: '20px',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'flex-start'
-      }}>
-        <div style={{ 
-          position: 'relative', 
-          width: '1200px', 
-          height: '600px',
-          margin: '0 auto'
-        }}>
-        {/* Welcome Window */}
-        <GeoCitiesWindow 
-          title="Welcome to MNRTC!" 
-          width="350px" 
-          height="280px"
-          x={50}
-          y={50}
-        >
-          <div style={{ textAlign: 'center' }}>
-            <Image
-              src="/images/mnrtc.png"
-              alt="Minnesota Retro Technology Club"
-              width={120}
-              height={120}
-              style={{ imageRendering: 'pixelated', marginBottom: '10px' }}
-            />
-            <h2 className="geocities-rainbow" style={{ 
-              fontSize: '16px', 
-              fontWeight: 'bold', 
-              marginBottom: '10px'
-            }}>
-              Hello, World! <span className="geocities-bounce">🌍</span>
-            </h2>
-            <p style={{ fontSize: '12px', lineHeight: '1.4', marginBottom: '15px' }}>
-              Minnesota Retro Technology Club is a new organization based in the Twin Cities. 
-              We're still figuring things out, but please join our community below!
-            </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              <GeoCitiesButton href="https://groups.io/g/mnretrotech" external variant="primary">
-                📧 Join Mailing List
-              </GeoCitiesButton>
-              <GeoCitiesButton href="https://discord.gg/hF9wh6gPcP" external variant="accent">
-                💬 Join Discord
-              </GeoCitiesButton>
+        <hr />
+
+        {/* Welcome Section */}
+        <div className="geocities-section circuit-board-bg">
+          <h2>Welcome to MNRTC!</h2>
+          <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }} className="welcome-flex">
+            <div style={{ flexShrink: 0, display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <Image
+                src="/images/newlogo2.png"
+                alt="Minnesota Retro Technology Club Wordmark"
+                width={200}
+                height={60}
+                style={{ imageRendering: 'pixelated', maxWidth: '100%', height: 'auto' }}
+              />
+              <Image
+                src="/images/mnrtc.png"
+                alt="Minnesota Retro Technology Club Logo"
+                width={120}
+                height={120}
+                style={{ imageRendering: 'pixelated', maxWidth: '100%', height: 'auto' }}
+              />
+            </div>
+            <div style={{ flex: 1 }}>
+              <h3 className="geocities-rainbow">
+                Hello, World! <span className="geocities-bounce">🌍</span>
+              </h3>
+              <p>
+                Minnesota Retro Technology Club is a new organization based in the Twin Cities. 
+                We're still figuring things out, but please join our community below!
+              </p>
+              <div style={{ marginTop: '15px', display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                <a href="https://groups.io/g/mnretrotech" target="_blank" rel="noopener noreferrer" className="geocities-button">
+                  📧 Join Mailing List
+                </a>
+                <a href="https://discord.gg/hF9wh6gPcP" target="_blank" rel="noopener noreferrer" className="geocities-button">
+                  💬 Join Discord
+                </a>
+              </div>
             </div>
           </div>
-        </GeoCitiesWindow>
+        </div>
 
-        {/* Mission Window */}
-        <GeoCitiesWindow 
-          title="Our Mission" 
-          width="320px" 
-          height="240px"
-          x={450}
-          y={80}
-        >
-          <h3 style={{ fontSize: '14px', fontWeight: 'bold', marginBottom: '10px', color: '#4169e1' }}>
-            What We Do
-          </h3>
-          <p style={{ fontSize: '11px', marginBottom: '10px' }}>
+        {/* Mission Section */}
+        <div className="geocities-section">
+          <h2>Our Mission</h2>
+          <h3>What We Do</h3>
+          <p>
             This club exists as a user's group for retro/vintage computer/technology enthusiasts. 
-            Our goal is to...
+            Our goal is to connect people within the community, preserve computing history, 
+            provide educational outreach, and share knowledge.
           </p>
-          <ul style={{ fontSize: '11px', paddingLeft: '15px' }}>
-            <li style={{ marginBottom: '5px' }}>• Connect people within the community</li>
-            <li style={{ marginBottom: '5px' }}>• Preserve computing history</li>
-            <li style={{ marginBottom: '5px' }}>• Provide educational outreach</li>
-            <li style={{ marginBottom: '5px' }}>• Share knowledge</li>
+          <ul style={{ fontSize: '12px', paddingLeft: '20px' }}>
+            <li>Connect people within the community</li>
+            <li>Preserve computing history</li>
+            <li>Provide educational outreach</li>
+            <li>Share knowledge</li>
           </ul>
-        </GeoCitiesWindow>
+        </div>
 
-        {/* Meetings Window */}
-        <GeoCitiesWindow 
-          title="Meetings" 
-          width="280px" 
-          height="200px"
-          x={50}
-          y={360}
-        >
-          <h3 style={{ fontSize: '14px', fontWeight: 'bold', marginBottom: '10px', color: '#9932cc' }}>
-            Get Involved
-          </h3>
+        {/* Meetings Section */}
+        <div className="geocities-section">
+          <h2>Meetings</h2>
+          <h3>Get Involved</h3>
           <div style={{ 
-            background: '#f0f0f0', 
-            border: '1px solid #000000', 
-            padding: '8px', 
-            marginBottom: '10px',
-            boxShadow: 'inset 1px 1px 0 #000000'
+            background: '#e0f0ff', 
+            border: '2px solid #000000', 
+            padding: '10px', 
+            marginBottom: '15px' 
           }}>
-            <p style={{ fontSize: '11px', fontWeight: 'bold', marginBottom: '5px' }}>Next Meeting</p>
-            <p style={{ fontSize: '16px', fontWeight: 'bold', color: '#ff0000' }}>TBA</p>
-            <p style={{ fontSize: '10px', color: '#666666' }}>Check back soon!</p>
+            <strong>Next Meeting TBA</strong><br />
+            <em>Check back soon!</em>
           </div>
-          <p style={{ fontSize: '11px', marginBottom: '10px' }}>
-            Second Sunday of every month, 1-5 PM CT in the Twin Cities metro area.
+          <p>
+            <strong>When:</strong> Second Sunday of every month, 1-5 PM CT<br />
+            <strong>Where:</strong> Twin Cities metro area (location TBA)<br />
+            <strong>What:</strong> Show-and-tell, technical discussions, and community building!
           </p>
-          <GeoCitiesButton href="/proposal" style={{ width: '100%' }}>
-            View Full Proposal
-          </GeoCitiesButton>
-        </GeoCitiesWindow>
+          <div style={{ marginTop: '15px' }}>
+            <a href="/proposal" className="geocities-button">
+              View Full Proposal
+            </a>
+          </div>
+        </div>
 
-        {/* Quick Links Window */}
-        <GeoCitiesWindow 
-          title="Quick Links" 
-          width="350px" 
-          height="200px"
-          x={370}
-          y={360}
-        >
-          <div style={{ 
-            display: 'grid', 
-            gridTemplateColumns: 'repeat(2, 1fr)', 
-            gap: '5px',
-            fontSize: '11px'
-          }}>
-            <GeoCitiesButton href="/about">About Us</GeoCitiesButton>
-            <GeoCitiesButton href="/proposal">Club Proposal</GeoCitiesButton>
-            <GeoCitiesButton href="/events">Events</GeoCitiesButton>
-            <GeoCitiesButton href="/blog">Blog</GeoCitiesButton>
-            <GeoCitiesButton href="/resources">Resources</GeoCitiesButton>
-            <GeoCitiesButton href="/links">Links</GeoCitiesButton>
-            <GeoCitiesButton href="https://www.meetup.com/" external>Meetup.com</GeoCitiesButton>
-            <GeoCitiesButton href="mailto:hello@mnretrotech.org" external>Contact Us</GeoCitiesButton>
-            <GeoCitiesButton href="/assets/files/MNRTC_Interest_Form_Responses.xlsx" external>
+        {/* Quick Links Section */}
+        <div className="geocities-section">
+          <h2>Quick Links</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '10px' }} className="quick-links-grid">
+            <a href="/about" className="geocities-button">About Us</a>
+            <a href="/proposal" className="geocities-button">Club Proposal</a>
+            <a href="/events" className="geocities-button">Events</a>
+            <a href="/blog" className="geocities-button">Blog</a>
+            <a href="/resources" className="geocities-button">Resources</a>
+            <a href="/links" className="geocities-button">Links</a>
+            <a href="https://www.meetup.com/" target="_blank" rel="noopener noreferrer" className="geocities-button">Meetup.com</a>
+            <a href="mailto:hello@mnretrotech.org" className="geocities-button">Contact Us</a>
+            <a href="/assets/files/MNRTC_Interest_Form_Responses.xlsx" target="_blank" rel="noopener noreferrer" className="geocities-button">
               Interest Form
-            </GeoCitiesButton>
+            </a>
           </div>
-        </GeoCitiesWindow>
+        </div>
 
-        {/* Visitor Counter Window */}
-        <GeoCitiesWindow 
-          title="Visitor Counter" 
-          width="150px" 
-          height="100px"
-          x={800}
-          y={80}
-        >
-          <VisitorCounter />
-        </GeoCitiesWindow>
-
-        {/* Webring Badges Window */}
-        <GeoCitiesWindow 
-          title="Webring Badges" 
-          width="180px" 
-          height="120px"
-          x={800}
-          y={200}
-        >
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
-            <div className="geocities-badge">RETRO TECH</div>
-            <div className="geocities-badge">GEEK CULTURE</div>
-            <div className="geocities-badge">MINNESOTA</div>
-            <div className="geocities-badge">VINTAGE</div>
-            <div className="geocities-badge">COMPUTING</div>
-            <div className="geocities-badge">CLUB</div>
+        {/* Stats Section */}
+        <div className="geocities-section stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
+          <div>
+            <h3>Visitor Counter</h3>
+            <div style={{ textAlign: 'center', padding: '10px', background: '#ffffff', border: '1px solid #000000' }}>
+              <VisitorCounter />
+            </div>
           </div>
-        </GeoCitiesWindow>
+          <div>
+            <h3>Webring Badges</h3>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
+              <span className="geocities-badge">RETRO TECH</span>
+              <span className="geocities-badge">GEEK CULTURE</span>
+              <span className="geocities-badge">MINNESOTA</span>
+              <span className="geocities-badge">VINTAGE</span>
+              <span className="geocities-badge">COMPUTING</span>
+              <span className="geocities-badge">CLUB</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div style={{ textAlign: 'center', marginTop: '30px', padding: '10px', background: '#f0f0f0', border: '1px solid #000000' }}>
+          <p style={{ fontSize: '10px', margin: '0' }}>
+            © 2025 Minnesota Retro Technology Club | Best viewed in Netscape Navigator 4.0!
+          </p>
         </div>
       </div>
 
@@ -233,6 +195,6 @@ export default function Home() {
           ★ Welcome to the Minnesota Retro Technology Club! ★ Join us for vintage computing fun! ★ Best viewed in Netscape Navigator 4.0! ★ Under construction since 1995! ★
         </div>
       </div>
-    </div>
+    </>
   );
 }
