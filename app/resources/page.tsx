@@ -36,8 +36,6 @@ export default function ResourcesPage() {
           title="Join Our Community" 
           width="500px" 
           height="400px"
-          x={20}
-          y={20}
         >
           <div style={{ overflowY: 'auto', height: '320px' }}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
@@ -109,8 +107,6 @@ export default function ResourcesPage() {
           title="Related Organizations" 
           width="450px" 
           height="400px"
-          x={540}
-          y={40}
         >
           <div style={{ overflowY: 'auto', height: '320px' }}>
             <p style={{ fontSize: '11px', marginBottom: '15px' }}>
@@ -158,8 +154,6 @@ export default function ResourcesPage() {
           title="Suggest a Resource" 
           width="300px" 
           height="150px"
-          x={20}
-          y={440}
         >
           <div style={{
             background: '#ffff00',
@@ -183,8 +177,6 @@ export default function ResourcesPage() {
           title="Resource Stats" 
           width="200px" 
           height="150px"
-          x={340}
-          y={460}
         >
           <div style={{ textAlign: 'center' }}>
             <div style={{ 

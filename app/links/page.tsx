@@ -107,8 +107,6 @@ export default function LinksPage() {
           title="Clubs & Groups" 
           width="500px" 
           height="400px"
-          x={50}
-          y={50}
         >
           <div style={{ overflowY: 'auto', height: '320px' }}>
             {clubs.map((club, index) => (
@@ -147,8 +145,6 @@ export default function LinksPage() {
           title="Local Conventions" 
           width="450px" 
           height="400px"
-          x={400}
-          y={100}
         >
           <div style={{ overflowY: 'auto', height: '320px' }}>
             {conventions.map((con, index) => (
@@ -182,8 +178,6 @@ export default function LinksPage() {
           title="Organizations" 
           width="400px" 
           height="300px"
-          x={100}
-          y={350}
         >
           <div style={{ overflowY: 'auto', height: '220px' }}>
             {organizations.map((org, index) => (
@@ -217,8 +211,6 @@ export default function LinksPage() {
           title="Regional Conventions" 
           width="350px" 
           height="300px"
-          x={450}
-          y={350}
         >
           <div style={{ overflowY: 'auto', height: '220px' }}>
             {regionalConventions.map((con, index) => (
@@ -252,8 +244,6 @@ export default function LinksPage() {
           title="Cool Websites" 
           width="400px" 
           height="300px"
-          x={200}
-          y={550}
         >
           <div style={{ overflowY: 'auto', height: '220px' }}>
             {websites.map((site, index) => (
@@ -287,8 +277,6 @@ export default function LinksPage() {
           title="Featured Partners" 
           width="300px" 
           height="200px"
-          x={50}
-          y={700}
         >
           <div style={{ textAlign: 'center' }}>
             <p style={{ fontSize: '11px', marginBottom: '15px' }}>
@@ -338,8 +326,6 @@ export default function LinksPage() {
           title="Geek Stats" 
           width="250px" 
           height="200px"
-          x={400}
-          y={700}
         >
           <div style={{ textAlign: 'center' }}>
             <div style={{ 
