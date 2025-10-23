@@ -35,15 +35,10 @@ export default function VisitorCounter({ className = '', style = {} }: VisitorCo
         setError(null);
       } catch (err) {
         console.error('Failed to update visitor count:', err);
-        setError('Counter unavailable');
+        setError('Our counter is having a midlife crisis');
         
-        // Fallback to a cached count or random number
-        const cachedCount = localStorage.getItem('visitor_count');
-        if (cachedCount) {
-          setCount(parseInt(cachedCount));
-        } else {
-          setCount(Math.floor(Math.random() * 5000) + 1000);
-        }
+        // Don't show fallback data - show error instead
+        setCount(null);
       } finally {
         setIsLoading(false);
       }
@@ -74,7 +69,7 @@ export default function VisitorCounter({ className = '', style = {} }: VisitorCo
           color: '#000000',
           fontFamily: 'Arial, sans-serif'
         }}>
-          {error ? 'Counter offline' : 'visitors since 1995!'}
+          {error ? 'Our counter is having a midlife crisis' : 'visitors since 1995!'}
         </div>
         {!isLoading && !error && (
           <div style={{ 
