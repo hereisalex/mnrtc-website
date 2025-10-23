@@ -1,6 +1,3 @@
-import GeoCitiesWindow from "@/components/geocities/GeoCitiesWindow";
-import GeoCitiesButton from "@/components/geocities/GeoCitiesButton";
-
 export const metadata = {
   title: "Links | Minnesota Retro Technology Club",
   description: "Links to geeky clubs, conventions, and organizations in the Twin Cities area",
@@ -80,276 +77,303 @@ export default function LinksPage() {
   ];
 
   return (
-    <div style={{ marginTop: '30px', position: 'relative', minHeight: 'calc(100vh - 30px)' }}>
-      {/* Main Title */}
+    <>
+      {/* Header */}
       <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-        <h1 className="geocities-title geocities-rainbow">
-          <span className="geocities-blink geocities-spin">🔗</span> Twin Cities Geek Links <span className="geocities-blink geocities-spin">🔗</span>
+        <h1 style={{
+          fontSize: '20px',
+          fontWeight: 'bold',
+          color: '#000000',
+          marginBottom: '10px',
+          fontFamily: 'Arial, sans-serif'
+        }}>
+          Twin Cities Geek Links
         </h1>
         <div style={{ 
           background: '#ffff00', 
           color: '#000000', 
-          padding: '2px 8px', 
+          padding: '4px 8px', 
           border: '2px solid #000000',
           display: 'inline-block',
           fontSize: '12px',
           fontWeight: 'bold',
-          marginTop: '10px'
+          marginBottom: '15px'
         }}>
           THE ULTIMATE GUIDE TO TWIN CITIES GEEK CULTURE!
         </div>
       </div>
 
-      {/* Overlapping Windows */}
-      <div style={{ position: 'relative', width: '100%', height: '1200px' }}>
-        {/* Clubs Window */}
-        <GeoCitiesWindow 
-          title="Clubs & Groups" 
-          width="500px" 
-          height="400px"
-        >
-          <div style={{ overflowY: 'auto', height: '320px' }}>
-            {clubs.map((club, index) => (
-              <div key={index} style={{
-                background: '#f8f8f8',
-                border: '1px solid #000000',
-                padding: '5px',
-                marginBottom: '5px',
-                boxShadow: 'inset 1px 1px 0 #000000'
-              }}>
-                <a
-                  href={club.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    color: '#0000ff',
-                    textDecoration: 'underline',
-                    fontSize: '11px',
-                    fontWeight: 'bold'
-                  }}
-                >
-                  {club.name}
-                </a>
-                {club.description && (
-                  <div style={{ fontSize: '10px', color: '#666666', marginTop: '2px' }}>
-                    {club.description}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </GeoCitiesWindow>
-
-        {/* Conventions Window */}
-        <GeoCitiesWindow 
-          title="Local Conventions" 
-          width="450px" 
-          height="400px"
-        >
-          <div style={{ overflowY: 'auto', height: '320px' }}>
-            {conventions.map((con, index) => (
-              <div key={index} style={{
-                background: '#f8f8f8',
-                border: '1px solid #000000',
-                padding: '5px',
-                marginBottom: '5px',
-                boxShadow: 'inset 1px 1px 0 #000000'
-              }}>
-                <a
-                  href={con.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    color: '#0000ff',
-                    textDecoration: 'underline',
-                    fontSize: '11px',
-                    fontWeight: 'bold'
-                  }}
-                >
-                  {con.name}
-                </a>
-              </div>
-            ))}
-          </div>
-        </GeoCitiesWindow>
-
-        {/* Organizations Window */}
-        <GeoCitiesWindow 
-          title="Organizations" 
-          width="400px" 
-          height="300px"
-        >
-          <div style={{ overflowY: 'auto', height: '220px' }}>
-            {organizations.map((org, index) => (
-              <div key={index} style={{
-                background: '#f8f8f8',
-                border: '1px solid #000000',
-                padding: '5px',
-                marginBottom: '5px',
-                boxShadow: 'inset 1px 1px 0 #000000'
-              }}>
-                <a
-                  href={org.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    color: '#0000ff',
-                    textDecoration: 'underline',
-                    fontSize: '11px',
-                    fontWeight: 'bold'
-                  }}
-                >
-                  {org.name}
-                </a>
-              </div>
-            ))}
-          </div>
-        </GeoCitiesWindow>
-
-        {/* Regional Conventions Window */}
-        <GeoCitiesWindow 
-          title="Regional Conventions" 
-          width="350px" 
-          height="300px"
-        >
-          <div style={{ overflowY: 'auto', height: '220px' }}>
-            {regionalConventions.map((con, index) => (
-              <div key={index} style={{
-                background: '#f8f8f8',
-                border: '1px solid #000000',
-                padding: '5px',
-                marginBottom: '5px',
-                boxShadow: 'inset 1px 1px 0 #000000'
-              }}>
-                <a
-                  href={con.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    color: '#0000ff',
-                    textDecoration: 'underline',
-                    fontSize: '11px',
-                    fontWeight: 'bold'
-                  }}
-                >
-                  {con.name}
-                </a>
-              </div>
-            ))}
-          </div>
-        </GeoCitiesWindow>
-
-        {/* Websites Window */}
-        <GeoCitiesWindow 
-          title="Cool Websites" 
-          width="400px" 
-          height="300px"
-        >
-          <div style={{ overflowY: 'auto', height: '220px' }}>
-            {websites.map((site, index) => (
-              <div key={index} style={{
-                background: '#f8f8f8',
-                border: '1px solid #000000',
-                padding: '5px',
-                marginBottom: '5px',
-                boxShadow: 'inset 1px 1px 0 #000000'
-              }}>
-                <a
-                  href={site.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    color: '#0000ff',
-                    textDecoration: 'underline',
-                    fontSize: '11px',
-                    fontWeight: 'bold'
-                  }}
-                >
-                  {site.name}
-                </a>
-              </div>
-            ))}
-          </div>
-        </GeoCitiesWindow>
-
-        {/* Featured Organizations Window */}
-        <GeoCitiesWindow 
-          title="Featured Partners" 
-          width="300px" 
-          height="200px"
-        >
-          <div style={{ textAlign: 'center' }}>
-            <p style={{ fontSize: '11px', marginBottom: '15px' }}>
-              Check out these awesome local geek organizations!
-            </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              <a
-                href="https://twincitiesgeek.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  background: '#ffff00',
-                  color: '#000000',
-                  padding: '5px 10px',
-                  border: '2px solid #000000',
-                  fontSize: '11px',
-                  fontWeight: 'bold',
-                  textDecoration: 'none',
-                  display: 'inline-block'
-                }}
-              >
-                📰 Twin Cities Geek
-              </a>
-              <a
-                href="https://geekpartnership.org/"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  background: '#00ff00',
-                  color: '#000000',
-                  padding: '5px 10px',
-                  border: '2px solid #000000',
-                  fontSize: '11px',
-                  fontWeight: 'bold',
-                  textDecoration: 'none',
-                  display: 'inline-block'
-                }}
-              >
-                🤝 Geek Partnership Society
-              </a>
-            </div>
-          </div>
-        </GeoCitiesWindow>
-
-        {/* Fun Stats Window */}
-        <GeoCitiesWindow 
-          title="Geek Stats" 
-          width="250px" 
-          height="200px"
-        >
-          <div style={{ textAlign: 'center' }}>
-            <div style={{ 
-              fontSize: '30px', 
-              marginBottom: '10px',
-              animation: 'geocities-bounce 2s infinite'
+      {/* Clubs Section */}
+      <div style={{
+        background: '#f8f8f8',
+        border: '2px solid #000000',
+        padding: '15px',
+        marginBottom: '20px'
+      }}>
+        <h2 style={{
+          fontSize: '16px',
+          fontWeight: 'bold',
+          color: '#000000',
+          marginBottom: '10px',
+          fontFamily: 'Arial, sans-serif'
+        }}>
+          Clubs & Groups
+        </h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '8px' }}>
+          {clubs.map((club, index) => (
+            <div key={index} style={{
+              background: '#ffffff',
+              border: '1px solid #000000',
+              padding: '8px'
             }}>
-              📊
+              <a
+                href={club.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: '#0000ff',
+                  textDecoration: 'underline',
+                  fontSize: '11px',
+                  fontWeight: 'bold',
+                  display: 'block',
+                  marginBottom: '2px'
+                }}
+              >
+                {club.name}
+              </a>
+              {club.description && (
+                <div style={{ fontSize: '10px', color: '#666666' }}>
+                  {club.description}
+                </div>
+              )}
             </div>
-            <div style={{ fontSize: '10px', marginBottom: '5px' }}>
-              <strong>Total Links:</strong> {clubs.length + conventions.length + organizations.length + regionalConventions.length + websites.length}
-            </div>
-            <div style={{ fontSize: '10px', marginBottom: '5px' }}>
-              <strong>Local Clubs:</strong> {clubs.length}
-            </div>
-            <div style={{ fontSize: '10px', marginBottom: '5px' }}>
-              <strong>Conventions:</strong> {conventions.length}
-            </div>
-            <div style={{ fontSize: '10px' }}>
-              <strong>Organizations:</strong> {organizations.length}
-            </div>
-          </div>
-        </GeoCitiesWindow>
+          ))}
+        </div>
       </div>
-    </div>
+
+      {/* Conventions Section */}
+      <div style={{
+        background: '#f8f8f8',
+        border: '2px solid #000000',
+        padding: '15px',
+        marginBottom: '20px'
+      }}>
+        <h2 style={{
+          fontSize: '16px',
+          fontWeight: 'bold',
+          color: '#000000',
+          marginBottom: '10px',
+          fontFamily: 'Arial, sans-serif'
+        }}>
+          Local Conventions
+        </h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '8px' }}>
+          {conventions.map((con, index) => (
+            <div key={index} style={{
+              background: '#ffffff',
+              border: '1px solid #000000',
+              padding: '8px'
+            }}>
+              <a
+                href={con.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: '#0000ff',
+                  textDecoration: 'underline',
+                  fontSize: '11px',
+                  fontWeight: 'bold'
+                }}
+              >
+                {con.name}
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Organizations Section */}
+      <div style={{
+        background: '#f8f8f8',
+        border: '2px solid #000000',
+        padding: '15px',
+        marginBottom: '20px'
+      }}>
+        <h2 style={{
+          fontSize: '16px',
+          fontWeight: 'bold',
+          color: '#000000',
+          marginBottom: '10px',
+          fontFamily: 'Arial, sans-serif'
+        }}>
+          Organizations
+        </h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '8px' }}>
+          {organizations.map((org, index) => (
+            <div key={index} style={{
+              background: '#ffffff',
+              border: '1px solid #000000',
+              padding: '8px'
+            }}>
+              <a
+                href={org.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: '#0000ff',
+                  textDecoration: 'underline',
+                  fontSize: '11px',
+                  fontWeight: 'bold'
+                }}
+              >
+                {org.name}
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Regional Conventions Section */}
+      <div style={{
+        background: '#f8f8f8',
+        border: '2px solid #000000',
+        padding: '15px',
+        marginBottom: '20px'
+      }}>
+        <h2 style={{
+          fontSize: '16px',
+          fontWeight: 'bold',
+          color: '#000000',
+          marginBottom: '10px',
+          fontFamily: 'Arial, sans-serif'
+        }}>
+          Regional Conventions
+        </h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '8px' }}>
+          {regionalConventions.map((con, index) => (
+            <div key={index} style={{
+              background: '#ffffff',
+              border: '1px solid #000000',
+              padding: '8px'
+            }}>
+              <a
+                href={con.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: '#0000ff',
+                  textDecoration: 'underline',
+                  fontSize: '11px',
+                  fontWeight: 'bold'
+                }}
+              >
+                {con.name}
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Websites Section */}
+      <div style={{
+        background: '#f8f8f8',
+        border: '2px solid #000000',
+        padding: '15px',
+        marginBottom: '20px'
+      }}>
+        <h2 style={{
+          fontSize: '16px',
+          fontWeight: 'bold',
+          color: '#000000',
+          marginBottom: '10px',
+          fontFamily: 'Arial, sans-serif'
+        }}>
+          Cool Websites
+        </h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '8px' }}>
+          {websites.map((site, index) => (
+            <div key={index} style={{
+              background: '#ffffff',
+              border: '1px solid #000000',
+              padding: '8px'
+            }}>
+              <a
+                href={site.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: '#0000ff',
+                  textDecoration: 'underline',
+                  fontSize: '11px',
+                  fontWeight: 'bold'
+                }}
+              >
+                {site.name}
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Featured Partners Section */}
+      <div style={{
+        background: '#ffff00',
+        border: '2px solid #000000',
+        padding: '15px',
+        textAlign: 'center'
+      }}>
+        <h2 style={{
+          fontSize: '16px',
+          fontWeight: 'bold',
+          color: '#000000',
+          marginBottom: '10px',
+          fontFamily: 'Arial, sans-serif'
+        }}>
+          Featured Partners
+        </h2>
+        <p style={{
+          fontSize: '11px',
+          marginBottom: '15px'
+        }}>
+          Check out these awesome local geek organizations!
+        </p>
+        <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <a
+            href="https://twincitiesgeek.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              background: '#ffffff',
+              color: '#000000',
+              padding: '5px 10px',
+              border: '2px solid #000000',
+              fontSize: '11px',
+              fontWeight: 'bold',
+              textDecoration: 'none',
+              display: 'inline-block'
+            }}
+          >
+            📰 Twin Cities Geek
+          </a>
+          <a
+            href="https://geekpartnership.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              background: '#00ff00',
+              color: '#000000',
+              padding: '5px 10px',
+              border: '2px solid #000000',
+              fontSize: '11px',
+              fontWeight: 'bold',
+              textDecoration: 'none',
+              display: 'inline-block'
+            }}
+          >
+            🤝 Geek Partnership Society
+          </a>
+        </div>
+      </div>
+    </>
   );
 }

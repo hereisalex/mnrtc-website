@@ -55,25 +55,26 @@ export default function VisitorCounter({ className = '', style = {} }: VisitorCo
     <div className={className} style={style}>
       <div style={{ textAlign: 'center' }}>
         <div style={{ 
-          fontSize: '20px', 
+          fontSize: '16px', 
           fontWeight: 'bold', 
           color: '#ff0000',
-          marginBottom: '5px',
+          marginBottom: '3px',
           fontFamily: 'Courier New, monospace'
         }}>
           {isLoading ? '------' : error ? 'ERROR' : formatCount(count || 0)}
         </div>
         <div style={{ 
-          fontSize: '9px', 
+          fontSize: '8px', 
           fontWeight: 'bold',
           color: '#000000',
-          fontFamily: 'Arial, sans-serif'
+          fontFamily: 'Arial, sans-serif',
+          lineHeight: '1.2'
         }}>
           {error ? 'Our counter is having a midlife crisis' : 'visitors since 1995!'}
         </div>
         {!isLoading && !error && (
           <div style={{ 
-            fontSize: '7px', 
+            fontSize: '6px', 
             color: '#666666',
             marginTop: '2px',
             fontFamily: 'Arial, sans-serif'
