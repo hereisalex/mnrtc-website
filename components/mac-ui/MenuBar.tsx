@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
@@ -57,12 +56,13 @@ export default function MenuBar() {
           onMouseLeave={() => setActiveMenu(null)}
         >
           <button className="flex items-center h-6 px-1 hover:bg-mac-blue hover:text-mac-white transition-colors">
-            <Image
+            <img
               src="/images/mnrtc.png"
               alt="MNRTC"
               width={14}
               height={14}
               className="pixelated"
+              style={{ imageRendering: 'pixelated' }}
             />
           </button>
           

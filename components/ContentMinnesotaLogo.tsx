@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 interface ContentMinnesotaLogoProps {
   width?: number;
   height?: number;
@@ -9,7 +7,7 @@ interface ContentMinnesotaLogoProps {
 
 function ContentMinnesotaLogo({ width = 80, height = 80, className = '', style = {} }: ContentMinnesotaLogoProps) {
   return (
-    <Image
+    <img
       src="/images/mnrtc.png"
       alt="Minnesota Retro Technology Club Logo"
       width={width}

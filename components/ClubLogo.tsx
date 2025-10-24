@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 interface ClubLogoProps {
   width?: number;
   height?: number;
@@ -9,7 +7,7 @@ interface ClubLogoProps {
 
 function ClubLogo({ width = 120, height = 40, className = '', style = {} }: ClubLogoProps) {
   return (
-    <Image
+    <img
       src="/images/newlogo2.png"
       alt="Minnesota Retro Technology Club"
       width={width}
