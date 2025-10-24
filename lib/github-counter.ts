@@ -6,8 +6,8 @@ const GITHUB_REPO = 'mnrtc-website';
 const COUNTER_ISSUE_TITLE = 'Visitor Counter - Hidden';
 
 // GitHub token for API authentication
-// Set NEXT_PUBLIC_MNRTC_GITHUB_TOKEN environment variable with a valid GitHub token
-const GITHUB_TOKEN = process.env.NEXT_PUBLIC_MNRTC_GITHUB_TOKEN;
+// Set MNRTC_GITHUB_TOKEN environment variable with a valid GitHub token
+const GITHUB_TOKEN = process.env.MNRTC_GITHUB_TOKEN;
 
 interface GitHubIssue {
   number: number;

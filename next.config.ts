@@ -12,6 +12,10 @@ const nextConfig: NextConfig = {
   },
   assetPrefix: process.env.NODE_ENV === 'production' ? '/mnrtc-website' : '',
   basePath: process.env.NODE_ENV === 'production' ? '/mnrtc-website' : '',
+  // Fix workspace root detection
+  turbopack: {
+    root: process.cwd(),
+  },
 };
 
 const withMDX = createMDX({
