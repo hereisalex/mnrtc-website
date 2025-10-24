@@ -35,7 +35,7 @@
 body {
   font-family: 'Arial', 'Helvetica', sans-serif;
   background: url('/images/circuit.png');
-  background-size: 300px 300px;
+  background-size: 100px 100px;
   background-repeat: repeat;
   background-attachment: fixed;
   background-color: rgba(255, 255, 255, 0.7);
@@ -246,7 +246,7 @@ input, textarea {
 /* Vintage Circuit Board Background */
 .circuit-board-bg {
   background: url('/images/circuit.png') repeat;
-  background-size: 300px 300px;
+  background-size: 100px 100px;
 }
 
 /* Post-it Note Styling */
