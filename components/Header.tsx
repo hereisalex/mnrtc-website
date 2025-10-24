@@ -13,7 +13,7 @@ function Header() {
       flexWrap: 'wrap'
     }}>
       {/* Club Logo */}
-      <div style={{ textAlign: 'center' }}>
+      <div style={{ textAlign: 'center', marginRight: '-30px' }}>
         <img
           src="/images/newlogo2.png"
           alt="Minnesota Retro Technology Club Logo"
@@ -28,7 +28,7 @@ function Header() {
       </div>
       
       {/* Minnesota State Logo */}
-      <div style={{ textAlign: 'center' }}>
+      <div style={{ textAlign: 'center', marginLeft: '-30px' }}>
         <MinnesotaLogo width={200} height={160} />
       </div>
     </div>
