@@ -2,9 +2,11 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ "main" ]
+    branches: 
+      - master
   pull_request:
-    branches: [ "main" ]
+    branches: 
+      - master
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -83,6 +85,8 @@ jobs:
           echo "Node version: $(node --version)"
           echo "NPM version: $(npm --version)"
           echo "Working directory: $(pwd)"
+          echo "Current branch: $(git branch --show-current)"
+          echo "Git remote: $(git remote -v)"
           echo "Files in directory: $(ls -la)"
           echo "Package.json exists: $(test -f package.json && echo 'Yes' || echo 'No')"
         
