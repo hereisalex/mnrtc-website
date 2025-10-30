@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import NavigationButton from './NavigationButton';
+import GuestbookWidget from './GuestbookWidget';
 
 function RetroSidebar() {
   const pathname = usePathname();
@@ -58,6 +59,9 @@ function RetroSidebar() {
           })}
         </div>
       </div>
+
+      {/* Guestbook */}
+      <GuestbookWidget />
 
       {/* Quick Info */}
       <div className="postit-note postit-note-orange" style={{ fontSize: '10px' }}>

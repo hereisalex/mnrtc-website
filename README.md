@@ -45,6 +45,17 @@ npm run dev
 
 4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
+### Environment
+
+Create a `.env.local` file with the following to enable persistent guestbook and visitor counter via Supabase:
+
+```bash
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+Without these, the guestbook and counter will fall back to local-only behavior.
+
 ## Project Structure
 
 ```

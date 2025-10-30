@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { supabase } from "@/lib/supabaseClient";
 
 type GuestbookEntry = {
-	id: string;
-	text: string;
-	timestampMs: number;
+    id: string;
+    text: string;
+    timestampMs: number;
 };
 
 const STORAGE_KEY = "mnrt_guestbook_entries_v1";
@@ -35,33 +36,84 @@ function writeEntriesToStorage(entries: GuestbookEntry[]): void {
 }
 
 export default function GuestbookWidget(): JSX.Element {
-	const [entries, setEntries] = useState<GuestbookEntry[]>([]);
-	const [draft, setDraft] = useState<string>("");
-	const listRef = useRef<HTMLDivElement | null>(null);
+    const [entries, setEntries] = useState<GuestbookEntry[]>([]);
+    const [draft, setDraft] = useState<string>("");
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const listRef = useRef<HTMLDivElement | null>(null);
 
-	useEffect(() => {
-		setEntries(readEntriesFromStorage());
-	}, []);
+    useEffect(() => {
+        let isMounted = true;
+        const load = async () => {
+            try {
+                // If Supabase not configured, use local storage
+                if (!supabase) {
+                    if (!isMounted) return;
+                    setEntries(readEntriesFromStorage());
+                    return;
+                }
+                // Fetch from Supabase
+                const { data, error } = await supabase
+                    .from("guestbook_entries")
+                    .select("id, text, created_at")
+                    .order("created_at", { ascending: true });
+                if (error) throw error;
+                const mapped: GuestbookEntry[] = (data || []).map((row: any) => ({
+                    id: row.id,
+                    text: String(row.text || ""),
+                    timestampMs: row.created_at ? new Date(row.created_at).getTime() : Date.now(),
+                }));
+                if (!isMounted) return;
+                setEntries(mapped.slice(0, 200));
+            } catch {
+                // Fallback to local storage on error
+                if (!isMounted) return;
+                setEntries(readEntriesFromStorage());
+            } finally {
+                if (isMounted) setIsLoading(false);
+            }
+        };
+        load();
+        return () => {
+            isMounted = false;
+        };
+    }, []);
 
-	useEffect(() => {
-		writeEntriesToStorage(entries);
-		// scroll to bottom on new entry
-		if (listRef.current) {
-			listRef.current.scrollTop = listRef.current.scrollHeight;
-		}
-	}, [entries]);
+    useEffect(() => {
+        writeEntriesToStorage(entries);
+        if (listRef.current) {
+            listRef.current.scrollTop = listRef.current.scrollHeight;
+        }
+    }, [entries]);
 
-	const handleSubmit = () => {
-		const trimmed = draft.replace(/\s+/g, " ").trim();
-		if (!trimmed) return;
-		const newEntry: GuestbookEntry = {
-			id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-			text: trimmed.slice(0, 240),
-			timestampMs: Date.now(),
-		};
-		setEntries((prev) => [...prev, newEntry]);
-		setDraft("");
-	};
+    const handleSubmit = async () => {
+        const trimmed = draft.replace(/\s+/g, " ").trim();
+        if (!trimmed) return;
+        const optimistic: GuestbookEntry = {
+            id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+            text: trimmed.slice(0, 240),
+            timestampMs: Date.now(),
+        };
+        setDraft("");
+
+        // Optimistic update
+        setEntries((prev) => [...prev, optimistic]);
+
+        // Persist
+        if (supabase) {
+            try {
+                const { error } = await supabase.from("guestbook_entries").insert({
+                    text: optimistic.text,
+                    created_at: new Date(optimistic.timestampMs).toISOString(),
+                });
+                if (error) throw error;
+            } catch {
+                // swallow error; UI already updated and localStorage has it
+            }
+        } else {
+            // Local fallback only
+            writeEntriesToStorage([...entries, optimistic]);
+        }
+    };
 
 	const handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
 		if (e.key === "Enter" && !e.shiftKey) {
@@ -105,7 +157,7 @@ export default function GuestbookWidget(): JSX.Element {
 					background: "#ffffcc",
 					border: "1px dashed #999",
 					padding: "6px",
-					height: "160px",
+					height: "220px",
 					overflowY: "auto",
 					fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
 					fontSize: "10px",

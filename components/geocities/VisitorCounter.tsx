@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { supabase } from '@/lib/supabaseClient';
 // API-based visitor counter functions
 
 interface VisitorCounterProps {
@@ -17,26 +18,42 @@ export default function VisitorCounter({ className = '', style = {} }: VisitorCo
     const updateVisitorCount = async () => {
       try {
         setIsLoading(true);
-        
-        // For static sites, we'll use a simple localStorage-based counter
-        // This is a fallback since API routes don't work with static export
+        // If Supabase is configured, use global persistent counter via append-only table
+        if (supabase) {
+          const sessionKey = 'mnrtc_visited';
+          const hasVisited = sessionStorage.getItem(sessionKey);
+
+          // Insert one visit per session
+          if (!hasVisited) {
+            const { error: insertError } = await supabase.from('site_visits').insert({});
+            if (!insertError) {
+              sessionStorage.setItem(sessionKey, 'true');
+            }
+          }
+
+          // Fetch exact count
+          const { count: visitsCount, error: countError } = await supabase
+            .from('site_visits')
+            .select('*', { count: 'exact', head: true });
+          if (countError) throw countError;
+          setCount(typeof visitsCount === 'number' ? visitsCount : 0);
+          setError(null);
+          return;
+        }
+
+        // Fallback: localStorage-based counter
         const storedCount = localStorage.getItem('mnrtc_visitor_count');
         const hasVisited = sessionStorage.getItem('mnrtc_visited');
-        
         if (!hasVisited) {
-          // First visit in this session - increment the counter
           const currentCount = storedCount ? parseInt(storedCount) : 1000;
           const newCount = currentCount + 1;
-          
           localStorage.setItem('mnrtc_visitor_count', newCount.toString());
           sessionStorage.setItem('mnrtc_visited', 'true');
           setCount(newCount);
         } else {
-          // Not first visit - just get current count
           const currentCount = storedCount ? parseInt(storedCount) : 1000;
           setCount(currentCount);
         }
-        
         setError(null);
       } catch (err) {
         console.error('Failed to update visitor count:', err);

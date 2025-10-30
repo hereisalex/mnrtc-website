@@ -3,7 +3,6 @@
 import VisitorCounter from '@/components/geocities/VisitorCounter';
 import ExternalLink from './ExternalLink';
 import MailLink from './MailLink';
-import GuestbookWidget from './GuestbookWidget';
 
 function InfoSidebar() {
   return (
@@ -161,6 +160,8 @@ function InfoSidebar() {
         </div>
       </div>
 
+      {/* Guestbook moved to left sidebar */}
+
       {/* Visitor Counter */}
       <div className="postit-note postit-note-purple" style={{ textAlign: 'center' }}>
         <h3 style={{
@@ -176,9 +177,6 @@ function InfoSidebar() {
         </h3>
         <VisitorCounter />
       </div>
-
-      {/* Guestbook */}
-      <GuestbookWidget />
 
       {/* Spacer */}
       <div style={{ flex: 1 }} />
