@@ -8,7 +8,7 @@ interface ClubLogoProps {
 function ClubLogo({ width = 120, height = 40, className = '', style = {} }: ClubLogoProps) {
   return (
     <img
-      src="/images/newlogo2.png"
+      src="/images/full-logo.png"
       alt="Minnesota Retro Technology Club"
       width={width}
       height={height}

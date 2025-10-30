@@ -3,6 +3,7 @@
 import VisitorCounter from '@/components/geocities/VisitorCounter';
 import ExternalLink from './ExternalLink';
 import MailLink from './MailLink';
+import GuestbookWidget from './GuestbookWidget';
 
 function InfoSidebar() {
   return (
@@ -31,7 +32,7 @@ function InfoSidebar() {
         <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
           <div style={{ flexShrink: 0 }}>
             <img
-              src="/images/mnrtc.png"
+              src="/images/full-logo.png"
               alt="Minnesota Retro Technology Club Logo"
               width={40}
               height={40}
@@ -177,42 +178,7 @@ function InfoSidebar() {
       </div>
 
       {/* Guestbook */}
-      <div className="postit-note postit-note-yellow" style={{ textAlign: 'center' }}>
-        <h3 style={{
-          fontSize: '12px',
-          fontWeight: 'bold',
-          color: '#000000',
-          marginBottom: '8px',
-          textAlign: 'center',
-          borderBottom: 'none',
-          paddingBottom: '5px'
-        }}>
-          Guestbook
-        </h3>
-        <MailLink
-          href="mailto:hello@mnretrotech.org"
-          className="postit-note postit-note-yellow"
-          style={{
-            display: 'block',
-            padding: '5px',
-            fontSize: '10px',
-            fontFamily: 'Arial, sans-serif',
-            color: '#000000',
-            textDecoration: 'none',
-            textAlign: 'center',
-            fontWeight: 'bold',
-            margin: '2px 0'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = '#ffdd00';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = '#ffff00';
-          }}
-        >
-          Sign Guestbook
-        </MailLink>
-      </div>
+      <GuestbookWidget />
 
       {/* Spacer */}
       <div style={{ flex: 1 }} />

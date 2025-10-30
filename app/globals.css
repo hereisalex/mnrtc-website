@@ -34,11 +34,11 @@
 
 body {
   font-family: 'Arial', 'Helvetica', sans-serif;
-  background: url('/mnrtc-website/images/circuit.png');
-  background-size: 100px 100px;
+  background: url('/images/circuitseamless.jpg');
+  background-size: 20%;
   background-repeat: repeat;
   background-attachment: fixed;
-  background-color: rgba(200, 220, 255, 0.6);
+  background-color: rgba(200, 220, 255, 0.3);
   background-blend-mode: overlay;
   color: var(--geocities-text);
   min-height: 100vh;
@@ -245,9 +245,10 @@ input, textarea {
 
 /* Vintage Circuit Board Background */
 .circuit-board-bg {
-  background: url('/mnrtc-website/images/circuit.png') repeat;
-  background-size: 100px 100px;
-  background-color: rgba(200, 220, 255, 0.6);
+  background: url('/images/circuitseamless.jpg');
+  background-size: 20%;
+  background-repeat: repeat;
+  background-color: rgba(200, 220, 255, 0.3);
   background-blend-mode: overlay;
 }
 

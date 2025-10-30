@@ -8,7 +8,7 @@ interface MinnesotaLogoProps {
 function MinnesotaLogo({ width = 80, height = 60, className = '', style = {} }: MinnesotaLogoProps) {
   return (
     <img
-      src="/images/mnrtc.png"
+      src="/images/full-logo.png"
       alt="Minnesota Retro Technology Club Logo"
       width={width}
       height={height}

@@ -8,7 +8,7 @@ interface ContentMinnesotaLogoProps {
 function ContentMinnesotaLogo({ width = 80, height = 80, className = '', style = {} }: ContentMinnesotaLogoProps) {
   return (
     <img
-      src="/images/mnrtc.png"
+      src="/images/full-logo.png"
       alt="Minnesota Retro Technology Club Logo"
       width={width}
       height={height}

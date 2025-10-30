@@ -1,5 +1,3 @@
-import MinnesotaLogo from "./MinnesotaLogo";
-
 function Header() {
   return (
     <div style={{ 
@@ -8,28 +6,21 @@ function Header() {
       justifyContent: 'center',
       padding: '20px',
       background: 'transparent',
-      borderBottom: 'none',
-      gap: '15px',
-      flexWrap: 'wrap'
+      borderBottom: 'none'
     }}>
-      {/* Club Logo */}
-      <div style={{ textAlign: 'center', marginRight: '-30px' }}>
+      {/* Full Logo */}
+      <div style={{ textAlign: 'center' }}>
         <img
-          src="/images/newlogo2.png"
+          src="/images/full-logo.png"
           alt="Minnesota Retro Technology Club Logo"
-          width={210}
-          height={84}
+          width={400}
+          height={160}
           style={{ 
             imageRendering: 'pixelated',
             maxWidth: '100%',
             height: 'auto'
           }}
         />
-      </div>
-      
-      {/* Minnesota State Logo */}
-      <div style={{ textAlign: 'center', marginLeft: '-30px' }}>
-        <MinnesotaLogo width={200} height={160} />
       </div>
     </div>
   );

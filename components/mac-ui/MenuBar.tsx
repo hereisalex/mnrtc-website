@@ -57,7 +57,7 @@ export default function MenuBar() {
         >
           <button className="flex items-center h-6 px-1 hover:bg-mac-blue hover:text-mac-white transition-colors">
             <img
-              src="/images/mnrtc.png"
+              src="/images/full-logo.png"
               alt="MNRTC"
               width={14}
               height={14}
