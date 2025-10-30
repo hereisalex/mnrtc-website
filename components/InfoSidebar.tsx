@@ -1,6 +1,5 @@
 'use client';
 
-import VisitorCounter from '@/components/geocities/VisitorCounter';
 import ExternalLink from './ExternalLink';
 import MailLink from './MailLink';
 
@@ -15,8 +14,8 @@ function InfoSidebar() {
       flexDirection: 'column',
       gap: '15px'
     }}>
-      {/* About Our Club */}
-      <div className="postit-note postit-note-yellow">
+      {/* Meetings */}
+      <div className="postit-note postit-note-green">
         <h3 style={{
           fontSize: '12px',
           fontWeight: 'bold',
@@ -26,33 +25,26 @@ function InfoSidebar() {
           borderBottom: 'none',
           paddingBottom: '5px'
         }}>
-          About Our Club
+          Meetings
         </h3>
-        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-          <div style={{ flexShrink: 0 }}>
-            <img
-              src="/images/full-logo.png"
-              alt="Minnesota Retro Technology Club Logo"
-              width={40}
-              height={40}
-              style={{ 
-                imageRendering: 'pixelated',
-                maxWidth: '100%',
-                height: 'auto'
-              }}
-            />
-          </div>
-          <div style={{ flex: 1 }}>
-            <p style={{
-              fontSize: '10px',
-              lineHeight: '1.4',
-              margin: '0'
-            }}>
-              Minnesota Retro Technology Club is a new organization based in the Twin Cities. 
-              We're still figuring things out, but please join our community!
-            </p>
-          </div>
+        <div style={{ 
+          background: '#e0f0ff', 
+          border: 'none', 
+          padding: '8px', 
+          marginBottom: '8px' 
+        }}>
+          <strong style={{ fontSize: '11px' }}>Next Meeting TBA</strong><br />
+          <em style={{ fontSize: '10px' }}>Check back soon!</em>
         </div>
+        <p style={{
+          fontSize: '10px',
+          lineHeight: '1.4',
+          margin: '0'
+        }}>
+          <strong>When:</strong> Second Sunday of every month, 1-5 PM CT<br />
+          <strong>Where:</strong> Twin Cities metro area (location TBA)<br />
+          <strong>What:</strong> Show-and-tell, technical discussions, and community building!
+        </p>
       </div>
 
       {/* My Links */}
@@ -158,24 +150,6 @@ function InfoSidebar() {
             📅 Meetup
           </ExternalLink>
         </div>
-      </div>
-
-      {/* Guestbook moved to left sidebar */}
-
-      {/* Visitor Counter */}
-      <div className="postit-note postit-note-purple" style={{ textAlign: 'center' }}>
-        <h3 style={{
-          fontSize: '12px',
-          fontWeight: 'bold',
-          color: '#000000',
-          marginBottom: '8px',
-          textAlign: 'center',
-          borderBottom: 'none',
-          paddingBottom: '5px'
-        }}>
-          Visitor Counter
-        </h3>
-        <VisitorCounter />
       </div>
 
       {/* Spacer */}
