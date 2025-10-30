@@ -34,7 +34,7 @@
 
 body {
   font-family: 'Arial', 'Helvetica', sans-serif;
-  background: url('/images/circuit.png');
+  background: url('/mnrtc-website/images/circuit.png');
   background-size: 100px 100px;
   background-repeat: repeat;
   background-attachment: fixed;
@@ -245,7 +245,7 @@ input, textarea {
 
 /* Vintage Circuit Board Background */
 .circuit-board-bg {
-  background: url('/images/circuit.png') repeat;
+  background: url('/mnrtc-website/images/circuit.png') repeat;
   background-size: 100px 100px;
   background-color: rgba(200, 220, 255, 0.6);
   background-blend-mode: overlay;

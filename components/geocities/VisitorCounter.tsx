@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { incrementVisitorCount, getCurrentCount } from '@/lib/github-counter';
+// API-based visitor counter functions
 
 interface VisitorCounterProps {
   className?: string;
@@ -18,17 +18,22 @@ export default function VisitorCounter({ className = '', style = {} }: VisitorCo
       try {
         setIsLoading(true);
         
-        // Check if this is the first visit in this session
+        // For static sites, we'll use a simple localStorage-based counter
+        // This is a fallback since API routes don't work with static export
+        const storedCount = localStorage.getItem('mnrtc_visitor_count');
         const hasVisited = sessionStorage.getItem('mnrtc_visited');
         
         if (!hasVisited) {
           // First visit in this session - increment the counter
-          const newCount = await incrementVisitorCount();
-          setCount(newCount);
+          const currentCount = storedCount ? parseInt(storedCount) : 1000;
+          const newCount = currentCount + 1;
+          
+          localStorage.setItem('mnrtc_visitor_count', newCount.toString());
           sessionStorage.setItem('mnrtc_visited', 'true');
+          setCount(newCount);
         } else {
           // Not first visit - just get current count
-          const currentCount = await getCurrentCount();
+          const currentCount = storedCount ? parseInt(storedCount) : 1000;
           setCount(currentCount);
         }
         
