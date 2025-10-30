@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import NavigationButton from './NavigationButton';
-import GuestbookWidget from './GuestbookWidget';
 
 function RetroSidebar() {
   const pathname = usePathname();
@@ -13,6 +12,7 @@ function RetroSidebar() {
     { label: 'About', href: '/about' },
     { label: 'Blog', href: '/blog' },
     { label: 'Events', href: '/events' },
+    { label: 'Guestbook', href: '/guestbook' },
     { label: 'Proposal', href: '/proposal' },
     { label: 'Resources', href: '/resources' },
     { label: 'Links', href: '/links' },
@@ -45,7 +45,7 @@ function RetroSidebar() {
         </h3>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
           {navItems.map((item, index) => {
-            const colors = ['postit-note-yellow', 'postit-note-blue', 'postit-note-pink', 'postit-note-green', 'postit-note-orange', 'postit-note-purple'];
+            const colors = ['postit-note-yellow', 'postit-note-blue', 'postit-note-pink', 'postit-note-green', 'postit-note-orange', 'postit-note-purple', 'postit-note-yellow', 'postit-note-blue'];
             const colorClass = colors[index % colors.length];
             return (
               <NavigationButton
@@ -59,9 +59,6 @@ function RetroSidebar() {
           })}
         </div>
       </div>
-
-      {/* Guestbook */}
-      <GuestbookWidget />
 
       {/* Quick Info */}
       <div className="postit-note postit-note-orange" style={{ fontSize: '10px' }}>

@@ -3,6 +3,7 @@ import WebringBadge from "@/components/WebringBadge";
 import ContentMinnesotaLogo from "@/components/ContentMinnesotaLogo";
 import PageSection from "@/components/PageSection";
 import ContentGroup from "@/components/ContentGroup";
+import VisitorCounter from "@/components/geocities/VisitorCounter";
 
 function Home() {
   return (
@@ -169,69 +170,6 @@ function Home() {
         </div>
       </div>
 
-      {/* Mission Section */}
-      <PostItNote color="blue">
-        <h2 style={{
-          fontSize: '16px',
-          fontWeight: 'bold',
-          color: '#000000',
-          marginBottom: '10px',
-          fontFamily: 'Arial, sans-serif'
-        }}>
-          Our Mission
-        </h2>
-        <p style={{
-          fontSize: '12px',
-          lineHeight: '1.5',
-          margin: '0 0 10px 0'
-        }}>
-          This club exists as a user's group for retro/vintage computer/technology enthusiasts. 
-          Our goal is to connect people within the community, preserve computing history, 
-          provide educational outreach, and share knowledge.
-        </p>
-        <ul style={{ 
-          fontSize: '11px', 
-          paddingLeft: '20px',
-          margin: '0'
-        }}>
-          <li>Connect people within the community</li>
-          <li>Preserve computing history</li>
-          <li>Provide educational outreach</li>
-          <li>Share knowledge</li>
-        </ul>
-      </PostItNote>
-
-      {/* Meetings Section */}
-      <PostItNote color="green">
-        <h2 style={{
-          fontSize: '16px',
-          fontWeight: 'bold',
-          color: '#000000',
-          marginBottom: '10px',
-          fontFamily: 'Arial, sans-serif'
-        }}>
-          Meetings
-        </h2>
-        <div style={{ 
-          background: '#e0f0ff', 
-          border: 'none', 
-          padding: '10px', 
-          marginBottom: '10px' 
-        }}>
-          <strong style={{ fontSize: '12px' }}>Next Meeting TBA</strong><br />
-          <em style={{ fontSize: '11px' }}>Check back soon!</em>
-        </div>
-        <p style={{
-          fontSize: '11px',
-          lineHeight: '1.4',
-          margin: '0'
-        }}>
-          <strong>When:</strong> Second Sunday of every month, 1-5 PM CT<br />
-          <strong>Where:</strong> Twin Cities metro area (location TBA)<br />
-          <strong>What:</strong> Show-and-tell, technical discussions, and community building!
-        </p>
-      </PostItNote>
-
       {/* Webring Badges */}
       <PostItNote color="pink" style={{ textAlign: 'center' }}>
         <h3 style={{
@@ -251,6 +189,20 @@ function Home() {
           <WebringBadge text="COMPUTING" color="orange" />
           <WebringBadge text="CLUB" color="purple" />
         </div>
+      </PostItNote>
+
+      {/* Visitor Counter */}
+      <PostItNote color="purple" style={{ textAlign: 'center' }}>
+        <h3 style={{
+          fontSize: '14px',
+          fontWeight: 'bold',
+          color: '#000000',
+          marginBottom: '10px',
+          fontFamily: 'Arial, sans-serif'
+        }}>
+          Visitor Counter
+        </h3>
+        <VisitorCounter />
       </PostItNote>
     </div>
   );
