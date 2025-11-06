@@ -8,7 +8,13 @@ export const metadata = {
 };
 
 export default async function BlogPage() {
-  const posts = await getAllPosts();
+  // Try to fetch posts, but don't fail if Supabase is unavailable during build
+  let posts: Awaited<ReturnType<typeof getAllPosts>> = [];
+  try {
+    posts = await getAllPosts();
+  } catch (error) {
+    console.warn('[Blog] Failed to fetch blog posts, continuing without posts:', error);
+  }
 
   return (
     <>
