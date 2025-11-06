@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { createServerSupabaseClient } from "@/lib/supabaseServer";
 import { userHasDashboardAccess } from "@/lib/auth";
-import { BlogPostForm } from "./_components/BlogPostForm";
+import { BlogPostForm } from "../_components/BlogPostForm";
 
 type BlogPostPageProps = {
   params: Promise<{ slug: string }>;

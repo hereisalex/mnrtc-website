@@ -21,6 +21,7 @@ interface BlogPostFormProps {
 }
 
 export function BlogPostForm({ post, onSave, onCancel }: BlogPostFormProps) {
+  const router = useRouter();
   const [formData, setFormData] = useState<BlogPost>({
     slug: post?.slug || '',
     title: post?.title || '',
