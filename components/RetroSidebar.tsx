@@ -3,10 +3,10 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import NavigationButton from './NavigationButton';
-import GuestbookWidget from './GuestbookWidget';
 
 function RetroSidebar() {
   const pathname = usePathname();
+  const isGuestbookPage = pathname === '/guestbook';
 
   const navItems = [
     { label: 'Home', href: '/' },
@@ -16,6 +16,7 @@ function RetroSidebar() {
     { label: 'Proposal', href: '/proposal' },
     { label: 'Resources', href: '/resources' },
     { label: 'Links', href: '/links' },
+    { label: 'Guestbook', href: '/guestbook' },
   ];
 
   return (
@@ -28,12 +29,34 @@ function RetroSidebar() {
       flexDirection: 'column',
       gap: '15px'
     }}>
+      {/* Top Spacer - aligns with "Latest Blog Posts" div */}
+      <div style={{ height: '230px' }} />
+
+      {/* Logo for guestbook page */}
+      {isGuestbookPage && (
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          marginBottom: '10px',
+        }}>
+          <img
+            src="/images/full-logo.png"
+            alt="Minnesota Retro Technology Club Logo"
+            style={{ 
+              imageRendering: 'pixelated',
+              maxWidth: '180px',
+              height: 'auto',
+              display: 'block',
+              width: 'auto',
+            }}
+          />
+        </div>
+      )}
 
       {/* Navigation */}
       <div>
         <h3 style={{
-          fontSize: '12px',
-          fontWeight: 'bold',
+          fontSize: '18px',
           color: '#000000',
           marginBottom: '8px',
           textAlign: 'center',
@@ -60,11 +83,8 @@ function RetroSidebar() {
         </div>
       </div>
 
-      {/* Guestbook */}
-      <GuestbookWidget />
-
       {/* Quick Info */}
-      <div className="postit-note postit-note-orange" style={{ fontSize: '10px' }}>
+      <div className="postit-note postit-note-orange" style={{ fontSize: '12px' }}>
         <div style={{ fontWeight: 'bold', marginBottom: '5px' }}>
           MNRTC Online
         </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { supabase } from '@/lib/supabaseClient';
+import { getBrowserSupabaseClient } from '@/lib/supabaseClient';
 // API-based visitor counter functions
 
 interface VisitorCounterProps {
@@ -9,58 +9,76 @@ interface VisitorCounterProps {
   style?: React.CSSProperties;
 }
 
+const describeError = (err: unknown): string => {
+  if (err instanceof Error) return `${err.name}: ${err.message}`;
+  if (typeof err === 'string') return err;
+  try {
+    return JSON.stringify(err);
+  } catch {
+    return 'Unknown error';
+  }
+};
+
 export default function VisitorCounter({ className = '', style = {} }: VisitorCounterProps) {
   const [count, setCount] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    const fallbackCount = () => {
+      const storedCount = localStorage.getItem('mnrtc_visitor_count');
+      const hasVisited = sessionStorage.getItem('mnrtc_visited');
+      const current = storedCount ? parseInt(storedCount, 10) : 1000;
+
+      if (!hasVisited) {
+        const next = current + 1;
+        localStorage.setItem('mnrtc_visitor_count', next.toString());
+        sessionStorage.setItem('mnrtc_visited', 'true');
+        return next;
+      }
+
+      return current;
+    };
+
     const updateVisitorCount = async () => {
+      setIsLoading(true);
+
+      const supabase = getBrowserSupabaseClient();
+
+      if (!supabase) {
+        setCount(fallbackCount());
+        setError(null);
+        setIsLoading(false);
+        return;
+      }
+
       try {
-        setIsLoading(true);
-        // If Supabase is configured, use global persistent counter via append-only table
-        if (supabase) {
-          const sessionKey = 'mnrtc_visited';
-          const hasVisited = sessionStorage.getItem(sessionKey);
+        const sessionKey = 'mnrtc_visited';
+        const hasVisited = sessionStorage.getItem(sessionKey);
 
-          // Insert one visit per session
-          if (!hasVisited) {
-            const { error: insertError } = await supabase.from('site_visits').insert({});
-            if (!insertError) {
-              sessionStorage.setItem(sessionKey, 'true');
-            }
-          }
-
-          // Fetch exact count
-          const { count: visitsCount, error: countError } = await supabase
-            .from('site_visits')
-            .select('*', { count: 'exact', head: true });
-          if (countError) throw countError;
-          setCount(typeof visitsCount === 'number' ? visitsCount : 0);
-          setError(null);
-          return;
-        }
-
-        // Fallback: localStorage-based counter
-        const storedCount = localStorage.getItem('mnrtc_visitor_count');
-        const hasVisited = sessionStorage.getItem('mnrtc_visited');
         if (!hasVisited) {
-          const currentCount = storedCount ? parseInt(storedCount) : 1000;
-          const newCount = currentCount + 1;
-          localStorage.setItem('mnrtc_visitor_count', newCount.toString());
-          sessionStorage.setItem('mnrtc_visited', 'true');
-          setCount(newCount);
-        } else {
-          const currentCount = storedCount ? parseInt(storedCount) : 1000;
-          setCount(currentCount);
+          const { error: insertError } = await supabase.from('site_visits').insert({});
+          if (insertError) {
+            throw new Error(`Supabase insert failed: ${describeError(insertError)}`);
+          }
+          sessionStorage.setItem(sessionKey, 'true');
         }
+
+        const { count: visitsCount, error: countError } = await supabase
+          .from('site_visits')
+          .select('*', { count: 'exact', head: true });
+        if (countError) {
+          throw new Error(`Supabase count failed: ${describeError(countError)}`);
+        }
+
+        const numericCount = typeof visitsCount === 'number' ? visitsCount : 0;
+        setCount(numericCount);
         setError(null);
       } catch (err) {
-        console.error('Failed to update visitor count:', err);
-        setError('Our counter is having a midlife crisis');
-        
-        // Don't show fallback data - show error instead
-        setCount(null);
+        const detail = describeError(err);
+        console.error('[VisitorCounter] Failed to update visitor count:', detail, err);
+        setError(`Visitor counter offline: ${detail}`);
+        setCount(fallbackCount());
       } finally {
         setIsLoading(false);
       }
@@ -92,8 +110,18 @@ export default function VisitorCounter({ className = '', style = {} }: VisitorCo
           fontFamily: 'Arial, sans-serif',
           lineHeight: '1.2'
         }}>
-          {error ? 'Our counter is having a midlife crisis' : 'visitors since 1995!'}
+          {error ? 'Visitor counter offline — check console' : 'visitors since 1995!'}
         </div>
+        {!isLoading && error && (
+          <div style={{ 
+            fontSize: '6px',
+            color: '#cc0000',
+            marginTop: '2px',
+            fontFamily: 'Arial, sans-serif'
+          }}>
+            {error}
+          </div>
+        )}
         {!isLoading && !error && (
           <div style={{ 
             fontSize: '6px', 

@@ -1,20 +1,21 @@
 import { getAllPosts } from "@/lib/blog";
 import { format } from "date-fns";
+import Link from "next/link";
 
 export const metadata = {
   title: "Blog | Minnesota Retro Technology Club",
   description: "News, updates, and articles from the Minnesota Retro Technology Club",
 };
 
-export default function BlogPage() {
-  const posts = getAllPosts();
+export default async function BlogPage() {
+  const posts = await getAllPosts();
 
   return (
     <>
       {/* Main Title */}
       <div style={{ textAlign: 'center', marginBottom: '20px' }}>
         <h1 style={{
-          fontSize: '20px',
+          fontSize: '24px',
           fontWeight: 'bold',
           color: '#000000',
           marginBottom: '10px',
@@ -28,7 +29,7 @@ export default function BlogPage() {
           padding: '4px 8px', 
           border: '2px solid #000000',
           display: 'inline-block',
-          fontSize: '12px',
+          fontSize: '15px',
           fontWeight: 'bold',
           marginBottom: '15px'
         }}>
@@ -44,7 +45,7 @@ export default function BlogPage() {
         marginBottom: '20px'
       }}>
         <h2 style={{
-          fontSize: '16px',
+          fontSize: '19px',
           fontWeight: 'bold',
           color: '#000000',
           marginBottom: '10px',
@@ -53,7 +54,7 @@ export default function BlogPage() {
           Latest Posts
         </h2>
         <p style={{ 
-          fontSize: '12px', 
+          fontSize: '15px', 
           color: '#666666', 
           marginBottom: '15px',
           lineHeight: '1.4'
@@ -71,17 +72,17 @@ export default function BlogPage() {
                 marginBottom: '10px'
               }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px', flexWrap: 'wrap', gap: '5px' }}>
-                  <h3 style={{ fontSize: '14px', fontWeight: 'bold', margin: 0, flex: 1, minWidth: '200px' }}>{post.title}</h3>
-                  <span style={{ fontSize: '10px', color: '#666666', whiteSpace: 'nowrap' }}>
+                  <h3 style={{ fontSize: '17px', fontWeight: 'bold', margin: 0, flex: 1, minWidth: '200px' }}>{post.title}</h3>
+                  <span style={{ fontSize: '13px', color: '#666666', whiteSpace: 'nowrap' }}>
                     {format(new Date(post.date), 'MMM d, yyyy')}
                   </span>
                 </div>
-                <p style={{ fontSize: '11px', marginBottom: '8px', lineHeight: '1.4' }}>{post.description}</p>
+                <p style={{ fontSize: '14px', marginBottom: '8px', lineHeight: '1.4' }}>{post.description}</p>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
-                  <span style={{ fontSize: '10px', color: '#666666' }}>
+                  <span style={{ fontSize: '13px', color: '#666666' }}>
                     By {post.author}
                   </span>
-                  <a 
+                  <Link 
                     href={`/blog/${post.slug}`}
                     style={{
                       display: 'inline-block',
@@ -89,13 +90,13 @@ export default function BlogPage() {
                       color: '#000000',
                       padding: '3px 8px',
                       border: '1px solid #000000',
-                      fontSize: '10px',
+                      fontSize: '13px',
                       fontWeight: 'bold',
                       textDecoration: 'none'
                     }}
                   >
                     Read More
-                  </a>
+                  </Link>
                 </div>
                 {post.tags && post.tags.length > 0 && (
                   <div style={{ marginTop: '8px', display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
@@ -108,7 +109,7 @@ export default function BlogPage() {
                           color: '#000000',
                           padding: '2px 6px',
                           border: '1px solid #000000',
-                          fontSize: '9px',
+                          fontSize: '12px',
                           fontWeight: 'bold'
                         }}
                       >

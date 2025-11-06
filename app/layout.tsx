@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/components/Header";
-import RetroSidebar from "@/components/RetroSidebar";
-import InfoSidebar from "@/components/InfoSidebar";
+import { SupabaseProvider } from "@/components/providers/SupabaseProvider";
+import { createServerSupabaseClient } from "@/lib/supabaseServer";
+import { PageViewTracker } from "@/components/telemetry/PageViewTracker";
+import { TelemetryErrorBoundary } from "@/components/telemetry/ErrorBoundary";
 
 export const metadata: Metadata = {
   title: "Minnesota Retro Technology Club",
@@ -21,34 +22,25 @@ export const viewport = {
   initialScale: 1.0,
 };
 
-function RootLayout({
+async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const supabase = createServerSupabaseClient();
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
   return (
     <html lang="en">
       <body style={{ margin: 0, padding: 0 }}>
-        <Header />
-
-        {/* Three-Column Layout */}
-        <table className="retro-layout">
-          <tbody>
-            <tr>
-              <td className="left-sidebar">
-                <RetroSidebar />
-              </td>
-              <td className="center-content">
-                <main>
-                  {children}
-                </main>
-              </td>
-              <td className="right-sidebar">
-                <InfoSidebar />
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <SupabaseProvider initialSession={session ?? null}>
+          <TelemetryErrorBoundary>
+            <PageViewTracker />
+            {children}
+          </TelemetryErrorBoundary>
+        </SupabaseProvider>
       </body>
     </html>
   );

@@ -3,6 +3,7 @@
 import VisitorCounter from '@/components/geocities/VisitorCounter';
 import ExternalLink from './ExternalLink';
 import MailLink from './MailLink';
+import EventCalendar from './EventCalendar';
 
 function InfoSidebar() {
   return (
@@ -15,51 +16,17 @@ function InfoSidebar() {
       flexDirection: 'column',
       gap: '15px'
     }}>
-      {/* About Our Club */}
-      <div className="postit-note postit-note-yellow">
-        <h3 style={{
-          fontSize: '12px',
-          fontWeight: 'bold',
-          color: '#000000',
-          marginBottom: '8px',
-          textAlign: 'center',
-          borderBottom: 'none',
-          paddingBottom: '5px'
-        }}>
-          About Our Club
-        </h3>
-        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-          <div style={{ flexShrink: 0 }}>
-            <img
-              src="/images/full-logo.png"
-              alt="Minnesota Retro Technology Club Logo"
-              width={40}
-              height={40}
-              style={{ 
-                imageRendering: 'pixelated',
-                maxWidth: '100%',
-                height: 'auto'
-              }}
-            />
-          </div>
-          <div style={{ flex: 1 }}>
-            <p style={{
-              fontSize: '10px',
-              lineHeight: '1.4',
-              margin: '0'
-            }}>
-              Minnesota Retro Technology Club is a new organization based in the Twin Cities. 
-              We're still figuring things out, but please join our community!
-            </p>
-          </div>
-        </div>
-      </div>
+      {/* Top Spacer - aligns with "Latest Blog Posts" div */}
+      <div style={{ height: '230px' }} />
+
+      {/* Event Calendar */}
+      <EventCalendar />
 
       {/* My Links */}
       <div className="postit-note postit-note-green">
         <h3 style={{
-          fontSize: '12px',
-          fontWeight: 'bold',
+          fontSize: '16px',
+          fontWeight: 'normal',
           color: '#000000',
           marginBottom: '8px',
           textAlign: 'center',
@@ -165,8 +132,8 @@ function InfoSidebar() {
       {/* Visitor Counter */}
       <div className="postit-note postit-note-purple" style={{ textAlign: 'center' }}>
         <h3 style={{
-          fontSize: '12px',
-          fontWeight: 'bold',
+          fontSize: '16px',
+          fontWeight: 'normal',
           color: '#000000',
           marginBottom: '8px',
           textAlign: 'center',

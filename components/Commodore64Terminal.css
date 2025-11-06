@@ -1,0 +1,20 @@
+.c64-cursor {
+  display: inline-block;
+  width: 12px;
+  height: 21px;
+  background: #6c5ce7;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: c64-blink 1.06s infinite;
+  font-weight: bold;
+}
+
+@keyframes c64-blink {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
+}
+

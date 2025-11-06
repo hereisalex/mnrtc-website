@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { supabase } from "@/lib/supabaseClient";
+import { getBrowserSupabaseClient } from "@/lib/supabaseClient";
 
 type GuestbookEntry = {
     id: string;
@@ -35,7 +35,7 @@ function writeEntriesToStorage(entries: GuestbookEntry[]): void {
 	}
 }
 
-export default function GuestbookWidget(): JSX.Element {
+export default function GuestbookWidget(): React.ReactElement {
     const [entries, setEntries] = useState<GuestbookEntry[]>([]);
     const [draft, setDraft] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -46,6 +46,8 @@ export default function GuestbookWidget(): JSX.Element {
         const load = async () => {
             try {
                 // If Supabase not configured, use local storage
+                const supabase = getBrowserSupabaseClient();
+
                 if (!supabase) {
                     if (!isMounted) return;
                     setEntries(readEntriesFromStorage());
@@ -99,6 +101,8 @@ export default function GuestbookWidget(): JSX.Element {
         setEntries((prev) => [...prev, optimistic]);
 
         // Persist
+        const supabase = getBrowserSupabaseClient();
+
         if (supabase) {
             try {
                 const { error } = await supabase.from("guestbook_entries").insert({

@@ -4,18 +4,11 @@ import GeoCitiesButton from "@/components/geocities/GeoCitiesButton";
 import { getAllPosts, getPostBySlug } from "@/lib/blog";
 import { format } from "date-fns";
 
-export const dynamic = 'force-static';
-
-export async function generateStaticParams() {
-  const posts = getAllPosts();
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
-}
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getPostBySlug(slug);
 
   if (!post) {
     return {
@@ -31,7 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getPostBySlug(slug);
 
   if (!post) {
     notFound();
@@ -53,10 +46,10 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         >
           <div style={{ overflowY: 'auto', height: '520px', padding: '10px' }}>
             <div style={{ marginBottom: '20px' }}>
-              <h1 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '10px', color: '#4169e1' }}>
+              <h1 style={{ fontSize: '21px', fontWeight: 'bold', marginBottom: '10px', color: '#4169e1' }}>
                 {post.title}
               </h1>
-              <div style={{ fontSize: '11px', color: '#666666', marginBottom: '10px' }}>
+              <div style={{ fontSize: '14px', color: '#666666', marginBottom: '10px' }}>
                 <span>By {post.author}</span>
                 <span style={{ margin: '0 5px' }}>•</span>
                 <time>{format(new Date(post.date), 'MMMM d, yyyy')}</time>
@@ -67,7 +60,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                     <div
                       key={tag}
                       className="geocities-badge"
-                      style={{ fontSize: '10px' }}
+                      style={{ fontSize: '13px' }}
                     >
                       {tag}
                     </div>
@@ -77,7 +70,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             </div>
 
             <div style={{ 
-              fontSize: '12px', 
+              fontSize: '15px', 
               lineHeight: '1.4',
               fontFamily: 'Arial, sans-serif'
             }}>

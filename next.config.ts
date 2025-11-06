@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 import createMDX from "@next/mdx";
 
 const nextConfig: NextConfig = {
-  output: 'export',
+  // Removed 'output: export' to enable API routes and server-side rendering for dashboard
   trailingSlash: true,
   skipTrailingSlashRedirect: true,
   distDir: 'out',
