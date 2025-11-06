@@ -3,9 +3,9 @@ import { getAllPosts } from '@/lib/blog';
 
 export const dynamic = 'force-static';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://hereisalex.github.io/mnrtc-website';
-  const posts = getAllPosts();
+  const posts = await getAllPosts();
 
   const blogUrls = posts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,

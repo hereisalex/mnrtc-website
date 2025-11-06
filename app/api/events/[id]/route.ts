@@ -19,14 +19,13 @@ export async function GET(
     let query = supabase
       .from("events")
       .select("id, title, date, time, location, description, status, published")
-      .eq("id", id)
-      .single();
+      .eq("id", id);
 
     if (!includeUnpublished) {
       query = query.eq("published", true);
     }
 
-    const { data, error } = await query;
+    const { data, error } = await query.single();
 
     if (error || !data) {
       return NextResponse.json({ error: "Event not found" }, { status: 404 });

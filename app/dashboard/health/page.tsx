@@ -16,7 +16,8 @@ export default async function HealthPage() {
     redirect("/login?redirectedFrom=/dashboard/health");
   }
 
-  const host = headers().get("host") ?? "localhost:3000";
+  const headersList = await headers();
+  const host = headersList.get("host") ?? "localhost:3000";
   const protocol = isProduction ? "https" : "http";
   let initialData = null;
 

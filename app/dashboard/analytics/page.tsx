@@ -68,15 +68,15 @@ export default async function AnalyticsPage({ searchParams }: AnalyticsPageProps
     console.error("[Dashboard] dashboard_top_referrers failed", referrerError);
   }
 
-  const chartData = (dailyData ?? []).map((entry) => ({
+  const chartData = (dailyData ?? []).map((entry: { day: string; view_count: number | string }) => ({
     day: entry.day,
     view_count: Number(entry.view_count) || 0,
   }));
 
-  const totalViews = chartData.reduce((acc, entry) => acc + entry.view_count, 0);
+  const totalViews = chartData.reduce((acc: number, entry: { view_count: number }) => acc + entry.view_count, 0);
   const averageViews =
     chartData.length > 0 ? Math.round(totalViews / chartData.length) : 0;
-  const maxViews = chartData.reduce((max, entry) => Math.max(max, entry.view_count), 0);
+  const maxViews = chartData.reduce((max: number, entry: { view_count: number }) => Math.max(max, entry.view_count), 0);
 
   return (
     <div>
@@ -141,7 +141,7 @@ export default async function AnalyticsPage({ searchParams }: AnalyticsPageProps
                   </td>
                 </tr>
               ) : (
-                (referrerData ?? []).map((item) => (
+                (referrerData ?? []).map((item: { referrer: string; view_count: number | string }) => (
                   <tr key={`${item.referrer}-${item.view_count}`}>
                     <td style={{ padding: "0.75rem 0.5rem", borderBottom: "1px solid rgba(148,163,184,0.15)" }}>
                       {item.referrer}

@@ -73,14 +73,13 @@ export async function getPostBySlug(slug: string, includeUnpublished: boolean = 
     let query = supabase
       .from('blog_posts')
       .select('slug, title, date, description, author, tags, content, content_markdown, published')
-      .eq('slug', slug)
-      .single();
+      .eq('slug', slug);
 
     if (!includeUnpublished) {
       query = query.eq('published', true);
     }
 
-    const { data, error } = await query;
+    const { data, error } = await query.single();
 
     if (error || !data) {
       return null;
