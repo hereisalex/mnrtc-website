@@ -5,7 +5,14 @@ export const dynamic = 'force-static';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://hereisalex.github.io/mnrtc-website';
-  const posts = await getAllPosts();
+  
+  // Try to fetch posts, but don't fail if Supabase is unavailable during build
+  let posts: Awaited<ReturnType<typeof getAllPosts>> = [];
+  try {
+    posts = await getAllPosts();
+  } catch (error) {
+    console.warn('[Sitemap] Failed to fetch blog posts, continuing without blog URLs:', error);
+  }
 
   const blogUrls = posts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
