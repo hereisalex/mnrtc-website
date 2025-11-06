@@ -5,6 +5,8 @@ import { userHasDashboardAccess } from "@/lib/auth";
 import { AnalyticsFilters } from "./_components/AnalyticsFilters";
 import { TrafficChart } from "./_components/TrafficChart";
 
+export const dynamic = 'force-dynamic';
+
 type AnalyticsPageProps = {
   searchParams?: Record<string, string | string[] | undefined>;
 };

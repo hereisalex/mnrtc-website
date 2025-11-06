@@ -5,6 +5,8 @@ import { getUserRole, userHasDashboardAccess } from "@/lib/auth";
 import { SignOutButton } from "@/components/auth/SignOutButton";
 import { DashboardNav } from "./_components/DashboardNav";
 
+export const dynamic = 'force-dynamic';
+
 type DashboardLayoutProps = {
   children: ReactNode;
 };
