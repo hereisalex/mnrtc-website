@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import PostItNote from './PostItNote';
+import { getBrowserSupabaseClient } from '@/lib/supabaseClient';
 
 interface Event {
   id: string;
@@ -24,28 +25,82 @@ export default function EventCalendar() {
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
 
-  // Fetch events from API
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        const response = await fetch('/api/events');
-        if (!response.ok) {
-          throw new Error('Failed to fetch events');
-        }
-        const data = await response.json();
-        setEvents(data.events || []);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load events');
-        console.error('Error fetching events:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // Fetch events directly from Supabase
+  const fetchEvents = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
 
+      const supabase = getBrowserSupabaseClient();
+      
+      if (!supabase) {
+        throw new Error(
+          'Event calendar is not available. Supabase client could not be initialized. ' +
+          'Please check your browser console for more details.'
+        );
+      }
+
+      // Fetch only published events for public calendar
+      const { data, error: queryError } = await supabase
+        .from('events')
+        .select('id, title, date, time, location, description, status')
+        .eq('published', true)
+        .order('date', { ascending: false });
+
+      if (queryError) {
+        // Provide specific error message based on error code
+        if (queryError.code === 'PGRST116') {
+          throw new Error(
+            'Events table not found. The database schema may not be set up correctly.'
+          );
+        } else if (queryError.code === '42501') {
+          throw new Error(
+            'Permission denied. Unable to access events data. Please contact the administrator.'
+          );
+        } else if (queryError.message?.includes('network') || queryError.message?.includes('fetch')) {
+          throw new Error(
+            'Network error: Unable to connect to the events database. ' +
+            'Please check your internet connection and try again.'
+          );
+        } else {
+          throw new Error(
+            `Database error: ${queryError.message || 'Failed to fetch events'}. ` +
+            `Error code: ${queryError.code || 'unknown'}`
+          );
+        }
+      }
+
+      // Successfully fetched data
+      if (data === null) {
+        console.warn('[EventCalendar] Received null data from Supabase query');
+        setEvents([]);
+      } else {
+        setEvents(data || []);
+      }
+    } catch (err) {
+      // Handle different error types with specific messages
+      if (err instanceof TypeError && err.message.includes('fetch')) {
+        setError(
+          'Network error: Unable to connect to the server. ' +
+          'Please check your internet connection and try again.'
+        );
+      } else if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError(
+          'An unexpected error occurred while loading events. ' +
+          'Please refresh the page or contact support if the problem persists.'
+        );
+      }
+      console.error('[EventCalendar] Error fetching events:', err);
+    } finally {
+      setLoading(false);
+    }
+  }, []); // Empty deps: only fetch once on mount
+
+  useEffect(() => {
     fetchEvents();
-  }, []);
+  }, [fetchEvents]);
 
   // Get first day of month and number of days
   const firstDayOfMonth = new Date(year, month, 1).getDay();
@@ -423,9 +478,41 @@ export default function EventCalendar() {
             borderTop: '1px solid #000000',
             fontSize: '8px',
             textAlign: 'center',
-            color: '#ff0000'
+            color: '#ff0000',
+            background: '#fff0f0',
+            border: '1px solid #ff0000',
+            padding: '6px',
+            borderRadius: '2px',
+            lineHeight: '1.4'
           }}>
-            {error}
+            <div style={{ fontWeight: 'bold', marginBottom: '4px' }}>
+              ⚠️ Error Loading Events
+            </div>
+            <div style={{ fontSize: '7px' }}>
+              {error}
+            </div>
+            <button
+              onClick={() => fetchEvents()}
+              style={{
+                marginTop: '4px',
+                background: '#ff0000',
+                color: '#ffffff',
+                border: '1px solid #000000',
+                padding: '2px 6px',
+                fontSize: '7px',
+                cursor: 'pointer',
+                fontFamily: 'Arial, sans-serif',
+                fontWeight: 'bold'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#cc0000';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = '#ff0000';
+              }}
+            >
+              Retry
+            </button>
           </div>
         )}
       </PostItNote>
