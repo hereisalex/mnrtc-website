@@ -16,8 +16,10 @@ function InfoSidebar() {
       flexDirection: 'column',
       gap: '15px'
     }}>
-      {/* Top Spacer - aligns with "Latest Blog Posts" div */}
-      <div style={{ height: '230px' }} />
+      {/* Top Spacer - aligns calendar top with Home button top */}
+      {/* Left sidebar: 10px padding + 230px spacer + ~31px (Navigation heading) = ~271px total */}
+      {/* Right sidebar: 10px padding + spacer needed = 271px - 10px = 261px spacer */}
+      <div style={{ height: '261px' }} />
 
       {/* Event Calendar */}
       <EventCalendar />

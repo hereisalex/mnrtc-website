@@ -34,12 +34,7 @@
 
 body {
   font-family: 'Arial', 'Helvetica', sans-serif;
-  background: url('/images/circuitseamless.jpg');
-  background-size: 20%;
-  background-repeat: repeat;
-  background-attachment: fixed;
-  background-color: rgba(200, 220, 255, 0.3);
-  background-blend-mode: overlay;
+  /* Background image set inline in layout.tsx to support basePath */
   color: var(--geocities-text);
   min-height: 100vh;
   cursor: url('/retrowave/ArrowWave.ani'), auto;

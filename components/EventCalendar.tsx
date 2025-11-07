@@ -162,12 +162,17 @@ export default function EventCalendar() {
 
   const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
+  // Use current date consistently
   const today = new Date();
+  const currentYear = today.getFullYear();
+  const currentMonth = today.getMonth();
+  const currentDay = today.getDate();
+  
   const isToday = (day: number) => {
     return (
-      day === today.getDate() &&
-      month === today.getMonth() &&
-      year === today.getFullYear()
+      day === currentDay &&
+      month === currentMonth &&
+      year === currentYear
     );
   };
 

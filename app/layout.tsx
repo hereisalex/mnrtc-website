@@ -30,9 +30,24 @@ async function RootLayout({
   // The SupabaseProvider will handle session initialization client-side
   const initialSession = null;
 
+  // Get basePath for background image
+  const basePath = process.env.NODE_ENV === 'production' ? '/mnrtc-website' : '';
+  const backgroundImageUrl = `${basePath}/images/circuitseamless.jpg`;
+
   return (
     <html lang="en">
-      <body style={{ margin: 0, padding: 0 }}>
+      <body 
+        style={{ 
+          margin: 0, 
+          padding: 0,
+          backgroundImage: `url('${backgroundImageUrl}')`,
+          backgroundSize: '20%',
+          backgroundRepeat: 'repeat',
+          backgroundAttachment: 'fixed',
+          backgroundColor: 'rgba(200, 220, 255, 0.3)',
+          backgroundBlendMode: 'overlay',
+        }}
+      >
         <SupabaseProvider initialSession={initialSession}>
           <TelemetryErrorBoundary>
             <PageViewTracker />
