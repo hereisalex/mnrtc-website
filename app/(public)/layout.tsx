@@ -15,18 +15,17 @@ export default function PublicLayout({
   
   return (
     <>
-      <table className="retro-layout">
+      {/* Header spans full width at top */}
+      {!hideHeader && <Header />}
+      
+      {/* Three-column layout below header */}
+      <table className="retro-layout" style={{ marginTop: 0 }}>
         <tbody>
           <tr>
             <td className="left-sidebar">
               <RetroSidebar />
             </td>
-            <td className="center-content" colSpan={hideHeader ? 1 : 1}>
-              {!hideHeader && (
-                <div style={{ marginBottom: '20px' }}>
-                  <Header />
-                </div>
-              )}
+            <td className="center-content">
               <main>{children}</main>
             </td>
             <td className="right-sidebar">

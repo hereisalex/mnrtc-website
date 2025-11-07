@@ -320,7 +320,7 @@ function BlogContent() {
             textAlign: 'center'
           }}>
             <h2 style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '10px' }}>Coming Soon!</h2>
-            <p style={{ fontSize: '11px', marginBottom: '15px', lineHeight: '1.4' }}>
+            <p style={{ fontSize: '12px', marginBottom: '15px', lineHeight: '1.4' }}>
               We haven't published any blog posts yet, but check back soon for
               updates, meeting recaps, and articles about retro technology.
             </p>
@@ -334,7 +334,7 @@ function BlogContent() {
                 color: '#000000',
                 padding: '5px 10px',
                 border: '1px solid #000000',
-                fontSize: '11px',
+                fontSize: '12px',
                 fontWeight: 'bold',
                 textDecoration: 'none'
               }}
@@ -362,7 +362,7 @@ function BlogContent() {
           Want to Write for Us?
         </h2>
         <p style={{ 
-          fontSize: '11px', 
+          fontSize: '12px', 
           lineHeight: '1.4', 
           marginBottom: '15px' 
         }}>
@@ -376,7 +376,7 @@ function BlogContent() {
             color: '#000000',
             padding: '2px 6px',
             border: '1px solid #000000',
-            fontSize: '9px',
+            fontSize: '12px',
             fontWeight: 'bold'
           }}>Retro Computing</span>
           <span style={{
@@ -385,7 +385,7 @@ function BlogContent() {
             color: '#000000',
             padding: '2px 6px',
             border: '1px solid #000000',
-            fontSize: '9px',
+            fontSize: '12px',
             fontWeight: 'bold'
           }}>Vintage Hardware</span>
           <span style={{
@@ -394,7 +394,7 @@ function BlogContent() {
             color: '#000000',
             padding: '2px 6px',
             border: '1px solid #000000',
-            fontSize: '9px',
+            fontSize: '12px',
             fontWeight: 'bold'
           }}>Software History</span>
           <span style={{
@@ -403,7 +403,7 @@ function BlogContent() {
             color: '#000000',
             padding: '2px 6px',
             border: '1px solid #000000',
-            fontSize: '9px',
+            fontSize: '12px',
             fontWeight: 'bold'
           }}>Club News</span>
         </div>
@@ -416,7 +416,7 @@ function BlogContent() {
               color: '#000000',
               padding: '5px 10px',
               border: '1px solid #000000',
-              fontSize: '11px',
+              fontSize: '12px',
               fontWeight: 'bold',
               textDecoration: 'none'
             }}
@@ -433,7 +433,7 @@ function BlogContent() {
               color: '#000000',
               padding: '5px 10px',
               border: '1px solid #000000',
-              fontSize: '11px',
+              fontSize: '12px',
               fontWeight: 'bold',
               textDecoration: 'none'
             }}
@@ -459,7 +459,7 @@ function BlogContent() {
           Stay Updated
         </h2>
         <p style={{ 
-          fontSize: '11px', 
+          fontSize: '12px', 
           lineHeight: '1.4', 
           marginBottom: '15px' 
         }}>
@@ -474,7 +474,7 @@ function BlogContent() {
               color: '#000000',
               padding: '5px 10px',
               border: '1px solid #000000',
-              fontSize: '11px',
+              fontSize: '12px',
               fontWeight: 'bold',
               textDecoration: 'none'
             }}
@@ -491,7 +491,7 @@ function BlogContent() {
               color: '#000000',
               padding: '5px 10px',
               border: '1px solid #000000',
-              fontSize: '11px',
+              fontSize: '12px',
               fontWeight: 'bold',
               textDecoration: 'none'
             }}
@@ -506,7 +506,7 @@ function BlogContent() {
               color: '#000000',
               padding: '5px 10px',
               border: '1px solid #000000',
-              fontSize: '11px',
+              fontSize: '12px',
               fontWeight: 'bold',
               textDecoration: 'none'
             }}

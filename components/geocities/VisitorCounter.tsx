@@ -95,7 +95,7 @@ export default function VisitorCounter({ className = '', style = {} }: VisitorCo
     <div className={className} style={style}>
       <div style={{ textAlign: 'center' }}>
         <div style={{ 
-          fontSize: '16px', 
+          fontSize: '20px', 
           fontWeight: 'bold', 
           color: '#ff0000',
           marginBottom: '3px',
@@ -104,7 +104,7 @@ export default function VisitorCounter({ className = '', style = {} }: VisitorCo
           {isLoading ? '------' : error ? 'ERROR' : formatCount(count || 0)}
         </div>
         <div style={{ 
-          fontSize: '8px', 
+          fontSize: '12px', 
           fontWeight: 'bold',
           color: '#000000',
           fontFamily: 'Arial, sans-serif',
@@ -114,7 +114,7 @@ export default function VisitorCounter({ className = '', style = {} }: VisitorCo
         </div>
         {!isLoading && error && (
           <div style={{ 
-            fontSize: '6px',
+            fontSize: '10px',
             color: '#cc0000',
             marginTop: '2px',
             fontFamily: 'Arial, sans-serif'
@@ -124,7 +124,7 @@ export default function VisitorCounter({ className = '', style = {} }: VisitorCo
         )}
         {!isLoading && !error && (
           <div style={{ 
-            fontSize: '6px', 
+            fontSize: '10px', 
             color: '#666666',
             marginTop: '2px',
             fontFamily: 'Arial, sans-serif'

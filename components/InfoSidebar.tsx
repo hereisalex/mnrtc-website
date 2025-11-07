@@ -16,13 +16,6 @@ function InfoSidebar() {
       flexDirection: 'column',
       gap: '15px'
     }}>
-      {/* Top Spacer - aligns month navigation top with Home button top */}
-      {/* Left sidebar: 10px padding + 230px spacer + Navigation h3 (~31px: 18px font + 8px marginBottom + 5px paddingBottom) + 3px gap = 274px to Home button top */}
-      {/* Right sidebar: 10px padding + spacer + PostItNote padding 10px + Calendar h3 (~31px) + h3 marginBottom 8px = 274px to month navigation top */}
-      {/* So: 10 + X + 10 + 31 + 8 = 274, therefore X = 215px */}
-      {/* Firefox-specific adjustment: Add extra spacing for font rendering differences */}
-      <div className="info-sidebar-spacer" style={{ height: '215px' }} />
-
       {/* Event Calendar */}
       <EventCalendar />
 
@@ -46,7 +39,7 @@ function InfoSidebar() {
             style={{
               display: 'block',
               padding: '3px 6px',
-              fontSize: '10px',
+              fontSize: '12px',
               fontFamily: 'Arial, sans-serif',
               color: '#0000ff',
               textDecoration: 'none',
@@ -69,7 +62,7 @@ function InfoSidebar() {
             style={{
               display: 'block',
               padding: '3px 6px',
-              fontSize: '10px',
+              fontSize: '12px',
               fontFamily: 'Arial, sans-serif',
               color: '#0000ff',
               textDecoration: 'none',
@@ -92,7 +85,7 @@ function InfoSidebar() {
             style={{
               display: 'block',
               padding: '3px 6px',
-              fontSize: '10px',
+              fontSize: '12px',
               fontFamily: 'Arial, sans-serif',
               color: '#0000ff',
               textDecoration: 'none',
@@ -115,7 +108,7 @@ function InfoSidebar() {
             style={{
               display: 'block',
               padding: '3px 6px',
-              fontSize: '10px',
+              fontSize: '12px',
               fontFamily: 'Arial, sans-serif',
               color: '#0000ff',
               textDecoration: 'none',
@@ -158,7 +151,7 @@ function InfoSidebar() {
 
       {/* Footer */}
       <div style={{
-        fontSize: '8px',
+        fontSize: '12px',
         textAlign: 'center',
         color: '#666666',
         borderTop: 'none',

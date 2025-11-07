@@ -55,27 +55,21 @@ body {
   }
 }
 
-/* Firefox-specific fix for right sidebar alignment */
-/* Firefox renders fonts slightly differently, causing misalignment */
-@supports (-moz-appearance: none) {
-  .info-sidebar-spacer {
-    height: 220px !important; /* Add 5px extra for Firefox font rendering */
-  }
-}
-
-
 /* Three-Column Retro Layout Styles */
 .retro-layout {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   border-collapse: collapse;
+  border-spacing: 0;
   background: transparent;
+  table-layout: fixed;
 }
 
 .retro-layout td {
   vertical-align: top;
   padding: 0;
+  box-sizing: border-box;
 }
 
 .left-sidebar {
@@ -92,6 +86,7 @@ body {
 }
 
 .center-content {
+  width: auto;
   background: transparent;
   padding: 20px;
   min-height: 600px;

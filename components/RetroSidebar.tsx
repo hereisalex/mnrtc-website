@@ -29,9 +29,6 @@ function RetroSidebar() {
       flexDirection: 'column',
       gap: '15px'
     }}>
-      {/* Top Spacer - aligns with "Latest Blog Posts" div */}
-      <div style={{ height: '230px' }} />
-
       {/* Logo for guestbook page */}
       {isGuestbookPage && (
         <div style={{
@@ -91,7 +88,7 @@ function RetroSidebar() {
         <div>
           Minnesota Retro Technology Club
         </div>
-        <div style={{ marginTop: '5px', fontSize: '9px' }}>
+        <div style={{ marginTop: '5px', fontSize: '12px' }}>
           Best viewed in Netscape Navigator 4.0!
         </div>
       </div>
@@ -101,7 +98,7 @@ function RetroSidebar() {
 
       {/* Footer */}
       <div style={{
-        fontSize: '8px',
+        fontSize: '12px',
         textAlign: 'center',
         color: '#666666',
         borderTop: 'none',

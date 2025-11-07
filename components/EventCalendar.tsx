@@ -218,7 +218,7 @@ export default function EventCalendar() {
               background: '#e0e0e0',
               border: '1px solid #000000',
               padding: '2px 6px',
-              fontSize: '9px',
+              fontSize: '12px',
               cursor: 'pointer',
               fontFamily: 'Arial, sans-serif'
             }}
@@ -232,7 +232,7 @@ export default function EventCalendar() {
             ←
           </button>
           <div style={{
-            fontSize: '10px',
+            fontSize: '12px',
             fontWeight: 'bold',
             textAlign: 'center',
             flex: 1
@@ -245,7 +245,7 @@ export default function EventCalendar() {
               background: '#e0e0e0',
               border: '1px solid #000000',
               padding: '2px 6px',
-              fontSize: '9px',
+              fontSize: '12px',
               cursor: 'pointer',
               fontFamily: 'Arial, sans-serif'
             }}
@@ -268,7 +268,7 @@ export default function EventCalendar() {
               background: '#ffff00',
               border: '1px solid #000000',
               padding: '2px 8px',
-              fontSize: '8px',
+              fontSize: '12px',
               cursor: 'pointer',
               fontFamily: 'Arial, sans-serif',
               fontWeight: 'bold'
@@ -287,18 +287,22 @@ export default function EventCalendar() {
         {/* Day Names */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(7, 1fr)',
-          gap: '2px',
-          marginBottom: '4px'
+          gridTemplateColumns: 'repeat(7, minmax(0, 1fr))',
+          gap: '1px',
+          marginBottom: '4px',
+          width: '100%',
+          minWidth: 0
         }}>
           {dayNames.map((day) => (
             <div
               key={day}
               style={{
-                fontSize: '8px',
+                fontSize: '11px',
                 fontWeight: 'bold',
                 textAlign: 'center',
-                padding: '2px 0'
+                padding: '2px 0',
+                minWidth: 0,
+                overflow: 'hidden'
               }}
             >
               {day}
@@ -309,8 +313,10 @@ export default function EventCalendar() {
         {/* Calendar Grid */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(7, 1fr)',
-          gap: '2px'
+          gridTemplateColumns: 'repeat(7, minmax(0, 1fr))',
+          gap: '1px',
+          width: '100%',
+          minWidth: 0
         }}>
           {calendarDays.map((day, index) => {
             if (day === null) {
@@ -320,7 +326,10 @@ export default function EventCalendar() {
                   style={{
                     aspectRatio: '1',
                     background: '#f5f5f5',
-                    border: '1px solid #e0e0e0'
+                    border: '1px solid #e0e0e0',
+                    minWidth: 0,
+                    width: '100%',
+                    boxSizing: 'border-box'
                   }}
                 />
               );
@@ -344,15 +353,18 @@ export default function EventCalendar() {
                   border: isTodayDate
                     ? '2px solid #000000'
                     : '1px solid #000000',
-                  fontSize: '9px',
+                  fontSize: '11px',
                   cursor: hasEvent ? 'pointer' : 'default',
                   fontFamily: 'Arial, sans-serif',
-                  padding: '2px',
+                  padding: '1px',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  position: 'relative'
+                  position: 'relative',
+                  minWidth: 0,
+                  width: '100%',
+                  boxSizing: 'border-box'
                 }}
                 onMouseEnter={(e) => {
                   if (hasEvent) {
@@ -368,7 +380,7 @@ export default function EventCalendar() {
                 <span>{day}</span>
                 {hasEvent && (
                   <span style={{
-                    fontSize: '6px',
+                    fontSize: '10px',
                     position: 'absolute',
                     bottom: '1px',
                     color: '#0000ff'
@@ -387,7 +399,7 @@ export default function EventCalendar() {
             marginTop: '8px',
             paddingTop: '6px',
             borderTop: '1px solid #000000',
-            fontSize: '8px',
+            fontSize: '12px',
             textAlign: 'center'
           }}>
             <div style={{ marginBottom: '4px' }}>
@@ -438,7 +450,7 @@ export default function EventCalendar() {
                   <div style={{ fontWeight: 'bold' }}>
                     {eventDate.getDate()} {monthNames[eventDate.getMonth()].substring(0, 3)}
                   </div>
-                  <div style={{ fontSize: '7px' }}>
+                  <div style={{ fontSize: '12px' }}>
                     {event.title.length > 20 ? event.title.substring(0, 20) + '...' : event.title}
                   </div>
                 </div>
@@ -453,7 +465,7 @@ export default function EventCalendar() {
             marginTop: '8px',
             paddingTop: '6px',
             borderTop: '1px solid #000000',
-            fontSize: '8px',
+            fontSize: '12px',
             textAlign: 'center',
             color: '#666666'
           }}>
@@ -467,7 +479,7 @@ export default function EventCalendar() {
             marginTop: '8px',
             paddingTop: '6px',
             borderTop: '1px solid #000000',
-            fontSize: '8px',
+            fontSize: '12px',
             textAlign: 'center',
             color: '#666666'
           }}>
@@ -481,7 +493,7 @@ export default function EventCalendar() {
             marginTop: '8px',
             paddingTop: '6px',
             borderTop: '1px solid #000000',
-            fontSize: '8px',
+            fontSize: '12px',
             textAlign: 'center',
             color: '#ff0000',
             background: '#fff0f0',
@@ -493,7 +505,7 @@ export default function EventCalendar() {
             <div style={{ fontWeight: 'bold', marginBottom: '4px' }}>
               ⚠️ Error Loading Events
             </div>
-            <div style={{ fontSize: '7px' }}>
+            <div style={{ fontSize: '12px' }}>
               {error}
             </div>
             <button
@@ -504,7 +516,7 @@ export default function EventCalendar() {
                 color: '#ffffff',
                 border: '1px solid #000000',
                 padding: '2px 6px',
-                fontSize: '7px',
+                fontSize: '12px',
                 cursor: 'pointer',
                 fontFamily: 'Arial, sans-serif',
                 fontWeight: 'bold'
@@ -578,7 +590,7 @@ export default function EventCalendar() {
                   color: '#ffffff',
                   border: '1px solid #000000',
                   padding: '2px 6px',
-                  fontSize: '10px',
+                  fontSize: '12px',
                   cursor: 'pointer',
                   fontFamily: 'Arial, sans-serif'
                 }}
@@ -586,14 +598,14 @@ export default function EventCalendar() {
                 ×
               </button>
             </div>
-            <div style={{ fontSize: '10px', marginBottom: '10px', lineHeight: '1.4' }}>
+            <div style={{ fontSize: '12px', marginBottom: '10px', lineHeight: '1.4' }}>
               <div><strong>Date:</strong> {selectedEvent.date}</div>
               <div><strong>Time:</strong> {selectedEvent.time}</div>
               <div><strong>Location:</strong> {selectedEvent.location}</div>
               <div><strong>Status:</strong> {selectedEvent.status.toUpperCase()}</div>
             </div>
             <div style={{
-              fontSize: '9px',
+              fontSize: '12px',
               lineHeight: '1.4',
               marginBottom: '10px',
               padding: '8px',
@@ -613,7 +625,7 @@ export default function EventCalendar() {
                   color: '#000000',
                   padding: '4px 8px',
                   border: '1px solid #000000',
-                  fontSize: '9px',
+                  fontSize: '12px',
                   fontWeight: 'bold',
                   textDecoration: 'none',
                   fontFamily: 'Arial, sans-serif'
@@ -638,7 +650,7 @@ export default function EventCalendar() {
                   color: '#000000',
                   padding: '4px 8px',
                   border: '1px solid #000000',
-                  fontSize: '9px',
+                  fontSize: '12px',
                   fontWeight: 'bold',
                   cursor: 'pointer',
                   fontFamily: 'Arial, sans-serif'

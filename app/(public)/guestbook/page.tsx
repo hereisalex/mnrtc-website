@@ -182,7 +182,7 @@ export default function GuestbookPage(): React.ReactElement {
 						✍️ GUESTBOOK ✍️
 					</h1>
 					<div style={{
-						fontSize: '11px',
+						fontSize: '12px',
 						color: '#666666',
 						fontStyle: 'italic',
 					}}>
@@ -216,7 +216,7 @@ export default function GuestbookPage(): React.ReactElement {
 						style={{
 							width: "100%",
 							padding: "8px",
-							fontSize: "11px",
+							fontSize: "12px",
 							border: "2px inset #cccccc",
 							background: "#ffffff",
 							fontFamily: "Arial, sans-serif",
@@ -234,7 +234,7 @@ export default function GuestbookPage(): React.ReactElement {
 						style={{
 							width: "100%",
 							padding: "8px",
-							fontSize: "11px",
+							fontSize: "12px",
 							border: "2px inset #cccccc",
 							background: "#ffffff",
 							fontFamily: "Arial, sans-serif",
@@ -252,7 +252,7 @@ export default function GuestbookPage(): React.ReactElement {
 						gap: "10px",
 					}}>
 						<div style={{
-							fontSize: "10px",
+							fontSize: "12px",
 							color: "#666666",
 							fontStyle: "italic",
 						}}>
@@ -263,7 +263,7 @@ export default function GuestbookPage(): React.ReactElement {
 							disabled={!draft.trim()}
 							style={{
 								padding: '4px 8px',
-								fontSize: '11px',
+								fontSize: '12px',
 								background: draft.trim() ? '#e0e0e0' : '#f0f0f0',
 								border: '2px outset #cccccc',
 								cursor: draft.trim() ? 'pointer' : 'not-allowed',
@@ -324,7 +324,7 @@ export default function GuestbookPage(): React.ReactElement {
 								<div style={{ fontWeight: "bold", marginBottom: "8px", fontSize: "14px" }}>
 									Be the first to sign the guestbook!
 								</div>
-								<div style={{ fontSize: "11px" }}>
+								<div style={{ fontSize: "12px" }}>
 									Leave a message below and become part of our retro web history!
 								</div>
 							</div>
@@ -346,14 +346,14 @@ export default function GuestbookPage(): React.ReactElement {
 									}}>
 										<div style={{
 											fontWeight: "bold",
-											fontSize: "11px",
+											fontSize: "12px",
 											color: "#000000",
 											fontFamily: "Arial, sans-serif",
 										}}>
 											{e.name ? e.name : `Entry #${index + 1}`}
 										</div>
 										<div style={{
-											fontSize: "10px",
+											fontSize: "12px",
 											color: "#666666",
 											fontStyle: "italic",
 										}}>
@@ -364,7 +364,7 @@ export default function GuestbookPage(): React.ReactElement {
 										whiteSpace: "pre-wrap",
 										wordBreak: "break-word",
 										lineHeight: "1.4",
-										fontSize: "11px",
+										fontSize: "12px",
 										color: "#000000",
 									}}>
 										{e.text}

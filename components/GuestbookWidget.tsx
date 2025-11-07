@@ -171,7 +171,7 @@ export default function GuestbookWidget(): React.ReactElement {
 					height: "220px",
 					overflowY: "auto",
 					fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
-					fontSize: "10px",
+					fontSize: "12px",
 					color: "#000",
 				}}
 			>
@@ -180,9 +180,9 @@ export default function GuestbookWidget(): React.ReactElement {
 				) : (
 					formattedEntries.map((e) => (
 						<div key={e.id} style={{ marginBottom: "6px" }}>
-							<div style={{ fontWeight: "bold", fontSize: "9px", color: "#333" }}>{e.date}</div>
+							<div style={{ fontWeight: "bold", fontSize: "12px", color: "#333" }}>{e.date}</div>
 							{e.name && (
-								<div style={{ fontWeight: "bold", fontSize: "9px", color: "#555", marginBottom: "2px" }}>
+								<div style={{ fontWeight: "bold", fontSize: "12px", color: "#555", marginBottom: "2px" }}>
 									— {e.name}
 								</div>
 							)}
@@ -200,7 +200,7 @@ export default function GuestbookWidget(): React.ReactElement {
 					maxLength={50}
 					style={{
 						padding: "4px 6px",
-						fontSize: "9px",
+						fontSize: "12px",
 						border: "1px solid #999",
 						background: "#fffef2",
 						outline: "none",
@@ -216,7 +216,7 @@ export default function GuestbookWidget(): React.ReactElement {
 						style={{
 							flex: 1,
 							padding: "4px 6px",
-							fontSize: "10px",
+							fontSize: "12px",
 							border: "1px solid #999",
 							background: "#fffef2",
 							outline: "none",
@@ -226,7 +226,7 @@ export default function GuestbookWidget(): React.ReactElement {
 						onClick={handleSubmit}
 						style={{
 							padding: "4px 8px",
-							fontSize: "10px",
+							fontSize: "12px",
 							cursor: "pointer",
 							border: "1px solid #999",
 							background: "#ffff66",

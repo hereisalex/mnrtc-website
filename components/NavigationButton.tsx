@@ -15,7 +15,7 @@ function NavigationButton({ href, label, isActive, color }: NavigationButtonProp
       style={{
         display: 'block',
         padding: '4px 8px',
-        fontSize: '11px',
+        fontSize: '12px',
         fontFamily: 'Arial, sans-serif',
         color: '#000000',
         textDecoration: 'none',
