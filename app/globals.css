@@ -37,11 +37,22 @@ body {
   /* Background image set inline in layout.tsx to support basePath */
   color: var(--geocities-text);
   min-height: 100vh;
-  cursor: url('/retrowave/ArrowWave.ani'), auto;
+  /* Cursor fallbacks: .ani files only work in IE/Edge, provide SVG fallback */
+  cursor: url('/retrowave/ArrowWave.ani'), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 16 24"><path d="M 0,0 L 0,16 L 4,12 L 6,18 L 8,17 L 6,11 L 10,11 Z" fill="black" stroke="white" stroke-width="0.5"/></svg>') 0 0, auto;
   -webkit-font-smoothing: none;
   -moz-osx-font-smoothing: grayscale;
+  /* Image rendering with fallbacks */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
   image-rendering: pixelated;
   font-size: 17px;
+}
+
+/* Fix background-attachment: fixed on mobile devices for better performance */
+@media screen and (max-width: 768px) {
+  body {
+    background-attachment: scroll !important;
+  }
 }
 
 
@@ -64,6 +75,8 @@ body {
   background: transparent;
   border-right: none;
   padding: 10px;
+  /* Position sticky with fallback for older browsers */
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
   height: 100vh;
@@ -81,6 +94,8 @@ body {
   background: transparent;
   border-left: none;
   padding: 10px;
+  /* Position sticky with fallback for older browsers */
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
   height: 100vh;
@@ -203,39 +218,40 @@ p {
 }
 
 /* Custom Retrowave Cursors */
+/* .ani files only work in IE/Edge, provide SVG fallbacks for cross-browser support */
 a, .geocities-link {
-  cursor: url('/retrowave/LinkWave.ani'), pointer;
+  cursor: url('/retrowave/LinkWave.ani'), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 16 24"><path d="M 0,0 L 0,16 L 4,12 L 6,18 L 8,17 L 6,11 L 10,11 Z" fill="blue" stroke="white" stroke-width="0.5"/></svg>') 0 0, pointer;
 }
 
 button, .geocities-button {
-  cursor: url('/retrowave/ArrowWave.ani'), pointer;
+  cursor: url('/retrowave/ArrowWave.ani'), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 16 24"><path d="M 0,0 L 0,16 L 4,12 L 6,18 L 8,17 L 6,11 L 10,11 Z" fill="black" stroke="white" stroke-width="0.5"/></svg>') 0 0, pointer;
 }
 
 .geocities-button:hover {
-  cursor: url('/retrowave/ArrowWave.ani'), pointer;
+  cursor: url('/retrowave/ArrowWave.ani'), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 16 24"><path d="M 0,0 L 0,16 L 4,12 L 6,18 L 8,17 L 6,11 L 10,11 Z" fill="black" stroke="white" stroke-width="0.5"/></svg>') 0 0, pointer;
 }
 
 input, textarea {
-  cursor: url('/retrowave/PenWave.ani'), text;
+  cursor: url('/retrowave/PenWave.ani'), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M 2,2 L 2,14 L 14,14 L 14,2 Z" fill="none" stroke="black" stroke-width="1"/><path d="M 4,4 L 12,4 M 4,8 L 12,8 M 4,12 L 8,12" stroke="black" stroke-width="1"/></svg>') 0 0, text;
 }
 
 .geocities-section h2 {
-  cursor: url('/retrowave/MoveWave.ani'), move;
+  cursor: url('/retrowave/MoveWave.ani'), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M 8,2 L 8,14 M 2,8 L 14,8" stroke="black" stroke-width="2"/></svg>') 0 0, move;
 }
 
 /* Disabled elements */
 .geocities-button:disabled {
-  cursor: url('/retrowave/NoWave.ani'), not-allowed;
+  cursor: url('/retrowave/NoWave.ani'), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M 2,2 L 14,14 M 14,2 L 2,14" stroke="red" stroke-width="2"/></svg>') 0 0, not-allowed;
 }
 
 /* Loading state */
 .loading {
-  cursor: url('/retrowave/WaitWave.ani'), wait;
+  cursor: url('/retrowave/WaitWave.ani'), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="none" stroke="blue" stroke-width="2" stroke-dasharray="2 2"/></svg>') 0 0, wait;
 }
 
 /* Help elements */
 .help, [title] {
-  cursor: url('/retrowave/HelpWave.ani'), help;
+  cursor: url('/retrowave/HelpWave.ani'), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="white" stroke="black" stroke-width="1"/><text x="8" y="11" text-anchor="middle" font-size="10" fill="black">?</text></svg>') 0 0, help;
 }
 
 /* Vintage Circuit Board Background */
@@ -244,7 +260,8 @@ input, textarea {
   background-size: 20%;
   background-repeat: repeat;
   background-color: rgba(200, 220, 255, 0.3);
-  background-blend-mode: overlay;
+  /* Changed from overlay to normal for Firefox compatibility */
+  background-blend-mode: normal;
 }
 
 /* Post-it Note Styling */
@@ -260,6 +277,8 @@ input, textarea {
   font-size: 12px;
   line-height: 1.4;
   position: relative;
+  /* Clip-path with vendor prefixes for cross-browser support */
+  -webkit-clip-path: polygon(15px 0%, 100% 0%, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0% 100%, 0% 15px);
   clip-path: polygon(15px 0%, 100% 0%, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0% 100%, 0% 15px);
 }
 
@@ -313,6 +332,8 @@ input, textarea {
 /* Clipped Navigation Buttons */
 .clipped-button {
   position: relative;
+  /* Clip-path with vendor prefixes for cross-browser support */
+  -webkit-clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
   clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
 }
 
@@ -494,6 +515,7 @@ input, textarea {
 }
 
 /* Mac OS 9 Desktop Pattern */
+/* Reduced opacity for Firefox compatibility - prevents washed out appearance */
 body::before {
   content: '';
   position: fixed;
@@ -502,11 +524,21 @@ body::before {
   right: 0;
   bottom: 0;
   background-image: 
-    radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 1px, transparent 1px),
-    radial-gradient(circle at 75% 75%, rgba(0,0,0,0.05) 1px, transparent 1px);
+    radial-gradient(circle at 25% 25%, rgba(255,255,255,0.03) 1px, transparent 1px),
+    radial-gradient(circle at 75% 75%, rgba(0,0,0,0.02) 1px, transparent 1px);
   background-size: 20px 20px;
   pointer-events: none;
   z-index: -1;
+}
+
+/* Firefox-specific fix: Further reduce pattern visibility */
+/* Using @supports instead of deprecated @-moz-document */
+@supports (-moz-appearance: none) {
+  body::before {
+    background-image: 
+      radial-gradient(circle at 25% 25%, rgba(255,255,255,0.01) 1px, transparent 1px),
+      radial-gradient(circle at 75% 75%, rgba(0,0,0,0.01) 1px, transparent 1px);
+  }
 }
 
 /* Mac OS 9 Scrollbar */
@@ -719,9 +751,19 @@ a, button, [role="button"], .mac-button {
   background: linear-gradient(45deg, #ff69b4, #ffff00, #00ff00, #4169e1, #9932cc, #ff69b4);
   background-size: 400% 400%;
   animation: geocities-glitter 2s ease-in-out infinite;
+  /* Background clip with vendor prefixes and fallback */
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--geocities-accent-pink); /* Fallback color for browsers that don't support background-clip: text */
+}
+
+/* Fallback for browsers that don't support background-clip: text */
+@supports not (-webkit-background-clip: text) {
+  .geocities-glitter {
+    -webkit-text-fill-color: var(--geocities-accent-pink);
+    color: var(--geocities-accent-pink);
+  }
 }
 
 @keyframes geocities-glitter {
@@ -755,9 +797,19 @@ a, button, [role="button"], .mac-button {
   background: linear-gradient(45deg, #ff0000, #ff8000, #ffff00, #80ff00, #00ff80, #00ffff, #8000ff, #ff0080);
   background-size: 400% 400%;
   animation: geocities-rainbow 3s ease-in-out infinite;
+  /* Background clip with vendor prefixes and fallback */
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #ff0000; /* Fallback color for browsers that don't support background-clip: text */
+}
+
+/* Fallback for browsers that don't support background-clip: text */
+@supports not (-webkit-background-clip: text) {
+  .geocities-rainbow {
+    -webkit-text-fill-color: #ff0000;
+    color: #ff0000;
+  }
 }
 
 @keyframes geocities-rainbow {
@@ -791,8 +843,11 @@ a, button, [role="button"], .mac-button {
 
 /* Pixelated images */
 img {
+  /* Image rendering with vendor prefixes and fallbacks */
   image-rendering: -webkit-optimize-contrast;
+  image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
+  image-rendering: pixelated;
 }
 
 /* GeoCities Button Styling */

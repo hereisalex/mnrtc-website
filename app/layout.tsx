@@ -45,7 +45,8 @@ async function RootLayout({
           backgroundRepeat: 'repeat',
           backgroundAttachment: 'fixed',
           backgroundColor: 'rgba(200, 220, 255, 0.3)',
-          backgroundBlendMode: 'overlay',
+          // Use 'normal' blend mode for Firefox compatibility, overlay causes washed out effect
+          backgroundBlendMode: 'normal',
         }}
       >
         <SupabaseProvider initialSession={initialSession}>
