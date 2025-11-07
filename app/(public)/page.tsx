@@ -9,6 +9,23 @@ function Home() {
       height: '100%',
       overflow: 'hidden'
     }}>
+      {/* Construction Banner */}
+      <div style={{
+        width: '100%',
+        textAlign: 'center',
+        marginBottom: '-20px'
+      }}>
+        <img
+          src="/images/construction.gif"
+          alt="Under Construction"
+          style={{
+            width: '100%',
+            height: 'auto',
+            display: 'block'
+          }}
+        />
+      </div>
+
       {/* Main Content Section */}
       <div style={{
         flex: 1,
