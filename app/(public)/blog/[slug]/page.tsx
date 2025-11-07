@@ -4,6 +4,13 @@ import GeoCitiesButton from "@/components/geocities/GeoCitiesButton";
 import { getAllPosts, getPostBySlug } from "@/lib/blog";
 import { format } from "date-fns";
 
+// Required for static export - generate static params for all published blog posts
+export async function generateStaticParams() {
+  // For now, return empty array - pages will be generated on-demand
+  // In production, you could fetch all blog post slugs here
+  return [];
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const post = await getPostBySlug(slug);

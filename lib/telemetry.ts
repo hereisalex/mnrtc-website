@@ -1,6 +1,6 @@
 /**
  * Client-side telemetry utilities for tracking page views and errors.
- * These functions send data to the Next.js API routes which persist to Supabase.
+ * These functions write directly to Supabase (for static export compatibility).
  */
 
 type TelemetryOptions = {
@@ -61,16 +61,43 @@ export const trackPageView = async (
   };
 
   try {
-    const response = await fetch('/api/telemetry/track', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    });
+    // Use dynamic import to avoid SSR issues
+    const { getBrowserSupabaseClient } = await import('@/lib/supabaseClient');
+    const supabase = getBrowserSupabaseClient();
+    
+    if (!supabase) {
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('[Telemetry] Supabase client not available');
+      }
+      return;
+    }
 
-    if (!response.ok) {
-      console.warn('[Telemetry] Failed to track page view:', response.status);
+    const isUuidV4 = (value: string): boolean => {
+      const uuidV4 = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+      return uuidV4.test(value);
+    };
+
+    const sanitizePath = (path: string): string => {
+      if (!path.startsWith('/')) {
+        return `/${path}`;
+      }
+      return path.slice(0, 512);
+    };
+
+    const record = {
+      path: sanitizePath(payload.path),
+      referrer: payload.referrer ? payload.referrer.slice(0, 512) : null,
+      session_id: payload.sessionId && isUuidV4(payload.sessionId) ? payload.sessionId : null,
+      user_agent: payload.userAgent?.slice(0, 512) ?? null,
+      created_at: payload.timestamp ? new Date(payload.timestamp).toISOString() : undefined,
+    };
+
+    const { error } = await supabase.from('page_views').insert(record);
+    
+    if (error) {
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('[Telemetry] Failed to track page view:', error);
+      }
     }
   } catch (error) {
     // Silently fail - telemetry should not break the app
@@ -111,16 +138,39 @@ export const logError = async (
   };
 
   try {
-    const response = await fetch('/api/telemetry/log-error', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    });
+    // Use dynamic import to avoid SSR issues
+    const { getBrowserSupabaseClient } = await import('@/lib/supabaseClient');
+    const supabase = getBrowserSupabaseClient();
+    
+    if (!supabase) {
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('[Telemetry] Supabase client not available');
+      }
+      return;
+    }
 
-    if (!response.ok) {
-      console.warn('[Telemetry] Failed to log error:', response.status);
+    const ACCEPTED_LEVELS = new Set(['debug', 'info', 'warn', 'error', 'fatal']);
+    const sanitizeLevel = (level?: string): string => {
+      if (!level) return 'error';
+      const normalized = level.toLowerCase();
+      return ACCEPTED_LEVELS.has(normalized) ? normalized : 'error';
+    };
+
+    const record = {
+      message: payload.message.slice(0, 2000),
+      level: sanitizeLevel(payload.level),
+      stack: payload.stack?.slice(0, 8000) ?? null,
+      context: payload.context ?? {},
+      source: payload.source?.slice(0, 512) ?? null,
+      created_at: payload.timestamp ? new Date(payload.timestamp).toISOString() : undefined,
+    };
+
+    const { error } = await supabase.from('error_logs').insert(record);
+    
+    if (error) {
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('[Telemetry] Failed to log error:', error);
+      }
     }
   } catch (error) {
     // Silently fail - telemetry should not break the app

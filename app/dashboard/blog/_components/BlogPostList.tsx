@@ -159,12 +159,12 @@ export function BlogPostList({ posts }: BlogPostListProps) {
               </td>
               <td style={bodyCell}>
                 <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                  <button
-                    onClick={() => router.push(`/dashboard/blog/${post.slug}`)}
-                    style={actionButtonStyle}
-                  >
-                    Edit
-                  </button>
+                          <button
+                            onClick={() => router.push(`/dashboard/blog?mode=edit&slug=${post.slug}`)}
+                            style={actionButtonStyle}
+                          >
+                            Edit
+                          </button>
                   <button
                     onClick={() => handleTogglePublish(post)}
                     style={actionButtonStyle}

@@ -49,16 +49,13 @@ export function HealthStatus({ initialData }: HealthStatusProps) {
     setError(null);
 
     try {
-      const response = await fetch("/api/health", {
-        cache: "no-store",
-      });
-
-      if (!response.ok) {
-        throw new Error(`Health endpoint responded with ${response.status}`);
-      }
-
-      const payload = (await response.json()) as HealthPayload;
-      setHealth(payload);
+      // Health check API is not available in static export mode
+      // Show a message explaining this limitation
+      setError(
+        "Health check is not available in static export mode. " +
+        "This feature requires a server runtime and API routes, which are not supported " +
+        "when deploying as a static site (e.g., GitHub Pages)."
+      );
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unknown error while fetching health status.");
     } finally {
