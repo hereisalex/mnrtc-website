@@ -1,47 +1,94 @@
+'use client';
+
+import { useState, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import type { CSSProperties } from "react";
-import { redirect } from "next/navigation";
-import { createServerSupabaseClient } from "@/lib/supabaseServer";
-import { userHasDashboardAccess } from "@/lib/auth";
+import { getBrowserSupabaseClient } from "@/lib/supabaseClient";
 import { BlogPostList } from "./_components/BlogPostList";
 import { BlogPostForm } from "./_components/BlogPostForm";
 import Link from "next/link";
 
-type BlogPageProps = {
-  searchParams?: Record<string, string | string[] | undefined>;
-};
+interface BlogPost {
+  slug: string;
+  title: string;
+  date: string;
+  description: string;
+  author: string;
+  tags: string[];
+  content_markdown?: string;
+  published: boolean;
+}
 
-export default async function BlogPage({ searchParams }: BlogPageProps) {
-  const supabase = createServerSupabaseClient();
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+export default function BlogPage() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const mode = searchParams.get("mode") || "list";
+  const editSlug = searchParams.get("slug");
+  
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [editPost, setEditPost] = useState<BlogPost | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  if (!session || !userHasDashboardAccess(session.user)) {
-    redirect("/login?redirectedFrom=/dashboard/blog");
-  }
+  useEffect(() => {
+    const loadData = async () => {
+      const supabase = getBrowserSupabaseClient();
+      if (!supabase) {
+        setIsLoading(false);
+        return;
+      }
 
-  const mode = typeof searchParams?.mode === "string" ? searchParams.mode : "list";
-  const editSlug = typeof searchParams?.slug === "string" ? searchParams.slug : null;
+      try {
+        // Fetch all posts (including unpublished) for admin view
+        const { data: postsData, error: postsError } = await supabase
+          .from("blog_posts")
+          .select("slug, title, date, description, author, tags, published")
+          .order("date", { ascending: false });
 
-  // Fetch all posts (including unpublished) for admin view
-  const { data: posts, error } = await supabase
-    .from("blog_posts")
-    .select("slug, title, date, description, author, tags, published")
-    .order("date", { ascending: false });
+        if (postsError) {
+          console.error("[Dashboard] Failed to load blog posts", postsError);
+        } else {
+          setPosts(postsData || []);
+        }
 
-  if (error) {
-    console.error("[Dashboard] Failed to load blog posts", error);
-  }
+        // If editing, fetch the specific post
+        if (editSlug && mode === "edit") {
+          const { data: postData, error: postError } = await supabase
+            .from("blog_posts")
+            .select("slug, title, date, description, author, tags, content_markdown, published")
+            .eq("slug", editSlug)
+            .single();
 
-  // If editing, fetch the specific post
-  let editPost = null;
-  if (editSlug && mode === "edit") {
-    const { data } = await supabase
-      .from("blog_posts")
-      .select("slug, title, date, description, author, tags, content_markdown, published")
-      .eq("slug", editSlug)
-      .single();
-    editPost = data;
+          if (!postError && postData) {
+            setEditPost(postData);
+          }
+        }
+      } catch (error) {
+        console.error("[Dashboard] Error loading data", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadData();
+  }, [mode, editSlug]);
+
+  const handleRefresh = () => {
+    router.refresh();
+    // Reload data
+    const supabase = getBrowserSupabaseClient();
+    if (supabase) {
+      supabase
+        .from("blog_posts")
+        .select("slug, title, date, description, author, tags, published")
+        .order("date", { ascending: false })
+        .then(({ data }) => {
+          if (data) setPosts(data);
+        });
+    }
+  };
+
+  if (isLoading) {
+    return <div style={{ color: 'rgba(226,232,240,0.7)' }}>Loading...</div>;
   }
 
   return (
@@ -72,15 +119,15 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
       </div>
 
       {mode === "list" && (
-        <BlogPostList posts={posts || []} />
+        <BlogPostList posts={posts} />
       )}
 
       {(mode === "new" || mode === "edit") && (
         <div style={formContainerStyle}>
           <BlogPostForm
             post={editPost || undefined}
-            onSave={() => {}}
-            onCancel={() => {}}
+            onSave={handleRefresh}
+            onCancel={() => router.push('/dashboard/blog')}
           />
         </div>
       )}

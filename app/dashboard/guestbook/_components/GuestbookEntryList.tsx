@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { getBrowserSupabaseClient } from '@/lib/supabaseClient';
 
 interface GuestbookEntry {
   id: string;
@@ -25,16 +26,21 @@ export function GuestbookEntryList({ entries }: GuestbookEntryListProps) {
     }
 
     setDeletingId(id);
+    const supabase = getBrowserSupabaseClient();
+
+    if (!supabase) {
+      alert('Supabase client not available');
+      setDeletingId(null);
+      return;
+    }
 
     try {
-      const response = await fetch(`/api/guestbook/${id}`, {
-        method: 'DELETE',
-      });
+      const { error } = await supabase
+        .from('guestbook_entries')
+        .delete()
+        .eq('id', id);
 
-      if (!response.ok) {
-        const error = await response.json().catch(() => ({ error: 'Failed to delete entry' }));
-        throw new Error(error.error || 'Failed to delete entry');
-      }
+      if (error) throw error;
 
       router.refresh();
     } catch (error) {

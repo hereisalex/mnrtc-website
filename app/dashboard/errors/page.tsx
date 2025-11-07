@@ -1,7 +1,9 @@
+'use client';
+
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import type { CSSProperties } from "react";
-import { redirect } from "next/navigation";
-import { createServerSupabaseClient } from "@/lib/supabaseServer";
-import { userHasDashboardAccess } from "@/lib/auth";
+import { getBrowserSupabaseClient } from "@/lib/supabaseClient";
 import { ErrorLogFilters } from "./_components/ErrorLogFilters";
 import { PaginationControls } from "./_components/PaginationControls";
 import { CopyButton } from "@/components/dashboard/CopyButton";
@@ -16,13 +18,9 @@ type ErrorLogRow = {
   created_at: string;
 };
 
-type PageProps = {
-  searchParams?: Record<string, string | string[] | undefined>;
-};
-
 const formatDateInput = (date: Date): string => date.toISOString().slice(0, 10);
 
-const parseDateParam = (value: string | undefined, fallback: Date): Date => {
+const parseDateParam = (value: string | null, fallback: Date): Date => {
   if (!value) return fallback;
   const parsed = new Date(value);
   return Number.isNaN(parsed.getTime()) ? fallback : parsed;
@@ -37,61 +35,79 @@ const addDaysUtc = (date: Date, days: number): Date => {
   return next;
 };
 
-export default async function ErrorLogsPage({ searchParams }: PageProps) {
-  const supabase = createServerSupabaseClient();
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  if (!session || !userHasDashboardAccess(session.user)) {
-    redirect("/login?redirectedFrom=/dashboard/errors");
-  }
+export default function ErrorLogsPage() {
+  const searchParams = useSearchParams();
+  const [errorLogs, setErrorLogs] = useState<ErrorLogRow[]>([]);
+  const [count, setCount] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const today = startOfDayUtc(new Date());
   const defaultFrom = addDaysUtc(today, -7);
 
-  const levelParam = typeof searchParams?.level === "string" ? searchParams.level : "all";
-  const pageParam = Number.parseInt(
-    typeof searchParams?.page === "string" ? searchParams.page : "1",
-    10
-  );
+  const levelParam = searchParams.get("level") || "all";
+  const pageParam = Number.parseInt(searchParams.get("page") || "1", 10);
   const page = Number.isNaN(pageParam) || pageParam < 1 ? 1 : pageParam;
   const pageSize = 20;
   const offset = (page - 1) * pageSize;
 
   const fromDate = parseDateParam(
-    typeof searchParams?.from === "string" ? searchParams?.from : undefined,
+    searchParams.get("from"),
     defaultFrom
   );
   const toDate = parseDateParam(
-    typeof searchParams?.to === "string" ? searchParams?.to : undefined,
+    searchParams.get("to"),
     today
   );
 
   const fromIso = formatDateInput(fromDate);
   const toIso = formatDateInput(toDate);
 
-  let query = supabase
-    .from("error_logs")
-    .select("id, level, message, stack, context, source, created_at", { count: "exact" })
-    .order("created_at", { ascending: false })
-    .range(offset, offset + pageSize - 1);
+  useEffect(() => {
+    const loadData = async () => {
+      const supabase = getBrowserSupabaseClient();
+      if (!supabase) {
+        setIsLoading(false);
+        return;
+      }
 
-  if (levelParam && levelParam !== "all") {
-    query = query.eq("level", levelParam);
+      try {
+        let query = supabase
+          .from("error_logs")
+          .select("id, level, message, stack, context, source, created_at", { count: "exact" })
+          .order("created_at", { ascending: false })
+          .range(offset, offset + pageSize - 1);
+
+        if (levelParam && levelParam !== "all") {
+          query = query.eq("level", levelParam);
+        }
+
+        query = query
+          .gte("created_at", startOfDayUtc(fromDate).toISOString())
+          .lt("created_at", addDaysUtc(toDate, 1).toISOString());
+
+        const { data: errorLogsData, count: countData, error } = await query;
+
+        if (error) {
+          console.error("[Dashboard] Failed to load error logs", error);
+        } else {
+          setErrorLogs(errorLogsData || []);
+          setCount(countData);
+        }
+      } catch (error) {
+        console.error("[Dashboard] Error loading error logs", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadData();
+  }, [levelParam, page, fromIso, toIso, offset, pageSize, fromDate, toDate]);
+
+  const rows: ErrorLogRow[] = errorLogs;
+
+  if (isLoading) {
+    return <div style={{ color: 'rgba(226,232,240,0.7)' }}>Loading...</div>;
   }
-
-  query = query
-    .gte("created_at", startOfDayUtc(fromDate).toISOString())
-    .lt("created_at", addDaysUtc(toDate, 1).toISOString());
-
-  const { data: errorLogs, count, error } = await query;
-
-  if (error) {
-    console.error("[Dashboard] Failed to load error logs", error);
-  }
-
-  const rows: ErrorLogRow[] = errorLogs ?? [];
 
   return (
     <div>
@@ -103,7 +119,7 @@ export default async function ErrorLogsPage({ searchParams }: PageProps) {
       </header>
 
       <ErrorLogFilters
-        defaultLevel={levelParam ?? "all"}
+        defaultLevel={levelParam || "all"}
         defaultFrom={fromIso}
         defaultTo={toIso}
       />
@@ -185,7 +201,7 @@ export default async function ErrorLogsPage({ searchParams }: PageProps) {
         </table>
       </div>
 
-      <PaginationControls page={page} pageSize={pageSize} totalCount={count ?? null} />
+      <PaginationControls page={page} pageSize={pageSize} totalCount={count} />
     </div>
   );
 }
@@ -238,5 +254,3 @@ const levelColor = (level: string): string => {
       return "rgba(226,232,240,0.85)";
   }
 };
-
-

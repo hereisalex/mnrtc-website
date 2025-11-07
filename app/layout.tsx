@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { SupabaseProvider } from "@/components/providers/SupabaseProvider";
-import { createServerSupabaseClient } from "@/lib/supabaseServer";
 import { PageViewTracker } from "@/components/telemetry/PageViewTracker";
 import { TelemetryErrorBoundary } from "@/components/telemetry/ErrorBoundary";
 
@@ -27,15 +26,14 @@ async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const supabase = createServerSupabaseClient();
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  // For static export, we can't use server-side Supabase client
+  // The SupabaseProvider will handle session initialization client-side
+  const initialSession = null;
 
   return (
     <html lang="en">
       <body style={{ margin: 0, padding: 0 }}>
-        <SupabaseProvider initialSession={session ?? null}>
+        <SupabaseProvider initialSession={initialSession}>
           <TelemetryErrorBoundary>
             <PageViewTracker />
             {children}

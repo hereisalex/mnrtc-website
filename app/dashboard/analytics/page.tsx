@@ -1,19 +1,15 @@
+'use client';
+
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import type { CSSProperties } from "react";
-import { redirect } from "next/navigation";
-import { createServerSupabaseClient } from "@/lib/supabaseServer";
-import { userHasDashboardAccess } from "@/lib/auth";
+import { getBrowserSupabaseClient } from "@/lib/supabaseClient";
 import { AnalyticsFilters } from "./_components/AnalyticsFilters";
 import { TrafficChart } from "./_components/TrafficChart";
 
-export const dynamic = 'force-dynamic';
-
-type AnalyticsPageProps = {
-  searchParams?: Record<string, string | string[] | undefined>;
-};
-
 const formatDateInput = (date: Date): string => date.toISOString().slice(0, 10);
 
-const parseDateParam = (value: string | undefined, fallback: Date): Date => {
+const parseDateParam = (value: string | null, fallback: Date): Date => {
   if (!value) return fallback;
   const parsed = new Date(value);
   if (Number.isNaN(parsed.getTime())) {
@@ -22,15 +18,11 @@ const parseDateParam = (value: string | undefined, fallback: Date): Date => {
   return parsed;
 };
 
-export default async function AnalyticsPage({ searchParams }: AnalyticsPageProps) {
-  const supabase = createServerSupabaseClient();
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  if (!session || !userHasDashboardAccess(session.user)) {
-    redirect("/login?redirectedFrom=/dashboard/analytics");
-  }
+export default function AnalyticsPage() {
+  const searchParams = useSearchParams();
+  const [dailyData, setDailyData] = useState<Array<{ day: string; view_count: number | string }>>([]);
+  const [referrerData, setReferrerData] = useState<Array<{ referrer: string; view_count: number | string }>>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const today = new Date();
   const defaultTo = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()));
@@ -38,39 +30,62 @@ export default async function AnalyticsPage({ searchParams }: AnalyticsPageProps
   defaultFrom.setUTCDate(defaultFrom.getUTCDate() - 13); // 14-day window
 
   const fromDate = parseDateParam(
-    typeof searchParams?.from === "string" ? searchParams?.from : undefined,
+    searchParams.get("from"),
     defaultFrom
   );
 
   const toDate = parseDateParam(
-    typeof searchParams?.to === "string" ? searchParams?.to : undefined,
+    searchParams.get("to"),
     defaultTo
   );
 
   const fromIso = formatDateInput(fromDate);
   const toIso = formatDateInput(toDate);
 
-  const [{ data: dailyData, error: dailyError }, { data: referrerData, error: referrerError }] =
-    await Promise.all([
-      supabase.rpc("dashboard_page_views_daily", {
-        from_date: fromIso,
-        to_date: toIso,
-      }),
-      supabase.rpc("dashboard_top_referrers", {
-        limit_count: 8,
-        from_date: fromIso,
-        to_date: toIso,
-      }),
-    ]);
+  useEffect(() => {
+    const loadData = async () => {
+      const supabase = getBrowserSupabaseClient();
+      if (!supabase) {
+        setIsLoading(false);
+        return;
+      }
 
-  if (dailyError) {
-    console.error("[Dashboard] dashboard_page_views_daily failed", dailyError);
-  }
-  if (referrerError) {
-    console.error("[Dashboard] dashboard_top_referrers failed", referrerError);
-  }
+      try {
+        const [{ data: dailyDataResult, error: dailyError }, { data: referrerDataResult, error: referrerError }] =
+          await Promise.all([
+            supabase.rpc("dashboard_page_views_daily", {
+              from_date: fromIso,
+              to_date: toIso,
+            }),
+            supabase.rpc("dashboard_top_referrers", {
+              limit_count: 8,
+              from_date: fromIso,
+              to_date: toIso,
+            }),
+          ]);
 
-  const chartData = (dailyData ?? []).map((entry: { day: string; view_count: number | string }) => ({
+        if (dailyError) {
+          console.error("[Dashboard] dashboard_page_views_daily failed", dailyError);
+        } else {
+          setDailyData(dailyDataResult || []);
+        }
+
+        if (referrerError) {
+          console.error("[Dashboard] dashboard_top_referrers failed", referrerError);
+        } else {
+          setReferrerData(referrerDataResult || []);
+        }
+      } catch (error) {
+        console.error("[Dashboard] Error loading analytics", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadData();
+  }, [fromIso, toIso]);
+
+  const chartData = dailyData.map((entry: { day: string; view_count: number | string }) => ({
     day: entry.day,
     view_count: Number(entry.view_count) || 0,
   }));
@@ -79,6 +94,10 @@ export default async function AnalyticsPage({ searchParams }: AnalyticsPageProps
   const averageViews =
     chartData.length > 0 ? Math.round(totalViews / chartData.length) : 0;
   const maxViews = chartData.reduce((max: number, entry: { view_count: number }) => Math.max(max, entry.view_count), 0);
+
+  if (isLoading) {
+    return <div style={{ color: 'rgba(226,232,240,0.7)' }}>Loading...</div>;
+  }
 
   return (
     <div>
@@ -136,14 +155,14 @@ export default async function AnalyticsPage({ searchParams }: AnalyticsPageProps
               </tr>
             </thead>
             <tbody>
-              {(referrerData ?? []).length === 0 ? (
+              {referrerData.length === 0 ? (
                 <tr>
                   <td colSpan={2} style={{ padding: "1rem 0.5rem", color: "rgba(226,232,240,0.45)" }}>
                     No referrer data for the selected window.
                   </td>
                 </tr>
               ) : (
-                (referrerData ?? []).map((item: { referrer: string; view_count: number | string }) => (
+                referrerData.map((item: { referrer: string; view_count: number | string }) => (
                   <tr key={`${item.referrer}-${item.view_count}`}>
                     <td style={{ padding: "0.75rem 0.5rem", borderBottom: "1px solid rgba(148,163,184,0.15)" }}>
                       {item.referrer}
@@ -185,5 +204,3 @@ const metricValueStyle: CSSProperties = {
   fontWeight: 700,
   color: "#f8fafc",
 };
-
-

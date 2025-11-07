@@ -1,7 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { getBrowserSupabaseClient } from '@/lib/supabaseClient';
+import { marked } from 'marked';
 
 interface BlogPost {
   slug: string;
@@ -10,7 +12,7 @@ interface BlogPost {
   description: string;
   author: string;
   tags: string[];
-  content_markdown: string;
+  content_markdown?: string;
   published: boolean;
 }
 
@@ -43,25 +45,54 @@ export function BlogPostForm({ post, onSave, onCancel }: BlogPostFormProps) {
     setError(null);
 
     const tags = tagsInput.split(',').map(t => t.trim()).filter(t => t.length > 0);
+    const supabase = getBrowserSupabaseClient();
+
+    if (!supabase) {
+      setError('Supabase client not available');
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
-      const url = post ? `/api/blog/${post.slug}` : '/api/blog';
-      const method = post ? 'PUT' : 'POST';
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        throw new Error('Not authenticated');
+      }
 
-      const response = await fetch(url, {
-        method,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...formData,
-          tags,
-        }),
-      });
+      // Generate HTML from markdown
+      const content = marked(formData.content_markdown || '') as string;
 
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to save post');
+      const postData = {
+        title: formData.title,
+        date: new Date(formData.date).toISOString(),
+        description: formData.description,
+        author: formData.author,
+        tags,
+        content_markdown: formData.content_markdown,
+        content,
+        published: formData.published,
+        updated_by: session.user.id,
+      };
+
+      if (post) {
+        // Update existing post
+        const { error } = await supabase
+          .from('blog_posts')
+          .update(postData)
+          .eq('slug', post.slug);
+
+        if (error) throw error;
+      } else {
+        // Create new post
+        const { error } = await supabase
+          .from('blog_posts')
+          .insert({
+            ...postData,
+            slug: formData.slug,
+            created_by: session.user.id,
+          });
+
+        if (error) throw error;
       }
 
       onSave();

@@ -1,28 +1,18 @@
+'use client';
+
 import type { ReactNode } from "react";
-import { redirect } from "next/navigation";
-import { createServerSupabaseClient } from "@/lib/supabaseServer";
-import { getUserRole, userHasDashboardAccess } from "@/lib/auth";
 import { SignOutButton } from "@/components/auth/SignOutButton";
 import { DashboardNav } from "./_components/DashboardNav";
-
-export const dynamic = 'force-dynamic';
+import { AuthGuard, useAuth } from "@/components/auth/AuthGuard";
 
 type DashboardLayoutProps = {
   children: ReactNode;
 };
 
-export default async function DashboardLayout({ children }: DashboardLayoutProps) {
-  const supabase = createServerSupabaseClient();
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  if (!session || !userHasDashboardAccess(session.user)) {
-    redirect("/login?redirectedFrom=/dashboard");
-  }
-
-  const userEmail = session.user.email ?? "unknown user";
-  const role = getUserRole(session.user);
+function DashboardContent({ children }: DashboardLayoutProps) {
+  const { user, getUserRole } = useAuth();
+  const userEmail = user?.email ?? "unknown user";
+  const role = getUserRole();
 
   return (
     <div
@@ -68,6 +58,14 @@ export default async function DashboardLayout({ children }: DashboardLayoutProps
         </section>
       </div>
     </div>
+  );
+}
+
+export default function DashboardLayout({ children }: DashboardLayoutProps) {
+  return (
+    <AuthGuard>
+      <DashboardContent>{children}</DashboardContent>
+    </AuthGuard>
   );
 }
 

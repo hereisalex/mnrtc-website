@@ -1,27 +1,64 @@
+'use client';
+
+import { useState, useEffect } from "react";
 import type { CSSProperties } from "react";
-import { redirect } from "next/navigation";
-import { createServerSupabaseClient } from "@/lib/supabaseServer";
-import { userHasDashboardAccess } from "@/lib/auth";
+import { getBrowserSupabaseClient } from "@/lib/supabaseClient";
 import { GuestbookEntryList } from "./_components/GuestbookEntryList";
 
-export default async function GuestbookModerationPage() {
-  const supabase = createServerSupabaseClient();
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+interface GuestbookEntry {
+  id: string;
+  text: string;
+  created_at: string;
+}
 
-  if (!session || !userHasDashboardAccess(session.user)) {
-    redirect("/login?redirectedFrom=/dashboard/guestbook");
-  }
+export default function GuestbookModerationPage() {
+  const [entries, setEntries] = useState<GuestbookEntry[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Fetch all guestbook entries
-  const { data: entries, error } = await supabase
-    .from("guestbook_entries")
-    .select("id, text, created_at")
-    .order("created_at", { ascending: false });
+  useEffect(() => {
+    const loadEntries = async () => {
+      const supabase = getBrowserSupabaseClient();
+      if (!supabase) {
+        setIsLoading(false);
+        return;
+      }
 
-  if (error) {
-    console.error("[Dashboard] Failed to load guestbook entries", error);
+      try {
+        const { data: entriesData, error } = await supabase
+          .from("guestbook_entries")
+          .select("id, text, created_at")
+          .order("created_at", { ascending: false });
+
+        if (error) {
+          console.error("[Dashboard] Failed to load guestbook entries", error);
+        } else {
+          setEntries(entriesData || []);
+        }
+      } catch (error) {
+        console.error("[Dashboard] Error loading guestbook entries", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadEntries();
+  }, []);
+
+  const handleRefresh = () => {
+    const supabase = getBrowserSupabaseClient();
+    if (supabase) {
+      supabase
+        .from("guestbook_entries")
+        .select("id, text, created_at")
+        .order("created_at", { ascending: false })
+        .then(({ data }) => {
+          if (data) setEntries(data);
+        });
+    }
+  };
+
+  if (isLoading) {
+    return <div style={{ color: 'rgba(226,232,240,0.7)' }}>Loading...</div>;
   }
 
   return (
@@ -35,11 +72,11 @@ export default async function GuestbookModerationPage() {
         </div>
         <div style={statsContainerStyle}>
           <span style={statLabelStyle}>Total Entries</span>
-          <strong style={statValueStyle}>{entries?.length || 0}</strong>
+          <strong style={statValueStyle}>{entries.length}</strong>
         </div>
       </div>
 
-      <GuestbookEntryList entries={entries || []} />
+      <GuestbookEntryList entries={entries} />
     </div>
   );
 }

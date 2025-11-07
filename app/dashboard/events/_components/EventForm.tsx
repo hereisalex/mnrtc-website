@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { getBrowserSupabaseClient } from '@/lib/supabaseClient';
 
 interface Event {
   id: string;
@@ -41,29 +42,48 @@ export function EventForm({ event, onSave, onCancel }: EventFormProps) {
     setIsSubmitting(true);
     setError(null);
 
+    const supabase = getBrowserSupabaseClient();
+    if (!supabase) {
+      setError('Supabase client not available');
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
-      const url = event ? `/api/events/${event.id}` : '/api/events';
-      const method = event ? 'PUT' : 'POST';
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        throw new Error('Not authenticated');
+      }
 
-      const response = await fetch(url, {
-        method,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          title: formData.title,
-          date: formData.date,
-          time: formData.time,
-          location: formData.location,
-          description: formData.description,
-          status: formData.status,
-          published: formData.published,
-        }),
-      });
+      const eventData = {
+        title: formData.title,
+        date: new Date(formData.date).toISOString().split('T')[0],
+        time: formData.time,
+        location: formData.location,
+        description: formData.description,
+        status: formData.status,
+        published: formData.published,
+        updated_by: session.user.id,
+      };
 
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to save event');
+      if (event) {
+        // Update existing event
+        const { error } = await supabase
+          .from('events')
+          .update(eventData)
+          .eq('id', event.id);
+
+        if (error) throw error;
+      } else {
+        // Create new event
+        const { error } = await supabase
+          .from('events')
+          .insert({
+            ...eventData,
+            created_by: session.user.id,
+          });
+
+        if (error) throw error;
       }
 
       onSave();

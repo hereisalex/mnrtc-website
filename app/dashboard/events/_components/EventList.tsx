@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { getBrowserSupabaseClient } from '@/lib/supabaseClient';
 
 interface Event {
   id: string;
@@ -28,15 +29,21 @@ export function EventList({ events }: EventListProps) {
     }
 
     setDeletingId(id);
+    const supabase = getBrowserSupabaseClient();
+
+    if (!supabase) {
+      alert('Supabase client not available');
+      setDeletingId(null);
+      return;
+    }
 
     try {
-      const response = await fetch(`/api/events/${id}`, {
-        method: 'DELETE',
-      });
+      const { error } = await supabase
+        .from('events')
+        .delete()
+        .eq('id', id);
 
-      if (!response.ok) {
-        throw new Error('Failed to delete event');
-      }
+      if (error) throw error;
 
       router.refresh();
     } catch (error) {
@@ -47,21 +54,28 @@ export function EventList({ events }: EventListProps) {
   };
 
   const handleTogglePublish = async (event: Event) => {
-    try {
-      const response = await fetch(`/api/events/${event.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...event,
-          published: !event.published,
-        }),
-      });
+    const supabase = getBrowserSupabaseClient();
 
-      if (!response.ok) {
-        throw new Error('Failed to update event');
+    if (!supabase) {
+      alert('Supabase client not available');
+      return;
+    }
+
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        throw new Error('Not authenticated');
       }
+
+      const { error } = await supabase
+        .from('events')
+        .update({ 
+          published: !event.published,
+          updated_by: session.user.id,
+        })
+        .eq('id', event.id);
+
+      if (error) throw error;
 
       router.refresh();
     } catch (error) {

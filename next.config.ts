@@ -2,16 +2,16 @@ import type { NextConfig } from "next";
 import createMDX from "@next/mdx";
 
 const nextConfig: NextConfig = {
-  // Removed 'output: export' to enable API routes and server-side rendering for dashboard
+  output: 'export', // Static export for GitHub Pages
   trailingSlash: true,
   skipTrailingSlashRedirect: true,
+  distDir: 'out',
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
   images: {
     unoptimized: true,
   },
-  // Only use basePath/assetPrefix for GitHub Pages, not for Vercel
-  assetPrefix: process.env.GITHUB_PAGES === 'true' ? '/mnrtc-website' : '',
-  basePath: process.env.GITHUB_PAGES === 'true' ? '/mnrtc-website' : '',
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/mnrtc-website' : '',
+  basePath: process.env.NODE_ENV === 'production' ? '/mnrtc-website' : '',
   // Fix workspace root detection
   turbopack: {
     root: process.cwd(),

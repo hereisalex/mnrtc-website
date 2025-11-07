@@ -1,47 +1,94 @@
+'use client';
+
+import { useState, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import type { CSSProperties } from "react";
-import { redirect } from "next/navigation";
-import { createServerSupabaseClient } from "@/lib/supabaseServer";
-import { userHasDashboardAccess } from "@/lib/auth";
+import { getBrowserSupabaseClient } from "@/lib/supabaseClient";
 import { EventList } from "./_components/EventList";
 import { EventForm } from "./_components/EventForm";
 import Link from "next/link";
 
-type EventsPageProps = {
-  searchParams?: Record<string, string | string[] | undefined>;
-};
+interface Event {
+  id: string;
+  title: string;
+  date: string;
+  time: string;
+  location: string;
+  description: string;
+  status: 'upcoming' | 'past' | 'tba';
+  published: boolean;
+}
 
-export default async function EventsPage({ searchParams }: EventsPageProps) {
-  const supabase = createServerSupabaseClient();
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+export default function EventsPage() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const mode = searchParams.get("mode") || "list";
+  const editId = searchParams.get("id");
+  
+  const [events, setEvents] = useState<Event[]>([]);
+  const [editEvent, setEditEvent] = useState<Event | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  if (!session || !userHasDashboardAccess(session.user)) {
-    redirect("/login?redirectedFrom=/dashboard/events");
-  }
+  useEffect(() => {
+    const loadData = async () => {
+      const supabase = getBrowserSupabaseClient();
+      if (!supabase) {
+        setIsLoading(false);
+        return;
+      }
 
-  const mode = typeof searchParams?.mode === "string" ? searchParams.mode : "list";
-  const editId = typeof searchParams?.id === "string" ? searchParams.id : null;
+      try {
+        // Fetch all events (including unpublished) for admin view
+        const { data: eventsData, error: eventsError } = await supabase
+          .from("events")
+          .select("id, title, date, time, location, description, status, published")
+          .order("date", { ascending: false });
 
-  // Fetch all events (including unpublished) for admin view
-  const { data: events, error } = await supabase
-    .from("events")
-    .select("id, title, date, time, location, description, status, published")
-    .order("date", { ascending: false });
+        if (eventsError) {
+          console.error("[Dashboard] Failed to load events", eventsError);
+        } else {
+          setEvents(eventsData || []);
+        }
 
-  if (error) {
-    console.error("[Dashboard] Failed to load events", error);
-  }
+        // If editing, fetch the specific event
+        if (editId && mode === "edit") {
+          const { data: eventData, error: eventError } = await supabase
+            .from("events")
+            .select("id, title, date, time, location, description, status, published")
+            .eq("id", editId)
+            .single();
 
-  // If editing, fetch the specific event
-  let editEvent = null;
-  if (editId && mode === "edit") {
-    const { data } = await supabase
-      .from("events")
-      .select("id, title, date, time, location, description, status, published")
-      .eq("id", editId)
-      .single();
-    editEvent = data;
+          if (!eventError && eventData) {
+            setEditEvent(eventData);
+          }
+        }
+      } catch (error) {
+        console.error("[Dashboard] Error loading data", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadData();
+  }, [mode, editId]);
+
+  const handleRefresh = () => {
+    router.refresh();
+    // Reload data
+    const supabase = getBrowserSupabaseClient();
+    if (supabase) {
+      supabase
+        .from("events")
+        .select("id, title, date, time, location, description, status, published")
+        .order("date", { ascending: false })
+        .then(({ data }) => {
+          if (data) setEvents(data);
+        });
+    }
+  };
+
+  if (isLoading) {
+    return <div style={{ color: 'rgba(226,232,240,0.7)' }}>Loading...</div>;
   }
 
   return (
@@ -72,15 +119,15 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
       </div>
 
       {mode === "list" && (
-        <EventList events={events || []} />
+        <EventList events={events} />
       )}
 
       {(mode === "new" || mode === "edit") && (
         <div style={formContainerStyle}>
           <EventForm
             event={editEvent || undefined}
-            onSave={() => {}}
-            onCancel={() => {}}
+            onSave={handleRefresh}
+            onCancel={() => router.push('/dashboard/events')}
           />
         </div>
       )}

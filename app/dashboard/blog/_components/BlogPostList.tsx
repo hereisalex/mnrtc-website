@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { getBrowserSupabaseClient } from '@/lib/supabaseClient';
 
 interface BlogPost {
   slug: string;
@@ -27,15 +28,21 @@ export function BlogPostList({ posts }: BlogPostListProps) {
     }
 
     setDeletingSlug(slug);
+    const supabase = getBrowserSupabaseClient();
+
+    if (!supabase) {
+      alert('Supabase client not available');
+      setDeletingSlug(null);
+      return;
+    }
 
     try {
-      const response = await fetch(`/api/blog/${slug}`, {
-        method: 'DELETE',
-      });
+      const { error } = await supabase
+        .from('blog_posts')
+        .delete()
+        .eq('slug', slug);
 
-      if (!response.ok) {
-        throw new Error('Failed to delete post');
-      }
+      if (error) throw error;
 
       router.refresh();
     } catch (error) {
@@ -46,21 +53,28 @@ export function BlogPostList({ posts }: BlogPostListProps) {
   };
 
   const handleTogglePublish = async (post: BlogPost) => {
-    try {
-      const response = await fetch(`/api/blog/${post.slug}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...post,
-          published: !post.published,
-        }),
-      });
+    const supabase = getBrowserSupabaseClient();
 
-      if (!response.ok) {
-        throw new Error('Failed to update post');
+    if (!supabase) {
+      alert('Supabase client not available');
+      return;
+    }
+
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        throw new Error('Not authenticated');
       }
+
+      const { error } = await supabase
+        .from('blog_posts')
+        .update({ 
+          published: !post.published,
+          updated_by: session.user.id,
+        })
+        .eq('slug', post.slug);
+
+      if (error) throw error;
 
       router.refresh();
     } catch (error) {
