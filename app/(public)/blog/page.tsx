@@ -2,8 +2,6 @@ import { getAllPosts } from "@/lib/blog";
 import { format } from "date-fns";
 import Link from "next/link";
 
-export const dynamic = 'force-dynamic';
-
 export const metadata = {
   title: "Blog | Minnesota Retro Technology Club",
   description: "News, updates, and articles from the Minnesota Retro Technology Club",

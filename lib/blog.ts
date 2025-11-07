@@ -1,4 +1,4 @@
-import { createServerSupabaseClient } from './supabaseServer';
+import { createServerSupabaseClient, createPublicSupabaseClient } from './supabaseServer';
 import { marked } from 'marked';
 
 export interface BlogPost {
@@ -37,7 +37,15 @@ function transformPost(row: BlogPostRow): BlogPost {
 
 export async function getAllPosts(includeUnpublished: boolean = false): Promise<BlogPost[]> {
   try {
-    const supabase = createServerSupabaseClient();
+    // Use public client for static generation (no cookies), or server client for authenticated requests
+    const supabase = includeUnpublished 
+      ? createServerSupabaseClient() 
+      : (createPublicSupabaseClient() || createServerSupabaseClient());
+    
+    if (!supabase) {
+      console.warn('Blog: Supabase client not available');
+      return [];
+    }
     
     let query = supabase
       .from('blog_posts')
@@ -68,7 +76,15 @@ export async function getAllPosts(includeUnpublished: boolean = false): Promise<
 
 export async function getPostBySlug(slug: string, includeUnpublished: boolean = false): Promise<BlogPost | null> {
   try {
-    const supabase = createServerSupabaseClient();
+    // Use public client for static generation (no cookies), or server client for authenticated requests
+    const supabase = includeUnpublished 
+      ? createServerSupabaseClient() 
+      : (createPublicSupabaseClient() || createServerSupabaseClient());
+    
+    if (!supabase) {
+      console.warn('Blog: Supabase client not available');
+      return null;
+    }
     
     let query = supabase
       .from('blog_posts')

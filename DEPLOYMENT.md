@@ -1,93 +1,64 @@
-# GitHub Pages Deployment Guide
+# Vercel Deployment Guide
 
-This guide will help you deploy the Minnesota Retro Technology Club website to GitHub Pages.
+This guide will help you deploy the MNRTC website to Vercel with full support for server-side rendering and the dashboard.
 
-## Prerequisites
+## Option 1: Vercel GitHub Integration (Recommended - Easiest)
 
-- GitHub repository: `hereisalex/mnrtc-website`
-- GitHub Pages enabled on your repository
+1. **Sign up/Login to Vercel**
+   - Go to [vercel.com](https://vercel.com)
+   - Sign in with your GitHub account
 
-## Setup Instructions
+2. **Import Your Repository**
+   - Click "Add New Project"
+   - Select your `mnrtc-website` repository
+   - Vercel will auto-detect Next.js settings
 
-### 1. Enable GitHub Pages
+3. **Configure Environment Variables**
+   - In the project settings, go to "Environment Variables"
+   - Add the following:
+     - `NEXT_PUBLIC_SUPABASE_URL` - Your Supabase project URL
+     - `NEXT_PUBLIC_SUPABASE_ANON_KEY` - Your Supabase anonymous key
 
-1. Go to your repository on GitHub
-2. Navigate to **Settings** → **Pages**
-3. Under **Source**, select **GitHub Actions**
-4. The workflow will automatically deploy when you push to the `main` branch
+4. **Deploy**
+   - Click "Deploy"
+   - Vercel will automatically deploy on every push to `master`
 
-### 2. Repository Settings
+## Option 2: GitHub Actions (Advanced)
 
-Make sure your repository has the following settings:
-- **Repository visibility**: Public (required for GitHub Pages)
-- **Pages source**: GitHub Actions
+If you prefer using GitHub Actions, you'll need to:
 
-### 3. Automatic Deployment
+1. **Get Vercel Credentials**
+   - Install Vercel CLI: `npm i -g vercel`
+   - Run `vercel login`
+   - Run `vercel link` in your project directory
+   - This creates `.vercel` directory with project info
 
-The site will automatically deploy when you:
-- Push commits to the `main` branch
-- Merge pull requests to `main`
-- Manually trigger the workflow from the Actions tab
+2. **Add GitHub Secrets**
+   - Go to your GitHub repo → Settings → Secrets and variables → Actions
+   - Add these secrets:
+     - `VERCEL_TOKEN` - Get from [vercel.com/account/tokens](https://vercel.com/account/tokens)
+     - `VERCEL_ORG_ID` - Found in `.vercel/project.json` after linking
+     - `VERCEL_PROJECT_ID` - Found in `.vercel/project.json` after linking
 
-## Manual Deployment
+3. **Deploy**
+   - Push to `master` branch
+   - The workflow will automatically deploy to Vercel
 
-If you need to deploy manually:
+## Features Enabled
 
-```bash
-# Install dependencies
-npm install
+✅ **Server-Side Rendering** - Dashboard pages work fully
+✅ **API Routes** - All API endpoints functional
+✅ **Static Generation** - Public pages are pre-rendered for performance
+✅ **Dynamic Routes** - Blog posts and dashboard routes work correctly
 
-# Build the site
-npm run build
+## Custom Domain (Optional)
 
-# The static files will be generated in the `out/` directory
-```
-
-## Site URL
-
-Once deployed, your site will be available at:
-`https://hereisalex.github.io/mnrtc-website/`
-
-## Configuration Details
-
-- **Static Export**: Configured for static site generation
-- **Image Optimization**: Disabled for static export compatibility
-- **Trailing Slashes**: Enabled for better GitHub Pages compatibility
-- **Output Directory**: `out/`
+1. In Vercel project settings → Domains
+2. Add your custom domain
+3. Follow DNS configuration instructions
 
 ## Troubleshooting
 
-### Build Fails
-- Check that all dependencies are properly installed
-- Ensure all image files are present in the `public/images/` directory
-- Verify that all external links are accessible
-
-### Pages Not Loading
-- Check the Actions tab for deployment logs
-- Verify GitHub Pages is enabled in repository settings
-- Ensure the repository is public
-
-### Styling Issues
-- Clear browser cache
-- Check that CSS files are properly generated in the `out/` directory
-
-## Local Testing
-
-To test the static export locally:
-
-```bash
-# Build and export
-npm run build
-
-# Serve the static files (install serve globally first)
-npx serve out
-```
-
-## Support
-
-For issues with deployment, check:
-1. GitHub Actions workflow logs
-2. Repository settings
-3. This deployment guide
-
-The site features a retro GeoCities aesthetic with moveable and resizable windows, perfect for showcasing the Minnesota Retro Technology Club!
+- **Build fails**: Check that all environment variables are set in Vercel
+- **Dashboard not working**: Ensure Supabase environment variables are configured
+- **API routes 404**: Make sure you're not using `output: 'export'` in `next.config.ts`

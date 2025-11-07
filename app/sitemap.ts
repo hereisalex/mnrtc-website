@@ -4,7 +4,8 @@ import { getAllPosts } from '@/lib/blog';
 export const dynamic = 'force-static';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://hereisalex.github.io/mnrtc-website';
+  // Use environment variable or default to GitHub Pages URL
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://hereisalex.github.io/mnrtc-website';
   
   // Try to fetch posts, but don't fail if Supabase is unavailable during build
   let posts: Awaited<ReturnType<typeof getAllPosts>> = [];

@@ -127,10 +127,27 @@ npm start
 
 ## Deployment
 
-This Next.js app can be deployed to:
-- Vercel (recommended)
-- Netlify
-- Any platform supporting Node.js
+### Vercel (Recommended)
+
+This app is configured for Vercel deployment with full support for:
+- Server-side rendering (dashboard)
+- API routes
+- Static generation (public pages)
+
+**Quick Setup:**
+1. Sign in to [Vercel](https://vercel.com) with GitHub
+2. Import your repository
+3. Add environment variables:
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+4. Deploy!
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed instructions.
+
+### Other Platforms
+
+- **Netlify**: Requires Next.js plugin, supports SSR
+- **Self-hosted**: Requires Node.js server, see Next.js deployment docs
 
 ## Contributing
 

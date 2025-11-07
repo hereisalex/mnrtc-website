@@ -4,8 +4,6 @@ import GeoCitiesButton from "@/components/geocities/GeoCitiesButton";
 import { getAllPosts, getPostBySlug } from "@/lib/blog";
 import { format } from "date-fns";
 
-export const dynamic = 'force-dynamic';
-
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
