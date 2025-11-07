@@ -7,6 +7,7 @@ import PostItNote from "@/components/PostItNote";
 type GuestbookEntry = {
     id: string;
     text: string;
+    name?: string;
     timestampMs: number;
 };
 
@@ -39,6 +40,7 @@ function writeEntriesToStorage(entries: GuestbookEntry[]): void {
 export default function GuestbookPage(): React.ReactElement {
     const [entries, setEntries] = useState<GuestbookEntry[]>([]);
     const [draft, setDraft] = useState<string>("");
+    const [name, setName] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const listRef = useRef<HTMLDivElement | null>(null);
 
@@ -57,12 +59,13 @@ export default function GuestbookPage(): React.ReactElement {
                 // Fetch from Supabase
                 const { data, error } = await supabase
                     .from("guestbook_entries")
-                    .select("id, text, created_at")
+                    .select("id, text, name, created_at")
                     .order("created_at", { ascending: true });
                 if (error) throw error;
                 const mapped: GuestbookEntry[] = (data || []).map((row: any) => ({
                     id: row.id,
                     text: String(row.text || ""),
+                    name: row.name ? String(row.name) : undefined,
                     timestampMs: row.created_at ? new Date(row.created_at).getTime() : Date.now(),
                 }));
                 if (!isMounted) return;
@@ -91,12 +94,15 @@ export default function GuestbookPage(): React.ReactElement {
     const handleSubmit = async () => {
         const trimmed = draft.replace(/\s+/g, " ").trim();
         if (!trimmed) return;
+        const trimmedName = name.trim() || undefined;
         const optimistic: GuestbookEntry = {
             id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
             text: trimmed.slice(0, 240),
+            name: trimmedName,
             timestampMs: Date.now(),
         };
         setDraft("");
+        setName("");
 
         // Optimistic update
         setEntries((prev) => [...prev, optimistic]);
@@ -108,6 +114,7 @@ export default function GuestbookPage(): React.ReactElement {
             try {
                 const { error } = await supabase.from("guestbook_entries").insert({
                     text: optimistic.text,
+                    name: optimistic.name || null,
                     created_at: new Date(optimistic.timestampMs).toISOString(),
                 });
                 if (error) throw error;
@@ -200,6 +207,23 @@ export default function GuestbookPage(): React.ReactElement {
 					flexDirection: "column",
 					gap: "10px",
 				}}>
+					<input
+						type="text"
+						value={name}
+						placeholder="Your name (optional)..."
+						onChange={(e) => setName(e.target.value)}
+						maxLength={50}
+						style={{
+							width: "100%",
+							padding: "8px",
+							fontSize: "11px",
+							border: "2px inset #cccccc",
+							background: "#ffffff",
+							fontFamily: "Arial, sans-serif",
+							outline: "none",
+							boxSizing: "border-box",
+						}}
+					/>
 					<textarea
 						value={draft}
 						placeholder="Type your message here... (Ctrl+Enter to submit)"
@@ -326,7 +350,7 @@ export default function GuestbookPage(): React.ReactElement {
 											color: "#000000",
 											fontFamily: "Arial, sans-serif",
 										}}>
-											Entry #{index + 1}
+											{e.name ? e.name : `Entry #${index + 1}`}
 										</div>
 										<div style={{
 											fontSize: "10px",

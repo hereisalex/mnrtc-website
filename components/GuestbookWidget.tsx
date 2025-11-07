@@ -6,6 +6,7 @@ import { getBrowserSupabaseClient } from "@/lib/supabaseClient";
 type GuestbookEntry = {
     id: string;
     text: string;
+    name?: string;
     timestampMs: number;
 };
 
@@ -38,6 +39,7 @@ function writeEntriesToStorage(entries: GuestbookEntry[]): void {
 export default function GuestbookWidget(): React.ReactElement {
     const [entries, setEntries] = useState<GuestbookEntry[]>([]);
     const [draft, setDraft] = useState<string>("");
+    const [name, setName] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const listRef = useRef<HTMLDivElement | null>(null);
 
@@ -56,12 +58,13 @@ export default function GuestbookWidget(): React.ReactElement {
                 // Fetch from Supabase
                 const { data, error } = await supabase
                     .from("guestbook_entries")
-                    .select("id, text, created_at")
+                    .select("id, text, name, created_at")
                     .order("created_at", { ascending: true });
                 if (error) throw error;
                 const mapped: GuestbookEntry[] = (data || []).map((row: any) => ({
                     id: row.id,
                     text: String(row.text || ""),
+                    name: row.name ? String(row.name) : undefined,
                     timestampMs: row.created_at ? new Date(row.created_at).getTime() : Date.now(),
                 }));
                 if (!isMounted) return;
@@ -90,12 +93,15 @@ export default function GuestbookWidget(): React.ReactElement {
     const handleSubmit = async () => {
         const trimmed = draft.replace(/\s+/g, " ").trim();
         if (!trimmed) return;
+        const trimmedName = name.trim() || undefined;
         const optimistic: GuestbookEntry = {
             id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
             text: trimmed.slice(0, 240),
+            name: trimmedName,
             timestampMs: Date.now(),
         };
         setDraft("");
+        setName("");
 
         // Optimistic update
         setEntries((prev) => [...prev, optimistic]);
@@ -107,6 +113,7 @@ export default function GuestbookWidget(): React.ReactElement {
             try {
                 const { error } = await supabase.from("guestbook_entries").insert({
                     text: optimistic.text,
+                    name: optimistic.name || null,
                     created_at: new Date(optimistic.timestampMs).toISOString(),
                 });
                 if (error) throw error;
@@ -174,39 +181,60 @@ export default function GuestbookWidget(): React.ReactElement {
 					formattedEntries.map((e) => (
 						<div key={e.id} style={{ marginBottom: "6px" }}>
 							<div style={{ fontWeight: "bold", fontSize: "9px", color: "#333" }}>{e.date}</div>
+							{e.name && (
+								<div style={{ fontWeight: "bold", fontSize: "9px", color: "#555", marginBottom: "2px" }}>
+									— {e.name}
+								</div>
+							)}
 							<div style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{e.text}</div>
 						</div>
 					))
 				)}
 			</div>
-			<div style={{ display: "flex", gap: "6px", alignItems: "center" }}>
+			<div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
 				<input
 					type="text"
-					value={draft}
-					placeholder="Leave a note..."
-					onChange={(e) => setDraft(e.target.value)}
-					onKeyDown={handleKeyDown}
+					value={name}
+					placeholder="Your name (optional)..."
+					onChange={(e) => setName(e.target.value)}
+					maxLength={50}
 					style={{
-						flex: 1,
 						padding: "4px 6px",
-						fontSize: "10px",
+						fontSize: "9px",
 						border: "1px solid #999",
 						background: "#fffef2",
 						outline: "none",
 					}}
 				/>
-				<button
-					onClick={handleSubmit}
-					style={{
-						padding: "4px 8px",
-						fontSize: "10px",
-						cursor: "pointer",
-						border: "1px solid #999",
-						background: "#ffff66",
-					}}
-				>
-					Sign
-				</button>
+				<div style={{ display: "flex", gap: "6px", alignItems: "center" }}>
+					<input
+						type="text"
+						value={draft}
+						placeholder="Leave a note..."
+						onChange={(e) => setDraft(e.target.value)}
+						onKeyDown={handleKeyDown}
+						style={{
+							flex: 1,
+							padding: "4px 6px",
+							fontSize: "10px",
+							border: "1px solid #999",
+							background: "#fffef2",
+							outline: "none",
+						}}
+					/>
+					<button
+						onClick={handleSubmit}
+						style={{
+							padding: "4px 8px",
+							fontSize: "10px",
+							cursor: "pointer",
+							border: "1px solid #999",
+							background: "#ffff66",
+						}}
+					>
+						Sign
+					</button>
+				</div>
 			</div>
 		</div>
 	);

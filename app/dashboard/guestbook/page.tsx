@@ -8,6 +8,7 @@ import { GuestbookEntryList } from "./_components/GuestbookEntryList";
 interface GuestbookEntry {
   id: string;
   text: string;
+  name?: string;
   created_at: string;
 }
 
@@ -26,7 +27,7 @@ export default function GuestbookModerationPage() {
       try {
         const { data: entriesData, error } = await supabase
           .from("guestbook_entries")
-          .select("id, text, created_at")
+          .select("id, text, name, created_at")
           .order("created_at", { ascending: false });
 
         if (error) {
@@ -49,7 +50,7 @@ export default function GuestbookModerationPage() {
     if (supabase) {
       supabase
         .from("guestbook_entries")
-        .select("id, text, created_at")
+        .select("id, text, name, created_at")
         .order("created_at", { ascending: false })
         .then(({ data }) => {
           if (data) setEntries(data);

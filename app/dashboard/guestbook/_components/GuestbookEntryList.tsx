@@ -7,6 +7,7 @@ import { getBrowserSupabaseClient } from '@/lib/supabaseClient';
 interface GuestbookEntry {
   id: string;
   text: string;
+  name?: string;
   created_at: string;
 }
 
@@ -52,7 +53,8 @@ export function GuestbookEntryList({ entries }: GuestbookEntryListProps) {
 
   const filteredEntries = filter
     ? entries.filter((entry) =>
-        entry.text.toLowerCase().includes(filter.toLowerCase())
+        entry.text.toLowerCase().includes(filter.toLowerCase()) ||
+        (entry.name && entry.name.toLowerCase().includes(filter.toLowerCase()))
       )
     : entries;
 
@@ -92,6 +94,7 @@ export function GuestbookEntryList({ entries }: GuestbookEntryListProps) {
           <thead>
             <tr style={{ textAlign: 'left', color: 'rgba(226,232,240,0.75)', fontSize: '0.85rem' }}>
               <th style={headerCell}>Date</th>
+              <th style={headerCell}>Name</th>
               <th style={headerCell}>Entry</th>
               <th style={headerCell}>Actions</th>
             </tr>
@@ -99,7 +102,7 @@ export function GuestbookEntryList({ entries }: GuestbookEntryListProps) {
           <tbody>
             {filteredEntries.length === 0 ? (
               <tr>
-                <td colSpan={3} style={{ padding: '2rem', textAlign: 'center', color: 'rgba(226,232,240,0.6)' }}>
+                <td colSpan={4} style={{ padding: '2rem', textAlign: 'center', color: 'rgba(226,232,240,0.6)' }}>
                   No entries match your search.
                 </td>
               </tr>
@@ -121,6 +124,14 @@ export function GuestbookEntryList({ entries }: GuestbookEntryListProps) {
                           minute: '2-digit',
                         })}
                       </div>
+                    </div>
+                  </td>
+                  <td style={bodyCell}>
+                    <div style={{
+                      color: entry.name ? '#f8fafc' : 'rgba(226,232,240,0.5)',
+                      fontStyle: entry.name ? 'normal' : 'italic',
+                    }}>
+                      {entry.name || 'Anonymous'}
                     </div>
                   </td>
                   <td style={bodyCell}>

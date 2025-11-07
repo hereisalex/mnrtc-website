@@ -19,6 +19,7 @@ alter table public.page_views enable row level security;
 create index if not exists page_views_created_at_idx on public.page_views (created_at desc);
 create index if not exists page_views_path_idx on public.page_views (path);
 
+drop policy if exists "Allow dashboard roles to read page views" on public.page_views;
 create policy "Allow dashboard roles to read page views"
   on public.page_views
   for select
@@ -42,6 +43,7 @@ alter table public.error_logs enable row level security;
 create index if not exists error_logs_created_at_idx on public.error_logs (created_at desc);
 create index if not exists error_logs_level_idx on public.error_logs (level);
 
+drop policy if exists "Allow dashboard roles to read error logs" on public.error_logs;
 create policy "Allow dashboard roles to read error logs"
   on public.error_logs
   for select
@@ -122,12 +124,14 @@ create index if not exists blog_posts_date_idx on public.blog_posts (date desc);
 create index if not exists blog_posts_published_idx on public.blog_posts (published);
 
 -- Public can read published posts
+drop policy if exists "Public can read published blog posts" on public.blog_posts;
 create policy "Public can read published blog posts"
   on public.blog_posts
   for select
   using (published = true);
 
 -- Dashboard roles can read all posts
+drop policy if exists "Dashboard roles can read all blog posts" on public.blog_posts;
 create policy "Dashboard roles can read all blog posts"
   on public.blog_posts
   for select
@@ -136,6 +140,7 @@ create policy "Dashboard roles can read all blog posts"
   );
 
 -- Dashboard roles can insert posts
+drop policy if exists "Dashboard roles can insert blog posts" on public.blog_posts;
 create policy "Dashboard roles can insert blog posts"
   on public.blog_posts
   for insert
@@ -144,6 +149,7 @@ create policy "Dashboard roles can insert blog posts"
   );
 
 -- Dashboard roles can update posts
+drop policy if exists "Dashboard roles can update blog posts" on public.blog_posts;
 create policy "Dashboard roles can update blog posts"
   on public.blog_posts
   for update
@@ -152,6 +158,7 @@ create policy "Dashboard roles can update blog posts"
   );
 
 -- Dashboard roles can delete posts
+drop policy if exists "Dashboard roles can delete blog posts" on public.blog_posts;
 create policy "Dashboard roles can delete blog posts"
   on public.blog_posts
   for delete
@@ -170,6 +177,7 @@ begin
 end;
 $$;
 
+drop trigger if exists update_blog_posts_updated_at on public.blog_posts;
 create trigger update_blog_posts_updated_at
   before update on public.blog_posts
   for each row
@@ -198,12 +206,14 @@ create index if not exists events_status_idx on public.events (status);
 create index if not exists events_published_idx on public.events (published);
 
 -- Public can read published events
+drop policy if exists "Public can read published events" on public.events;
 create policy "Public can read published events"
   on public.events
   for select
   using (published = true);
 
 -- Dashboard roles can read all events
+drop policy if exists "Dashboard roles can read all events" on public.events;
 create policy "Dashboard roles can read all events"
   on public.events
   for select
@@ -212,6 +222,7 @@ create policy "Dashboard roles can read all events"
   );
 
 -- Dashboard roles can insert events
+drop policy if exists "Dashboard roles can insert events" on public.events;
 create policy "Dashboard roles can insert events"
   on public.events
   for insert
@@ -220,6 +231,7 @@ create policy "Dashboard roles can insert events"
   );
 
 -- Dashboard roles can update events
+drop policy if exists "Dashboard roles can update events" on public.events;
 create policy "Dashboard roles can update events"
   on public.events
   for update
@@ -228,6 +240,7 @@ create policy "Dashboard roles can update events"
   );
 
 -- Dashboard roles can delete events
+drop policy if exists "Dashboard roles can delete events" on public.events;
 create policy "Dashboard roles can delete events"
   on public.events
   for delete
@@ -246,9 +259,59 @@ begin
 end;
 $$;
 
+drop trigger if exists update_events_updated_at on public.events;
 create trigger update_events_updated_at
   before update on public.events
   for each row
   execute function public.update_event_updated_at();
+
+-- Guestbook entries table ----------------------------------------------------------
+create table if not exists public.guestbook_entries (
+  id uuid primary key default gen_random_uuid(),
+  text text not null,
+  name text,
+  created_at timestamptz not null default timezone('utc', now())
+);
+
+alter table public.guestbook_entries enable row level security;
+
+create index if not exists guestbook_entries_created_at_idx on public.guestbook_entries (created_at desc);
+
+-- Public can read all guestbook entries
+drop policy if exists "Public can read guestbook entries" on public.guestbook_entries;
+create policy "Public can read guestbook entries"
+  on public.guestbook_entries
+  for select
+  using (true);
+
+-- Public can insert guestbook entries
+drop policy if exists "Public can insert guestbook entries" on public.guestbook_entries;
+create policy "Public can insert guestbook entries"
+  on public.guestbook_entries
+  for insert
+  with check (true);
+
+-- Dashboard roles can delete guestbook entries
+drop policy if exists "Dashboard roles can delete guestbook entries" on public.guestbook_entries;
+create policy "Dashboard roles can delete guestbook entries"
+  on public.guestbook_entries
+  for delete
+  using (
+    coalesce((auth.jwt() -> 'app_metadata' ->> 'role'), (auth.jwt() -> 'user_metadata' ->> 'role'), '') in ('admin', 'developer')
+  );
+
+-- Migration: Add name column to guestbook_entries if it doesn't exist
+-- This is safe to run multiple times
+do $$
+begin
+  if not exists (
+    select 1 from information_schema.columns 
+    where table_schema = 'public' 
+    and table_name = 'guestbook_entries' 
+    and column_name = 'name'
+  ) then
+    alter table public.guestbook_entries add column name text;
+  end if;
+end $$;
 
 
