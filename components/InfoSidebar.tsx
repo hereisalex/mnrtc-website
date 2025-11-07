@@ -16,10 +16,12 @@ function InfoSidebar() {
       flexDirection: 'column',
       gap: '15px'
     }}>
-      {/* Top Spacer - aligns calendar top with Home button top */}
-      {/* Left sidebar: 10px padding + 230px spacer + ~31px (Navigation heading) = ~271px total */}
-      {/* Right sidebar: 10px padding + spacer needed = 271px - 10px = 261px spacer */}
-      <div style={{ height: '261px' }} />
+      {/* Top Spacer - aligns month navigation top with Home button top */}
+      {/* Left sidebar: 10px padding + 230px spacer + Navigation h3 (~31px: 18px font + 8px marginBottom + 5px paddingBottom) + 3px gap = 274px to Home button top */}
+      {/* Right sidebar: 10px padding + spacer + PostItNote padding 10px + Calendar h3 (~31px) + h3 marginBottom 8px = 274px to month navigation top */}
+      {/* So: 10 + X + 10 + 31 + 8 = 274, therefore X = 215px */}
+      {/* Firefox-specific adjustment: Add extra spacing for font rendering differences */}
+      <div className="info-sidebar-spacer" style={{ height: '215px' }} />
 
       {/* Event Calendar */}
       <EventCalendar />
@@ -55,7 +57,8 @@ function InfoSidebar() {
               e.currentTarget.style.background = '#d0e0ff';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = '#e0f0ff';
+              // Remove inline style to restore CSS class background color
+              e.currentTarget.style.background = '';
             }}
           >
             💬 Discord
@@ -77,7 +80,8 @@ function InfoSidebar() {
               e.currentTarget.style.background = '#d0e0ff';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = '#e0f0ff';
+              // Remove inline style to restore CSS class background color
+              e.currentTarget.style.background = '';
             }}
           >
             📧 Mailing List
@@ -99,7 +103,8 @@ function InfoSidebar() {
               e.currentTarget.style.background = '#d0e0ff';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = '#e0f0ff';
+              // Remove inline style to restore CSS class background color
+              e.currentTarget.style.background = '';
             }}
           >
             📬 Contact
@@ -121,7 +126,8 @@ function InfoSidebar() {
               e.currentTarget.style.background = '#d0e0ff';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = '#e0f0ff';
+              // Remove inline style to restore CSS class background color
+              e.currentTarget.style.background = '';
             }}
           >
             📅 Meetup

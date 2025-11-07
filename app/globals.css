@@ -55,6 +55,14 @@ body {
   }
 }
 
+/* Firefox-specific fix for right sidebar alignment */
+/* Firefox renders fonts slightly differently, causing misalignment */
+@supports (-moz-appearance: none) {
+  .info-sidebar-spacer {
+    height: 220px !important; /* Add 5px extra for Firefox font rendering */
+  }
+}
+
 
 /* Three-Column Retro Layout Styles */
 .retro-layout {
