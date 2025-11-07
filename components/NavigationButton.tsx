@@ -30,7 +30,8 @@ function NavigationButton({ href, label, isActive, color }: NavigationButtonProp
       }}
       onMouseLeave={(e) => {
         if (!isActive) {
-          e.currentTarget.style.background = '#e0e0e0';
+          // Remove inline style to restore CSS class background color
+          e.currentTarget.style.background = '';
         }
       }}
     >
