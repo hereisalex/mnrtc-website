@@ -1,4 +1,5 @@
 import StyledLink from './StyledLink';
+import { TYPOGRAPHY, BUTTONS } from '@/lib/spacing';
 
 interface NavigationButtonProps {
   href: string;
@@ -14,14 +15,14 @@ function NavigationButton({ href, label, isActive, color }: NavigationButtonProp
       className={`postit-note ${color} clipped-button`}
       style={{
         display: 'block',
-        padding: '4px 8px',
-        fontSize: '12px',
-        fontFamily: 'Arial, sans-serif',
+        padding: BUTTONS.BUTTON_PADDING_LG,
+        fontSize: `${BUTTONS.BUTTON_FONT_SIZE_MD}px`,
+        fontFamily: TYPOGRAPHY.FONT_FAMILY_SERIF,
         color: '#000000',
         textDecoration: 'none',
         textAlign: 'center',
-        fontWeight: 'bold',
-        margin: '2px 0'
+        fontWeight: BUTTONS.BUTTON_FONT_WEIGHT,
+        margin: BUTTONS.BUTTON_MARGIN_SM
       }}
       onMouseEnter={(e) => {
         if (!isActive) {

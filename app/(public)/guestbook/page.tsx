@@ -3,6 +3,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { getBrowserSupabaseClient } from "@/lib/supabaseClient";
 import PostItNote from "@/components/PostItNote";
+import { TYPOGRAPHY } from "@/lib/spacing";
 
 type GuestbookEntry = {
     id: string;
@@ -170,11 +171,11 @@ export default function GuestbookPage(): React.ReactElement {
 					border: '2px outset #cccccc',
 					padding: '10px 15px',
 					textAlign: 'center',
-					fontFamily: 'Arial, sans-serif',
+					fontFamily: 'Times New Roman, Times, serif',
 				}}>
 					<h1 style={{
-						fontSize: '18px',
-						fontWeight: 'bold',
+						fontSize: `${TYPOGRAPHY.FONT_SIZE_XXL}px`,
+						fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
 						color: '#000000',
 						margin: '0 0 5px 0',
 						textShadow: '1px 1px 0 #cccccc',
@@ -182,7 +183,7 @@ export default function GuestbookPage(): React.ReactElement {
 						✍️ GUESTBOOK ✍️
 					</h1>
 					<div style={{
-						fontSize: '12px',
+						fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
 						color: '#666666',
 						fontStyle: 'italic',
 					}}>
@@ -194,11 +195,11 @@ export default function GuestbookPage(): React.ReactElement {
 			{/* Sign Guestbook Form */}
 			<PostItNote color="pink">
 				<h3 style={{
-					fontSize: '14px',
-					fontWeight: 'bold',
+					fontSize: `${TYPOGRAPHY.FONT_SIZE_MD}px`,
+					fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
 					color: '#000000',
 					marginBottom: '8px',
-					fontFamily: 'Arial, sans-serif'
+					fontFamily: TYPOGRAPHY.FONT_FAMILY_SERIF
 				}}>
 					✍️ Sign the Guestbook ✍️
 				</h3>
@@ -216,10 +217,10 @@ export default function GuestbookPage(): React.ReactElement {
 						style={{
 							width: "100%",
 							padding: "8px",
-							fontSize: "12px",
+							fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
 							border: "2px inset #cccccc",
 							background: "#ffffff",
-							fontFamily: "Arial, sans-serif",
+							fontFamily: TYPOGRAPHY.FONT_FAMILY_SERIF,
 							outline: "none",
 							boxSizing: "border-box",
 						}}
@@ -234,14 +235,14 @@ export default function GuestbookPage(): React.ReactElement {
 						style={{
 							width: "100%",
 							padding: "8px",
-							fontSize: "12px",
+							fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
 							border: "2px inset #cccccc",
 							background: "#ffffff",
-							fontFamily: "Arial, sans-serif",
+							fontFamily: TYPOGRAPHY.FONT_FAMILY_SERIF,
 							resize: "vertical",
 							outline: "none",
 							boxSizing: "border-box",
-							lineHeight: "1.4",
+							lineHeight: TYPOGRAPHY.LINE_HEIGHT_NORMAL,
 						}}
 					/>
 					<div style={{
@@ -252,7 +253,7 @@ export default function GuestbookPage(): React.ReactElement {
 						gap: "10px",
 					}}>
 						<div style={{
-							fontSize: "12px",
+							fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
 							color: "#666666",
 							fontStyle: "italic",
 						}}>
@@ -263,11 +264,11 @@ export default function GuestbookPage(): React.ReactElement {
 							disabled={!draft.trim()}
 							style={{
 								padding: '4px 8px',
-								fontSize: '12px',
+								fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
 								background: draft.trim() ? '#e0e0e0' : '#f0f0f0',
 								border: '2px outset #cccccc',
 								cursor: draft.trim() ? 'pointer' : 'not-allowed',
-								fontFamily: 'Arial, sans-serif',
+								fontFamily: TYPOGRAPHY.FONT_FAMILY_SERIF,
 								color: draft.trim() ? '#000000' : '#999999',
 							}}
 						>
@@ -285,11 +286,11 @@ export default function GuestbookPage(): React.ReactElement {
 				background: '#ffffff',
 				border: '2px outset #cccccc',
 				margin: '10px 0',
-				fontFamily: 'Arial, sans-serif'
+				fontFamily: TYPOGRAPHY.FONT_FAMILY_SERIF
 			}}>
 				<h2 style={{
-					fontSize: '16px',
-					fontWeight: 'bold',
+					fontSize: `${TYPOGRAPHY.FONT_SIZE_LG}px`,
+					fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
 					color: '#000000',
 					marginBottom: '15px',
 					textAlign: 'center',
@@ -313,18 +314,18 @@ export default function GuestbookPage(): React.ReactElement {
 					{isLoading ? (
 						<PostItNote color="yellow">
 							<div style={{ textAlign: "center", opacity: 0.7 }}>
-								<div style={{ fontSize: "16px", marginBottom: "10px" }}>⏳</div>
-								<div>Loading guestbook entries...</div>
+								<div style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_LG}px`, marginBottom: "10px" }}>⏳</div>
+								<div style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px` }}>Loading guestbook entries...</div>
 							</div>
 						</PostItNote>
 					) : formattedEntries.length === 0 ? (
 						<PostItNote color="yellow">
 							<div style={{ textAlign: "center", opacity: 0.8 }}>
-								<div style={{ fontSize: "32px", marginBottom: "10px" }}>📝</div>
-								<div style={{ fontWeight: "bold", marginBottom: "8px", fontSize: "14px" }}>
+								<div style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_DISPLAY}px`, marginBottom: "10px" }}>📝</div>
+								<div style={{ fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD, marginBottom: "8px", fontSize: `${TYPOGRAPHY.FONT_SIZE_MD}px` }}>
 									Be the first to sign the guestbook!
 								</div>
-								<div style={{ fontSize: "12px" }}>
+								<div style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px` }}>
 									Leave a message below and become part of our retro web history!
 								</div>
 							</div>
@@ -345,15 +346,15 @@ export default function GuestbookPage(): React.ReactElement {
 										borderBottom: "1px dashed #999999",
 									}}>
 										<div style={{
-											fontWeight: "bold",
-											fontSize: "12px",
+											fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
+											fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
 											color: "#000000",
-											fontFamily: "Arial, sans-serif",
+											fontFamily: TYPOGRAPHY.FONT_FAMILY_SERIF,
 										}}>
 											{e.name ? e.name : `Entry #${index + 1}`}
 										</div>
 										<div style={{
-											fontSize: "12px",
+											fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
 											color: "#666666",
 											fontStyle: "italic",
 										}}>
@@ -363,8 +364,8 @@ export default function GuestbookPage(): React.ReactElement {
 									<div style={{
 										whiteSpace: "pre-wrap",
 										wordBreak: "break-word",
-										lineHeight: "1.4",
-										fontSize: "12px",
+										lineHeight: TYPOGRAPHY.LINE_HEIGHT_NORMAL,
+										fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
 										color: "#000000",
 									}}>
 										{e.text}

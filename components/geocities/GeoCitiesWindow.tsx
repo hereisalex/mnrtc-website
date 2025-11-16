@@ -120,7 +120,7 @@ export default function GeoCitiesWindow({
         <div style={{ flex: 1, textAlign: 'center', padding: '0 8px' }}>
           <span style={{ 
             fontSize: '11px', 
-            fontFamily: 'Arial, sans-serif', 
+            fontFamily: 'Times New Roman, Times, serif', 
             color: '#ffffff', 
             fontWeight: 'bold',
             textShadow: '1px 1px 0 #000'

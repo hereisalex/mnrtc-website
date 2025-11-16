@@ -1,3 +1,5 @@
+import { TYPOGRAPHY } from "@/lib/spacing";
+
 export const metadata = {
   title: "Resources | Minnesota Retro Technology Club",
   description:
@@ -10,11 +12,11 @@ export default function ResourcesPage() {
       {/* Main Title */}
       <div style={{ textAlign: 'center', marginBottom: '20px' }}>
         <h1 style={{
-          fontSize: '20px',
-          fontWeight: 'bold',
+          fontSize: `${TYPOGRAPHY.FONT_SIZE_XXL}px`,
+          fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
           color: '#000000',
           marginBottom: '10px',
-          fontFamily: 'Arial, sans-serif'
+          fontFamily: TYPOGRAPHY.FONT_FAMILY_SERIF
         }}>
           Resources
         </h1>
@@ -24,8 +26,8 @@ export default function ResourcesPage() {
           padding: '4px 8px', 
           border: '2px solid #000000',
           display: 'inline-block',
-          fontSize: '12px',
-          fontWeight: 'bold',
+          fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
+          fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
           marginBottom: '15px'
         }}>
           COMMUNITY RESOURCES & CONNECTIONS!
@@ -40,15 +42,15 @@ export default function ResourcesPage() {
         marginBottom: '20px'
       }}>
         <h2 style={{
-          fontSize: '16px',
-          fontWeight: 'bold',
+          fontSize: `${TYPOGRAPHY.FONT_SIZE_LG}px`,
+          fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
           color: '#000000',
           marginBottom: '10px',
-          fontFamily: 'Arial, sans-serif'
+          fontFamily: TYPOGRAPHY.FONT_FAMILY_SERIF
         }}>
           Join Our Community
         </h2>
-        <p style={{ fontSize: '12px', marginBottom: '15px', lineHeight: '1.4' }}>
+        <p style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`, marginBottom: '15px', lineHeight: TYPOGRAPHY.LINE_HEIGHT_NORMAL }}>
           Connect with fellow retro technology enthusiasts in the Twin Cities!
         </p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '10px' }}>
@@ -62,8 +64,8 @@ export default function ResourcesPage() {
               color: '#000000',
               padding: '10px',
               border: '1px solid #000000',
-              fontSize: '11px',
-              fontWeight: 'bold',
+              fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
+              fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
               textDecoration: 'none',
               textAlign: 'center'
             }}
@@ -80,8 +82,8 @@ export default function ResourcesPage() {
               color: '#000000',
               padding: '10px',
               border: '1px solid #000000',
-              fontSize: '11px',
-              fontWeight: 'bold',
+              fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
+              fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
               textDecoration: 'none',
               textAlign: 'center'
             }}
@@ -98,8 +100,8 @@ export default function ResourcesPage() {
               color: '#000000',
               padding: '10px',
               border: '1px solid #000000',
-              fontSize: '11px',
-              fontWeight: 'bold',
+              fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
+              fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
               textDecoration: 'none',
               textAlign: 'center'
             }}
@@ -114,8 +116,8 @@ export default function ResourcesPage() {
               color: '#000000',
               padding: '10px',
               border: '1px solid #000000',
-              fontSize: '11px',
-              fontWeight: 'bold',
+              fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
+              fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
               textDecoration: 'none',
               textAlign: 'center'
             }}
@@ -133,15 +135,15 @@ export default function ResourcesPage() {
         marginBottom: '20px'
       }}>
         <h2 style={{
-          fontSize: '16px',
-          fontWeight: 'bold',
+          fontSize: `${TYPOGRAPHY.FONT_SIZE_LG}px`,
+          fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
           color: '#000000',
           marginBottom: '10px',
-          fontFamily: 'Arial, sans-serif'
+          fontFamily: TYPOGRAPHY.FONT_FAMILY_SERIF
         }}>
           Related Organizations
         </h2>
-        <p style={{ fontSize: '12px', marginBottom: '15px', lineHeight: '1.4' }}>
+        <p style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`, marginBottom: '15px', lineHeight: TYPOGRAPHY.LINE_HEIGHT_NORMAL }}>
           Check out these awesome organizations in the retro computing and geek community!
         </p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '10px' }}>
@@ -150,7 +152,7 @@ export default function ResourcesPage() {
             border: '1px solid #000000',
             padding: '10px'
           }}>
-            <h3 style={{ fontSize: '12px', fontWeight: 'bold', marginBottom: '5px' }}>
+            <h3 style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`, fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD, marginBottom: '5px' }}>
               <a 
                 href="https://www.atlhcs.org" 
                 target="_blank" 
@@ -160,7 +162,7 @@ export default function ResourcesPage() {
                 Atlanta Historical Computing Society
               </a>
             </h3>
-            <p style={{ fontSize: '10px', margin: 0, lineHeight: '1.3' }}>
+            <p style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_TINY}px`, margin: 0, lineHeight: TYPOGRAPHY.LINE_HEIGHT_TIGHT }}>
               The inspiration for MNRTC! A great example of a successful retro computing club.
             </p>
           </div>
@@ -169,7 +171,7 @@ export default function ResourcesPage() {
             border: '1px solid #000000',
             padding: '10px'
           }}>
-            <h3 style={{ fontSize: '12px', fontWeight: 'bold', marginBottom: '5px' }}>
+            <h3 style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`, fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD, marginBottom: '5px' }}>
               <a 
                 href="https://twincitiesgeek.com/" 
                 target="_blank" 
@@ -179,7 +181,7 @@ export default function ResourcesPage() {
                 Twin Cities Geek
               </a>
             </h3>
-            <p style={{ fontSize: '10px', margin: 0, lineHeight: '1.3' }}>
+            <p style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_TINY}px`, margin: 0, lineHeight: TYPOGRAPHY.LINE_HEIGHT_TIGHT }}>
               Local geek culture news and events in the Twin Cities.
             </p>
           </div>
@@ -188,7 +190,7 @@ export default function ResourcesPage() {
             border: '1px solid #000000',
             padding: '10px'
           }}>
-            <h3 style={{ fontSize: '12px', fontWeight: 'bold', marginBottom: '5px' }}>
+            <h3 style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`, fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD, marginBottom: '5px' }}>
               <a 
                 href="https://geekpartnership.org/" 
                 target="_blank" 
@@ -198,7 +200,7 @@ export default function ResourcesPage() {
                 Geek Partnership Society
               </a>
             </h3>
-            <p style={{ fontSize: '10px', margin: 0, lineHeight: '1.3' }}>
+            <p style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_TINY}px`, margin: 0, lineHeight: TYPOGRAPHY.LINE_HEIGHT_TIGHT }}>
               Supporting and connecting geek communities in the Twin Cities.
             </p>
           </div>
@@ -213,15 +215,15 @@ export default function ResourcesPage() {
         marginBottom: '20px'
       }}>
         <h2 style={{
-          fontSize: '16px',
-          fontWeight: 'bold',
+          fontSize: `${TYPOGRAPHY.FONT_SIZE_LG}px`,
+          fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
           color: '#000000',
           marginBottom: '10px',
-          fontFamily: 'Arial, sans-serif'
+          fontFamily: TYPOGRAPHY.FONT_FAMILY_SERIF
         }}>
           Interest Form
         </h2>
-        <p style={{ fontSize: '11px', marginBottom: '15px', lineHeight: '1.4' }}>
+        <p style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`, marginBottom: '15px', lineHeight: TYPOGRAPHY.LINE_HEIGHT_NORMAL }}>
           Help us understand what you're interested in! Fill out our interest form to let us know 
           what topics, activities, and meeting formats you'd like to see.
         </p>
@@ -235,8 +237,8 @@ export default function ResourcesPage() {
             color: '#000000',
             padding: '5px 10px',
             border: '2px solid #000000',
-            fontSize: '11px',
-            fontWeight: 'bold',
+            fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
+            fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
             textDecoration: 'none'
           }}
         >
@@ -251,15 +253,15 @@ export default function ResourcesPage() {
         padding: '15px'
       }}>
         <h2 style={{
-          fontSize: '16px',
-          fontWeight: 'bold',
+          fontSize: `${TYPOGRAPHY.FONT_SIZE_LG}px`,
+          fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
           color: '#000000',
           marginBottom: '10px',
-          fontFamily: 'Arial, sans-serif'
+          fontFamily: TYPOGRAPHY.FONT_FAMILY_SERIF
         }}>
           Useful Links
         </h2>
-        <p style={{ fontSize: '12px', marginBottom: '15px', lineHeight: '1.4' }}>
+        <p style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`, marginBottom: '15px', lineHeight: TYPOGRAPHY.LINE_HEIGHT_NORMAL }}>
           Helpful resources for retro computing enthusiasts:
         </p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '8px' }}>
@@ -273,7 +275,7 @@ export default function ResourcesPage() {
               color: '#0000ff',
               padding: '8px',
               border: '1px solid #000000',
-              fontSize: '10px',
+              fontSize: `${TYPOGRAPHY.FONT_SIZE_TINY}px`,
               fontWeight: 'bold',
               textDecoration: 'underline',
               textAlign: 'center'
@@ -291,7 +293,7 @@ export default function ResourcesPage() {
               color: '#0000ff',
               padding: '8px',
               border: '1px solid #000000',
-              fontSize: '10px',
+              fontSize: `${TYPOGRAPHY.FONT_SIZE_TINY}px`,
               fontWeight: 'bold',
               textDecoration: 'underline',
               textAlign: 'center'
@@ -309,7 +311,7 @@ export default function ResourcesPage() {
               color: '#0000ff',
               padding: '8px',
               border: '1px solid #000000',
-              fontSize: '10px',
+              fontSize: `${TYPOGRAPHY.FONT_SIZE_TINY}px`,
               fontWeight: 'bold',
               textDecoration: 'underline',
               textAlign: 'center'
@@ -327,7 +329,7 @@ export default function ResourcesPage() {
               color: '#0000ff',
               padding: '8px',
               border: '1px solid #000000',
-              fontSize: '10px',
+              fontSize: `${TYPOGRAPHY.FONT_SIZE_TINY}px`,
               fontWeight: 'bold',
               textDecoration: 'underline',
               textAlign: 'center'

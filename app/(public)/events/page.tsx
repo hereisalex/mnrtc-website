@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { TYPOGRAPHY } from "@/lib/spacing";
 
 interface Event {
   id: string;
@@ -37,11 +38,11 @@ export default function EventsPage() {
       {/* Main Title */}
       <div style={{ textAlign: 'center', marginBottom: '20px' }}>
         <h1 style={{
-          fontSize: '20px',
-          fontWeight: 'bold',
+          fontSize: `${TYPOGRAPHY.FONT_SIZE_XXL}px`,
+          fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
           color: '#000000',
           marginBottom: '10px',
-          fontFamily: 'Arial, sans-serif'
+          fontFamily: TYPOGRAPHY.FONT_FAMILY_SERIF
         }}>
           Events Calendar
         </h1>
@@ -51,8 +52,8 @@ export default function EventsPage() {
           padding: '4px 8px', 
           border: '2px solid #000000',
           display: 'inline-block',
-          fontSize: '12px',
-          fontWeight: 'bold',
+          fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
+          fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
           marginBottom: '15px'
         }}>
           UPCOMING MEETINGS & EVENTS!
@@ -67,15 +68,15 @@ export default function EventsPage() {
         marginBottom: '20px'
       }}>
         <h2 style={{
-          fontSize: '16px',
-          fontWeight: 'bold',
+          fontSize: `${TYPOGRAPHY.FONT_SIZE_LG}px`,
+          fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
           color: '#000000',
           marginBottom: '10px',
-          fontFamily: 'Arial, sans-serif'
+          fontFamily: TYPOGRAPHY.FONT_FAMILY_SERIF
         }}>
           Upcoming Events
         </h2>
-        <p style={{ fontSize: '12px', color: '#666666', marginBottom: '15px' }}>
+        <p style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`, color: '#666666', marginBottom: '15px' }}>
           Meetings are typically held on the second Sunday of every month from 1-5 PM CT in the Twin Cities metro area.
         </p>
         {upcomingEvents.length > 0 ? (
@@ -87,13 +88,13 @@ export default function EventsPage() {
                 padding: '10px',
                 marginBottom: '10px'
               }}>
-                <h3 style={{ fontSize: '14px', fontWeight: 'bold', marginBottom: '8px' }}>{event.title}</h3>
-                <div style={{ fontSize: '11px', marginBottom: '8px' }}>
+                <h3 style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_MD}px`, fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD, marginBottom: '8px' }}>{event.title}</h3>
+                <div style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`, marginBottom: '8px' }}>
                   <p><strong>Date:</strong> {event.date}</p>
                   <p><strong>Time:</strong> {event.time}</p>
                   <p><strong>Location:</strong> {event.location}</p>
                 </div>
-                <p style={{ fontSize: '11px', marginBottom: '10px', lineHeight: '1.4' }}>
+                <p style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`, marginBottom: '10px', lineHeight: TYPOGRAPHY.LINE_HEIGHT_NORMAL }}>
                   {event.description}
                 </p>
                 <button
@@ -104,8 +105,8 @@ export default function EventsPage() {
                     color: '#000000',
                     padding: '3px 8px',
                     border: '1px solid #000000',
-                    fontSize: '10px',
-                    fontWeight: 'bold',
+                    fontSize: `${TYPOGRAPHY.FONT_SIZE_TINY}px`,
+                    fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
                     cursor: 'pointer'
                   }}
                 >
@@ -121,8 +122,8 @@ export default function EventsPage() {
             padding: '20px',
             textAlign: 'center'
           }}>
-            <h2 style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '10px' }}>No Upcoming Events</h2>
-            <p style={{ fontSize: '11px', marginBottom: '15px', lineHeight: '1.4' }}>
+            <h2 style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_LG}px`, fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD, marginBottom: '10px' }}>No Upcoming Events</h2>
+            <p style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`, marginBottom: '15px', lineHeight: TYPOGRAPHY.LINE_HEIGHT_NORMAL }}>
               We're still planning our first meeting! Check back soon for updates.
             </p>
             <a 
@@ -135,8 +136,8 @@ export default function EventsPage() {
                 color: '#000000',
                 padding: '5px 10px',
                 border: '1px solid #000000',
-                fontSize: '11px',
-                fontWeight: 'bold',
+                fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
+                fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
                 textDecoration: 'none'
               }}
             >
@@ -154,11 +155,11 @@ export default function EventsPage() {
         marginBottom: '20px'
       }}>
         <h2 style={{
-          fontSize: '16px',
-          fontWeight: 'bold',
+          fontSize: `${TYPOGRAPHY.FONT_SIZE_LG}px`,
+          fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
           color: '#000000',
           marginBottom: '10px',
-          fontFamily: 'Arial, sans-serif'
+          fontFamily: TYPOGRAPHY.FONT_FAMILY_SERIF
         }}>
           Past Events
         </h2>
@@ -171,11 +172,11 @@ export default function EventsPage() {
                 padding: '8px',
                 marginBottom: '8px'
               }}>
-                <h3 style={{ fontSize: '12px', fontWeight: 'bold', margin: '0 0 5px 0' }}>{event.title}</h3>
-                <div style={{ fontSize: '10px', color: '#666666', marginBottom: '5px' }}>
+                <h3 style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`, fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD, margin: '0 0 5px 0' }}>{event.title}</h3>
+                <div style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_TINY}px`, color: '#666666', marginBottom: '5px' }}>
                   {event.date} • {event.time}
                 </div>
-                <p style={{ fontSize: '9px', margin: 0, lineHeight: '1.3' }}>{event.description}</p>
+                <p style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_SM}px`, margin: 0, lineHeight: TYPOGRAPHY.LINE_HEIGHT_TIGHT }}>{event.description}</p>
               </div>
             ))}
           </div>
@@ -186,7 +187,7 @@ export default function EventsPage() {
             padding: '15px',
             textAlign: 'center'
           }}>
-            <p style={{ fontSize: '11px', margin: 0, lineHeight: '1.4' }}>
+            <p style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`, margin: 0, lineHeight: TYPOGRAPHY.LINE_HEIGHT_NORMAL }}>
               No past events yet. We're just getting started!
             </p>
           </div>
@@ -201,15 +202,15 @@ export default function EventsPage() {
         marginBottom: '20px'
       }}>
         <h2 style={{
-          fontSize: '16px',
-          fontWeight: 'bold',
+          fontSize: `${TYPOGRAPHY.FONT_SIZE_LG}px`,
+          fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
           color: '#000000',
           marginBottom: '10px',
-          fontFamily: 'Arial, sans-serif'
+          fontFamily: TYPOGRAPHY.FONT_FAMILY_SERIF
         }}>
           Quick Links
         </h2>
-        <p style={{ fontSize: '11px', marginBottom: '15px' }}>
+        <p style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`, marginBottom: '15px' }}>
           Stay connected with the MNRTC community!
         </p>
         <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
@@ -223,8 +224,8 @@ export default function EventsPage() {
               color: '#000000',
               padding: '5px 10px',
               border: '1px solid #000000',
-              fontSize: '11px',
-              fontWeight: 'bold',
+              fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
+              fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
               textDecoration: 'none'
             }}
           >
@@ -240,8 +241,8 @@ export default function EventsPage() {
               color: '#000000',
               padding: '5px 10px',
               border: '1px solid #000000',
-              fontSize: '11px',
-              fontWeight: 'bold',
+              fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
+              fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
               textDecoration: 'none'
             }}
           >
@@ -257,8 +258,8 @@ export default function EventsPage() {
               color: '#000000',
               padding: '5px 10px',
               border: '1px solid #000000',
-              fontSize: '11px',
-              fontWeight: 'bold',
+              fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
+              fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
               textDecoration: 'none'
             }}
           >
@@ -274,18 +275,18 @@ export default function EventsPage() {
         padding: '15px'
       }}>
         <h2 style={{
-          fontSize: '16px',
-          fontWeight: 'bold',
+          fontSize: `${TYPOGRAPHY.FONT_SIZE_LG}px`,
+          fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
           color: '#000000',
           marginBottom: '10px',
-          fontFamily: 'Arial, sans-serif'
+          fontFamily: TYPOGRAPHY.FONT_FAMILY_SERIF
         }}>
           RSVP Information
         </h2>
-        <p style={{ fontSize: '11px', marginBottom: '15px' }}>
+        <p style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`, marginBottom: '15px' }}>
           Want to attend our meetings? Here's how to RSVP:
         </p>
-        <div style={{ fontSize: '10px', lineHeight: '1.4', marginBottom: '15px' }}>
+        <div style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_TINY}px`, lineHeight: TYPOGRAPHY.LINE_HEIGHT_NORMAL, marginBottom: '15px' }}>
           <strong>1.</strong> Join our mailing list on Groups.io<br />
           <strong>2.</strong> Watch for meeting announcements<br />
           <strong>3.</strong> Reply to the RSVP thread<br />
@@ -301,8 +302,8 @@ export default function EventsPage() {
             color: '#000000',
             padding: '5px 10px',
             border: '2px solid #000000',
-            fontSize: '11px',
-            fontWeight: 'bold',
+            fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
+            fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
             textDecoration: 'none'
           }}
         >
@@ -333,7 +334,7 @@ export default function EventsPage() {
             overflow: 'auto'
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
-              <h2 style={{ fontSize: '16px', fontWeight: 'bold', margin: 0 }}>
+              <h2 style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_LG}px`, fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD, margin: 0 }}>
                 {selectedEvent.title}
               </h2>
               <button 
@@ -343,20 +344,20 @@ export default function EventsPage() {
                   color: '#ffffff',
                   border: '1px solid #000000',
                   padding: '2px 6px',
-                  fontSize: '10px',
+                  fontSize: `${TYPOGRAPHY.FONT_SIZE_TINY}px`,
                   cursor: 'pointer'
                 }}
               >
                 ×
               </button>
             </div>
-            <div style={{ fontSize: '12px', marginBottom: '15px', lineHeight: '1.4' }}>
+            <div style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`, marginBottom: '15px', lineHeight: TYPOGRAPHY.LINE_HEIGHT_NORMAL }}>
               <div><strong>Date:</strong> {selectedEvent.date}</div>
               <div><strong>Time:</strong> {selectedEvent.time}</div>
               <div><strong>Location:</strong> {selectedEvent.location}</div>
               <div><strong>Status:</strong> {selectedEvent.status.toUpperCase()}</div>
             </div>
-            <div style={{ fontSize: '11px', lineHeight: '1.4', marginBottom: '20px' }}>
+            <div style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`, lineHeight: TYPOGRAPHY.LINE_HEIGHT_NORMAL, marginBottom: '20px' }}>
               <strong>Description:</strong><br />
               {selectedEvent.description}
             </div>
@@ -371,8 +372,8 @@ export default function EventsPage() {
                   color: '#000000',
                   padding: '5px 10px',
                   border: '1px solid #000000',
-                  fontSize: '11px',
-                  fontWeight: 'bold',
+                  fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
+                  fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
                   textDecoration: 'none'
                 }}
               >
@@ -386,8 +387,8 @@ export default function EventsPage() {
                   color: '#000000',
                   padding: '5px 10px',
                   border: '1px solid #000000',
-                  fontSize: '11px',
-                  fontWeight: 'bold',
+                  fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
+                  fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
                   cursor: 'pointer'
                 }}
               >

@@ -13,6 +13,23 @@ C:\Users\herei\Development\MNRetroTech\mnrtc-website
 
 ## 🚀 Running the Website Locally
 
+### First-Time Setup
+
+Before running the development server, you need to configure your Supabase environment variables:
+
+```bash
+npm run setup:env
+```
+
+This interactive script will:
+- Prompt you for your Supabase Project URL and Anonymous Key
+- Create or update your `.env.local` file
+- Validate your input to ensure it's correct
+
+You can find these values in your Supabase project settings under **API**.
+
+**Note:** The `.env.local` file is automatically ignored by git, so your credentials won't be committed.
+
 ### Start Development Server
 
 ```bash
@@ -163,6 +180,9 @@ See `DEPLOYMENT.md` for more deployment options.
 ## 🔧 Development Commands
 
 ```bash
+# Set up Supabase environment variables (first time only)
+npm run setup:env
+
 # Start development server
 npm run dev
 
@@ -173,7 +193,7 @@ npm run build
 npm start
 
 # Check for TypeScript errors
-npx tsc --noEmit
+npm run type-check
 ```
 
 ## 📝 Known Items

@@ -7,6 +7,7 @@ import { format } from "date-fns";
 import GeoCitiesWindow from "@/components/geocities/GeoCitiesWindow";
 import GeoCitiesButton from "@/components/geocities/GeoCitiesButton";
 import Link from "next/link";
+import { TYPOGRAPHY } from "@/lib/spacing";
 
 interface BlogPost {
   slug: string;
@@ -123,10 +124,10 @@ function BlogContent() {
           >
             <div style={{ overflowY: 'auto', height: '520px', padding: '10px' }}>
               <div style={{ marginBottom: '20px' }}>
-                <h1 style={{ fontSize: '21px', fontWeight: 'bold', marginBottom: '10px', color: '#4169e1' }}>
+                <h1 style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_XXL}px`, fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD, marginBottom: '10px', color: '#4169e1' }}>
                   {selectedPost.title}
                 </h1>
-                <div style={{ fontSize: '14px', color: '#666666', marginBottom: '10px' }}>
+                <div style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_MD}px`, color: '#666666', marginBottom: '10px' }}>
                   <span>By {selectedPost.author}</span>
                   <span style={{ margin: '0 5px' }}>•</span>
                   <time>{format(new Date(selectedPost.date), 'MMMM d, yyyy')}</time>
@@ -137,7 +138,7 @@ function BlogContent() {
                       <div
                         key={tag}
                         className="geocities-badge"
-                        style={{ fontSize: '13px' }}
+                        style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_MD}px` }}
                       >
                         {tag}
                       </div>
@@ -147,9 +148,9 @@ function BlogContent() {
               </div>
 
               <div style={{ 
-                fontSize: '15px', 
-                lineHeight: '1.4',
-                fontFamily: 'Arial, sans-serif'
+                fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`, 
+                lineHeight: TYPOGRAPHY.LINE_HEIGHT_NORMAL,
+                fontFamily: TYPOGRAPHY.FONT_FAMILY_SERIF
               }}>
                 <div dangerouslySetInnerHTML={{ __html: selectedPost.content }} />
               </div>
@@ -176,7 +177,7 @@ function BlogContent() {
   if (slug && isLoadingPost) {
     return (
       <div style={{ marginTop: '30px', padding: '20px', textAlign: 'center' }}>
-        <div style={{ fontSize: '16px', color: '#666666' }}>Loading blog post...</div>
+        <div style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_LG}px`, color: '#666666' }}>Loading blog post...</div>
       </div>
     );
   }
@@ -184,8 +185,8 @@ function BlogContent() {
   if (slug && !selectedPost) {
     return (
       <div style={{ marginTop: '30px', padding: '20px', textAlign: 'center' }}>
-        <h1 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '20px' }}>Post Not Found</h1>
-        <p style={{ fontSize: '16px', color: '#666666', marginBottom: '20px' }}>
+        <h1 style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_DISPLAY}px`, fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD, marginBottom: '20px' }}>Post Not Found</h1>
+        <p style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_LG}px`, color: '#666666', marginBottom: '20px' }}>
           The blog post you're looking for doesn't exist or has been removed.
         </p>
         <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
@@ -202,11 +203,11 @@ function BlogContent() {
       {/* Main Title */}
       <div style={{ textAlign: 'center', marginBottom: '20px' }}>
         <h1 style={{
-          fontSize: '24px',
-          fontWeight: 'bold',
+          fontSize: `${TYPOGRAPHY.FONT_SIZE_XXL}px`,
+          fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
           color: '#000000',
           marginBottom: '10px',
-          fontFamily: 'Arial, sans-serif'
+          fontFamily: TYPOGRAPHY.FONT_FAMILY_SERIF
         }}>
           MNRTC Blog
         </h1>
@@ -216,8 +217,8 @@ function BlogContent() {
           padding: '4px 8px', 
           border: '2px solid #000000',
           display: 'inline-block',
-          fontSize: '15px',
-          fontWeight: 'bold',
+          fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
+          fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
           marginBottom: '15px'
         }}>
           NEWS, UPDATES & ARTICLES!
@@ -232,19 +233,19 @@ function BlogContent() {
         marginBottom: '20px'
       }}>
         <h2 style={{
-          fontSize: '19px',
-          fontWeight: 'bold',
+          fontSize: `${TYPOGRAPHY.FONT_SIZE_XL}px`,
+          fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
           color: '#000000',
           marginBottom: '10px',
-          fontFamily: 'Arial, sans-serif'
+          fontFamily: TYPOGRAPHY.FONT_FAMILY_SERIF
         }}>
           Latest Posts
         </h2>
         <p style={{ 
-          fontSize: '15px', 
+          fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`, 
           color: '#666666', 
           marginBottom: '15px',
-          lineHeight: '1.4'
+          lineHeight: TYPOGRAPHY.LINE_HEIGHT_NORMAL
         }}>
           Stay up to date with club news, meeting recaps, and articles about retro technology
         </p>
@@ -263,14 +264,14 @@ function BlogContent() {
                 marginBottom: '10px'
               }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px', flexWrap: 'wrap', gap: '5px' }}>
-                  <h3 style={{ fontSize: '17px', fontWeight: 'bold', margin: 0, flex: 1, minWidth: '200px' }}>{post.title}</h3>
-                  <span style={{ fontSize: '13px', color: '#666666', whiteSpace: 'nowrap' }}>
+                  <h3 style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_XL}px`, fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD, margin: 0, flex: 1, minWidth: '200px' }}>{post.title}</h3>
+                  <span style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_MD}px`, color: '#666666', whiteSpace: 'nowrap' }}>
                     {format(new Date(post.date), 'MMM d, yyyy')}
                   </span>
                 </div>
-                <p style={{ fontSize: '14px', marginBottom: '8px', lineHeight: '1.4' }}>{post.description}</p>
+                <p style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_MD}px`, marginBottom: '8px', lineHeight: TYPOGRAPHY.LINE_HEIGHT_NORMAL }}>{post.description}</p>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
-                  <span style={{ fontSize: '13px', color: '#666666' }}>
+                  <span style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_MD}px`, color: '#666666' }}>
                     By {post.author}
                   </span>
                   <Link 
@@ -281,8 +282,8 @@ function BlogContent() {
                       color: '#000000',
                       padding: '3px 8px',
                       border: '1px solid #000000',
-                      fontSize: '13px',
-                      fontWeight: 'bold',
+                      fontSize: `${TYPOGRAPHY.FONT_SIZE_MD}px`,
+                      fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
                       textDecoration: 'none'
                     }}
                   >
@@ -300,8 +301,8 @@ function BlogContent() {
                           color: '#000000',
                           padding: '2px 6px',
                           border: '1px solid #000000',
-                          fontSize: '12px',
-                          fontWeight: 'bold'
+                          fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
+                          fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD
                         }}
                       >
                         {tag}
@@ -319,8 +320,8 @@ function BlogContent() {
             padding: '20px',
             textAlign: 'center'
           }}>
-            <h2 style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '10px' }}>Coming Soon!</h2>
-            <p style={{ fontSize: '12px', marginBottom: '15px', lineHeight: '1.4' }}>
+            <h2 style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_LG}px`, fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD, marginBottom: '10px' }}>Coming Soon!</h2>
+            <p style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`, marginBottom: '15px', lineHeight: TYPOGRAPHY.LINE_HEIGHT_NORMAL }}>
               We haven't published any blog posts yet, but check back soon for
               updates, meeting recaps, and articles about retro technology.
             </p>
@@ -334,8 +335,8 @@ function BlogContent() {
                 color: '#000000',
                 padding: '5px 10px',
                 border: '1px solid #000000',
-                fontSize: '12px',
-                fontWeight: 'bold',
+                fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
+                fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
                 textDecoration: 'none'
               }}
             >
@@ -353,17 +354,17 @@ function BlogContent() {
         marginBottom: '20px'
       }}>
         <h2 style={{
-          fontSize: '16px',
-          fontWeight: 'bold',
+          fontSize: `${TYPOGRAPHY.FONT_SIZE_LG}px`,
+          fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
           color: '#000000',
           marginBottom: '10px',
-          fontFamily: 'Arial, sans-serif'
+          fontFamily: TYPOGRAPHY.FONT_FAMILY_SERIF
         }}>
           Want to Write for Us?
         </h2>
         <p style={{ 
-          fontSize: '12px', 
-          lineHeight: '1.4', 
+          fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`, 
+          lineHeight: TYPOGRAPHY.LINE_HEIGHT_NORMAL, 
           marginBottom: '15px' 
         }}>
           We're always looking for writers who share our passion for retro technology! 
@@ -376,8 +377,8 @@ function BlogContent() {
             color: '#000000',
             padding: '2px 6px',
             border: '1px solid #000000',
-            fontSize: '12px',
-            fontWeight: 'bold'
+            fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
+            fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD
           }}>Retro Computing</span>
           <span style={{
             display: 'inline-block',
@@ -385,8 +386,8 @@ function BlogContent() {
             color: '#000000',
             padding: '2px 6px',
             border: '1px solid #000000',
-            fontSize: '12px',
-            fontWeight: 'bold'
+            fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
+            fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD
           }}>Vintage Hardware</span>
           <span style={{
             display: 'inline-block',
@@ -394,8 +395,8 @@ function BlogContent() {
             color: '#000000',
             padding: '2px 6px',
             border: '1px solid #000000',
-            fontSize: '12px',
-            fontWeight: 'bold'
+            fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
+            fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD
           }}>Software History</span>
           <span style={{
             display: 'inline-block',
@@ -403,8 +404,8 @@ function BlogContent() {
             color: '#000000',
             padding: '2px 6px',
             border: '1px solid #000000',
-            fontSize: '12px',
-            fontWeight: 'bold'
+            fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
+            fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD
           }}>Club News</span>
         </div>
         <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
@@ -416,8 +417,8 @@ function BlogContent() {
               color: '#000000',
               padding: '5px 10px',
               border: '1px solid #000000',
-              fontSize: '12px',
-              fontWeight: 'bold',
+              fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
+              fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
               textDecoration: 'none'
             }}
           >
@@ -433,8 +434,8 @@ function BlogContent() {
               color: '#000000',
               padding: '5px 10px',
               border: '1px solid #000000',
-              fontSize: '12px',
-              fontWeight: 'bold',
+              fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
+              fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
               textDecoration: 'none'
             }}
           >
@@ -450,17 +451,17 @@ function BlogContent() {
         padding: '15px'
       }}>
         <h2 style={{
-          fontSize: '16px',
-          fontWeight: 'bold',
+          fontSize: `${TYPOGRAPHY.FONT_SIZE_LG}px`,
+          fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
           color: '#000000',
           marginBottom: '10px',
-          fontFamily: 'Arial, sans-serif'
+          fontFamily: TYPOGRAPHY.FONT_FAMILY_SERIF
         }}>
           Stay Updated
         </h2>
         <p style={{ 
-          fontSize: '12px', 
-          lineHeight: '1.4', 
+          fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`, 
+          lineHeight: TYPOGRAPHY.LINE_HEIGHT_NORMAL, 
           marginBottom: '15px' 
         }}>
           Subscribe to our RSS feed or join our mailing list to never miss an update!
@@ -474,8 +475,8 @@ function BlogContent() {
               color: '#000000',
               padding: '5px 10px',
               border: '1px solid #000000',
-              fontSize: '12px',
-              fontWeight: 'bold',
+              fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
+              fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
               textDecoration: 'none'
             }}
           >
@@ -491,8 +492,8 @@ function BlogContent() {
               color: '#000000',
               padding: '5px 10px',
               border: '1px solid #000000',
-              fontSize: '12px',
-              fontWeight: 'bold',
+              fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
+              fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
               textDecoration: 'none'
             }}
           >
@@ -506,8 +507,8 @@ function BlogContent() {
               color: '#000000',
               padding: '5px 10px',
               border: '1px solid #000000',
-              fontSize: '12px',
-              fontWeight: 'bold',
+              fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
+              fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
               textDecoration: 'none'
             }}
           >
@@ -523,7 +524,7 @@ export default function BlogPage() {
   return (
     <Suspense fallback={
       <div style={{ marginTop: '30px', padding: '20px', textAlign: 'center' }}>
-        <div style={{ fontSize: '16px', color: '#666666' }}>Loading...</div>
+        <div style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_LG}px`, color: '#666666' }}>Loading...</div>
       </div>
     }>
       <BlogContent />

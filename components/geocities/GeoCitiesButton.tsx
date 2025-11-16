@@ -56,7 +56,7 @@ export default function GeoCitiesButton({
     border: '2px solid',
     borderColor: variantStyle.borderColor,
     color: variantStyle.color,
-    fontFamily: 'Arial, sans-serif',
+    fontFamily: 'Times New Roman, Times, serif',
     fontSize: '11px',
     fontWeight: 'bold',
     padding: '3px 8px',

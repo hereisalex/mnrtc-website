@@ -170,7 +170,7 @@ export default function GuestbookWidget(): React.ReactElement {
 					padding: "6px",
 					height: "220px",
 					overflowY: "auto",
-					fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
+					fontFamily: "Times New Roman, Times, serif",
 					fontSize: "12px",
 					color: "#000",
 				}}

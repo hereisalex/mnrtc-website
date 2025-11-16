@@ -24,8 +24,8 @@ export default {
         },
       },
       fontFamily: {
-        chicago: ["Impact", "Arial Black", "sans-serif"],
-        geneva: ["Helvetica Neue", "Arial", "sans-serif"],
+        chicago: ["Times New Roman", "Times", "serif"],
+        geneva: ["Times New Roman", "Times", "serif"],
       },
       boxShadow: {
         "mac-inset": "inset 1px 1px 0 #666666, inset -1px -1px 0 #ffffff",

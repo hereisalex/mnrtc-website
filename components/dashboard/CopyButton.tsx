@@ -43,6 +43,6 @@ const copyButtonStyle: CSSProperties = {
   fontWeight: 500,
   cursor: 'pointer',
   transition: 'all 0.2s',
-  fontFamily: 'system-ui, sans-serif',
+  fontFamily: 'Times New Roman, Times, serif',
 };
 

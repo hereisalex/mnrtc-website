@@ -1,3 +1,5 @@
+import { TYPOGRAPHY } from "@/lib/spacing";
+
 export const metadata = {
   title: "About | Minnesota Retro Technology Club",
   description: "Learn about the Minnesota Retro Technology Club and who's behind it",
@@ -9,11 +11,11 @@ export default function AboutPage() {
       {/* Header */}
       <div style={{ textAlign: 'center', marginBottom: '20px' }}>
         <h1 style={{
-          fontSize: '20px',
-          fontWeight: 'bold',
+          fontSize: `${TYPOGRAPHY.FONT_SIZE_XXL}px`,
+          fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
           color: '#000000',
           marginBottom: '10px',
-          fontFamily: 'Arial, sans-serif'
+          fontFamily: TYPOGRAPHY.FONT_FAMILY_SERIF
         }}>
           About MNRTC
         </h1>
@@ -27,11 +29,11 @@ export default function AboutPage() {
         marginBottom: '20px'
       }}>
         <h2 style={{
-          fontSize: '16px',
-          fontWeight: 'bold',
+          fontSize: `${TYPOGRAPHY.FONT_SIZE_LG}px`,
+          fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
           color: '#000000',
           marginBottom: '10px',
-          fontFamily: 'Arial, sans-serif'
+          fontFamily: TYPOGRAPHY.FONT_FAMILY_SERIF
         }}>
           Meet the Founder
         </h2>
@@ -49,8 +51,8 @@ export default function AboutPage() {
               margin: '0 auto'
             }}>
               <span style={{
-                fontSize: '16px',
-                fontWeight: 'bold',
+                fontSize: `${TYPOGRAPHY.FONT_SIZE_LG}px`,
+                fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
                 color: '#666666'
               }}>
                 HAP
@@ -59,8 +61,8 @@ export default function AboutPage() {
           </div>
           <div style={{ flex: 1 }}>
             <p style={{
-              fontSize: '12px',
-              lineHeight: '1.5',
+              fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
+              lineHeight: TYPOGRAPHY.LINE_HEIGHT_NORMAL,
               margin: '0 0 10px 0'
             }}>
               Hey there! I'm{" "}
@@ -100,11 +102,11 @@ export default function AboutPage() {
         marginBottom: '20px'
       }}>
         <h2 style={{
-          fontSize: '16px',
-          fontWeight: 'bold',
+          fontSize: `${TYPOGRAPHY.FONT_SIZE_LG}px`,
+          fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
           color: '#000000',
           marginBottom: '10px',
-          fontFamily: 'Arial, sans-serif'
+          fontFamily: TYPOGRAPHY.FONT_FAMILY_SERIF
         }}>
           Club Vision
         </h2>
@@ -135,17 +137,17 @@ export default function AboutPage() {
         marginBottom: '20px'
       }}>
         <h2 style={{
-          fontSize: '16px',
-          fontWeight: 'bold',
+          fontSize: `${TYPOGRAPHY.FONT_SIZE_LG}px`,
+          fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
           color: '#000000',
           marginBottom: '10px',
-          fontFamily: 'Arial, sans-serif'
+          fontFamily: TYPOGRAPHY.FONT_FAMILY_SERIF
         }}>
           ⚠️ Under Construction ⚠️
         </h2>
         <p style={{
-          fontSize: '11px',
-          lineHeight: '1.4',
+          fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
+          lineHeight: TYPOGRAPHY.LINE_HEIGHT_NORMAL,
           margin: '0'
         }}>
           This website, the{" "}
@@ -167,11 +169,11 @@ export default function AboutPage() {
         padding: '15px'
       }}>
         <h2 style={{
-          fontSize: '16px',
-          fontWeight: 'bold',
+          fontSize: `${TYPOGRAPHY.FONT_SIZE_LG}px`,
+          fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
           color: '#000000',
           marginBottom: '10px',
-          fontFamily: 'Arial, sans-serif'
+          fontFamily: TYPOGRAPHY.FONT_FAMILY_SERIF
         }}>
           Twin Cities Geek Community
         </h2>
@@ -193,8 +195,8 @@ export default function AboutPage() {
               color: '#000000',
               padding: '3px 8px',
               border: '1px solid #000000',
-              fontSize: '10px',
-              fontWeight: 'bold',
+              fontSize: `${TYPOGRAPHY.FONT_SIZE_TINY}px`,
+              fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
               textDecoration: 'none'
             }}
           >
@@ -210,8 +212,8 @@ export default function AboutPage() {
               color: '#000000',
               padding: '3px 8px',
               border: '1px solid #000000',
-              fontSize: '10px',
-              fontWeight: 'bold',
+              fontSize: `${TYPOGRAPHY.FONT_SIZE_TINY}px`,
+              fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
               textDecoration: 'none'
             }}
           >

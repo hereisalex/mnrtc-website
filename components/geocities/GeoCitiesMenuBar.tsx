@@ -99,7 +99,7 @@ export default function GeoCitiesMenuBar() {
                   display: 'flex',
                   alignItems: 'center',
                   fontSize: '11px',
-                  fontFamily: 'Arial, sans-serif',
+                  fontFamily: 'Times New Roman, Times, serif',
                   color: pathname === item.href ? '#000000' : '#ffffff',
                   background: pathname === item.href ? '#ffffff' : 'transparent',
                   textDecoration: 'none',
@@ -118,7 +118,7 @@ export default function GeoCitiesMenuBar() {
                   display: 'flex',
                   alignItems: 'center',
                   fontSize: '11px',
-                  fontFamily: 'Arial, sans-serif',
+                  fontFamily: 'Times New Roman, Times, serif',
                   color: activeMenu === item.label ? '#000000' : '#ffffff',
                   background: activeMenu === item.label ? '#ffffff' : 'transparent',
                   border: activeMenu === item.label ? '1px solid #000000' : '1px solid transparent',
@@ -152,7 +152,7 @@ export default function GeoCitiesMenuBar() {
                       display: 'block',
                       padding: '4px 8px',
                       fontSize: '11px',
-                      fontFamily: 'Arial, sans-serif',
+                      fontFamily: 'Times New Roman, Times, serif',
                       color: '#000000',
                       textDecoration: 'none',
                       borderBottom: subIndex < item.submenu!.length - 1 ? '1px solid #c0c0c0' : 'none',
@@ -206,7 +206,7 @@ export default function GeoCitiesMenuBar() {
         </div>
         <span style={{
           fontSize: '11px',
-          fontFamily: 'Arial, sans-serif',
+          fontFamily: 'Times New Roman, Times, serif',
           color: '#ffffff',
           fontWeight: 'bold'
         }}>

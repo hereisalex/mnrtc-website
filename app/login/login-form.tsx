@@ -88,7 +88,7 @@ export function LoginForm({ redirectPath = '/dashboard', showUnauthorizedMessage
     >
       <h1
         style={{
-          fontFamily: 'var(--font-heading, sans-serif)',
+          fontFamily: 'Times New Roman, Times, serif',
           textAlign: 'center',
           marginBottom: '1.5rem',
           fontSize: '1.75rem',

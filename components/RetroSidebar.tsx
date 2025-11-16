@@ -3,10 +3,13 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import NavigationButton from './NavigationButton';
+import { SPACING, TYPOGRAPHY } from '@/lib/spacing';
 
 function RetroSidebar() {
   const pathname = usePathname();
   const isGuestbookPage = pathname === '/guestbook';
+  const isMainPage = pathname === '/';
+  const showLogo = !isMainPage && !isGuestbookPage;
 
   const navItems = [
     { label: 'Home', href: '/' },
@@ -20,21 +23,17 @@ function RetroSidebar() {
   ];
 
   return (
-    <div style={{ 
+    <div className="sidebar-content" style={{ 
       background: 'transparent',
       border: 'none',
-      padding: '10px',
       height: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '15px'
     }}>
       {/* Logo for guestbook page */}
       {isGuestbookPage && (
         <div style={{
           display: 'flex',
           justifyContent: 'center',
-          marginBottom: '10px',
+          marginBottom: `${SPACING.TEXT_MARGIN_BOTTOM * 2}px`,
         }}>
           <img
             src="/images/full-logo.png"
@@ -50,20 +49,48 @@ function RetroSidebar() {
         </div>
       )}
 
+      {/* Logo above Navigation for non-main, non-guestbook pages */}
+      {showLogo && (
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          marginBottom: `${SPACING.LOGO_TO_NAV_GAP}px`,
+        }}>
+          <Link href="/" style={{ display: 'block' }}>
+            <img
+              src="/images/full-logo.png"
+              alt="Minnesota Retro Technology Club"
+              style={{
+                imageRendering: 'pixelated',
+                width: 'auto',
+                height: 'auto',
+                maxWidth: `${SPACING.LOGO_MAX_WIDTH}px`,
+                display: 'block',
+                border: 'none',
+                background: 'transparent',
+                padding: 0,
+                boxShadow: 'none',
+              }}
+            />
+          </Link>
+        </div>
+      )}
+
       {/* Navigation */}
       <div>
         <h3 style={{
-          fontSize: '18px',
+          fontSize: `${TYPOGRAPHY.FONT_SIZE_HUGE}px`,
+          fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD,
           color: '#000000',
-          marginBottom: '8px',
+          marginBottom: `${SPACING.NAV_HEADER_MARGIN_BOTTOM}px`,
           textAlign: 'center',
           borderBottom: 'none',
-          paddingBottom: '5px',
+          paddingBottom: `${SPACING.NAV_HEADER_PADDING_BOTTOM}px`,
           textShadow: '1px 1px 2px rgba(255, 255, 255, 0.8)'
         }}>
           Navigation
         </h3>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: `${SPACING.SIDEBAR_BUTTON_GAP}px` }}>
           {navItems.map((item, index) => {
             const colors = ['postit-note-yellow', 'postit-note-blue', 'postit-note-pink', 'postit-note-green', 'postit-note-orange', 'postit-note-purple'];
             const colorClass = colors[index % colors.length];
@@ -81,14 +108,14 @@ function RetroSidebar() {
       </div>
 
       {/* Quick Info */}
-      <div className="postit-note postit-note-orange" style={{ fontSize: '12px' }}>
-        <div style={{ fontWeight: 'bold', marginBottom: '5px' }}>
+      <div className="postit-note postit-note-orange" style={{ fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px` }}>
+        <div style={{ fontWeight: TYPOGRAPHY.FONT_WEIGHT_BOLD, marginBottom: `${SPACING.TEXT_MARGIN_BOTTOM}px` }}>
           MNRTC Online
         </div>
         <div>
           Minnesota Retro Technology Club
         </div>
-        <div style={{ marginTop: '5px', fontSize: '12px' }}>
+        <div style={{ marginTop: `${SPACING.TEXT_MARGIN_BOTTOM}px`, fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px` }}>
           Best viewed in Netscape Navigator 4.0!
         </div>
       </div>
@@ -98,11 +125,11 @@ function RetroSidebar() {
 
       {/* Footer */}
       <div style={{
-        fontSize: '12px',
+        fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
         textAlign: 'center',
         color: '#666666',
         borderTop: 'none',
-        paddingTop: '5px'
+        paddingTop: `${SPACING.SIDEBAR_FOOTER_PADDING_TOP}px`
       }}>
         © 2025 MNRTC
       </div>

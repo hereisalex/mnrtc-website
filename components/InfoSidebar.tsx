@@ -4,47 +4,46 @@ import VisitorCounter from '@/components/geocities/VisitorCounter';
 import ExternalLink from './ExternalLink';
 import MailLink from './MailLink';
 import EventCalendar from './EventCalendar';
+import { SPACING, TYPOGRAPHY, BUTTONS } from '@/lib/spacing';
 
 function InfoSidebar() {
   return (
-    <div style={{ 
+    <div className="sidebar-content" style={{ 
       background: 'transparent',
       border: 'none',
-      padding: '10px',
       height: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '15px'
     }}>
       {/* Event Calendar */}
-      <EventCalendar />
+      <div>
+        <EventCalendar />
+      </div>
 
       {/* My Links */}
       <div className="postit-note postit-note-green">
         <h3 style={{
-          fontSize: '16px',
-          fontWeight: 'normal',
+          fontSize: `${TYPOGRAPHY.FONT_SIZE_LG}px`,
+          fontWeight: TYPOGRAPHY.FONT_WEIGHT_NORMAL,
           color: '#000000',
-          marginBottom: '8px',
+          marginBottom: `${SPACING.NAV_HEADER_MARGIN_BOTTOM}px`,
           textAlign: 'center',
           borderBottom: 'none',
-          paddingBottom: '5px'
+          paddingBottom: `${SPACING.NAV_HEADER_PADDING_BOTTOM}px`
         }}>
           My Links
         </h3>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: `${SPACING.SIDEBAR_BUTTON_GAP}px` }}>
           <ExternalLink
             href="https://discord.gg/hF9wh6gPcP"
             className="postit-note postit-note-blue"
             style={{
               display: 'block',
-              padding: '3px 6px',
-              fontSize: '12px',
-              fontFamily: 'Arial, sans-serif',
+              padding: BUTTONS.BUTTON_PADDING_MD,
+              fontSize: `${BUTTONS.BUTTON_FONT_SIZE_MD}px`,
+              fontFamily: TYPOGRAPHY.FONT_FAMILY_SERIF,
               color: '#0000ff',
               textDecoration: 'none',
               textAlign: 'center',
-              margin: '2px 0'
+              margin: BUTTONS.BUTTON_MARGIN_SM
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = '#d0e0ff';
@@ -61,13 +60,13 @@ function InfoSidebar() {
             className="postit-note postit-note-green"
             style={{
               display: 'block',
-              padding: '3px 6px',
-              fontSize: '12px',
-              fontFamily: 'Arial, sans-serif',
+              padding: BUTTONS.BUTTON_PADDING_MD,
+              fontSize: `${BUTTONS.BUTTON_FONT_SIZE_MD}px`,
+              fontFamily: TYPOGRAPHY.FONT_FAMILY_SERIF,
               color: '#0000ff',
               textDecoration: 'none',
               textAlign: 'center',
-              margin: '2px 0'
+              margin: BUTTONS.BUTTON_MARGIN_SM
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = '#d0e0ff';
@@ -84,13 +83,13 @@ function InfoSidebar() {
             className="postit-note postit-note-pink"
             style={{
               display: 'block',
-              padding: '3px 6px',
-              fontSize: '12px',
-              fontFamily: 'Arial, sans-serif',
+              padding: BUTTONS.BUTTON_PADDING_MD,
+              fontSize: `${BUTTONS.BUTTON_FONT_SIZE_MD}px`,
+              fontFamily: TYPOGRAPHY.FONT_FAMILY_SERIF,
               color: '#0000ff',
               textDecoration: 'none',
               textAlign: 'center',
-              margin: '2px 0'
+              margin: BUTTONS.BUTTON_MARGIN_SM
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = '#d0e0ff';
@@ -107,13 +106,13 @@ function InfoSidebar() {
             className="postit-note postit-note-orange"
             style={{
               display: 'block',
-              padding: '3px 6px',
-              fontSize: '12px',
-              fontFamily: 'Arial, sans-serif',
+              padding: BUTTONS.BUTTON_PADDING_MD,
+              fontSize: `${BUTTONS.BUTTON_FONT_SIZE_MD}px`,
+              fontFamily: TYPOGRAPHY.FONT_FAMILY_SERIF,
               color: '#0000ff',
               textDecoration: 'none',
               textAlign: 'center',
-              margin: '2px 0'
+              margin: BUTTONS.BUTTON_MARGIN_SM
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = '#d0e0ff';
@@ -133,13 +132,13 @@ function InfoSidebar() {
       {/* Visitor Counter */}
       <div className="postit-note postit-note-purple" style={{ textAlign: 'center' }}>
         <h3 style={{
-          fontSize: '16px',
-          fontWeight: 'normal',
+          fontSize: `${TYPOGRAPHY.FONT_SIZE_LG}px`,
+          fontWeight: TYPOGRAPHY.FONT_WEIGHT_NORMAL,
           color: '#000000',
-          marginBottom: '8px',
+          marginBottom: `${SPACING.NAV_HEADER_MARGIN_BOTTOM}px`,
           textAlign: 'center',
           borderBottom: 'none',
-          paddingBottom: '5px'
+          paddingBottom: `${SPACING.NAV_HEADER_PADDING_BOTTOM}px`
         }}>
           Visitor Counter
         </h3>
@@ -151,11 +150,11 @@ function InfoSidebar() {
 
       {/* Footer */}
       <div style={{
-        fontSize: '12px',
+        fontSize: `${TYPOGRAPHY.FONT_SIZE_BASE}px`,
         textAlign: 'center',
         color: '#666666',
         borderTop: 'none',
-        paddingTop: '5px'
+        paddingTop: `${SPACING.SIDEBAR_FOOTER_PADDING_TOP}px`
       }}>
         Under construction since 1995!
       </div>

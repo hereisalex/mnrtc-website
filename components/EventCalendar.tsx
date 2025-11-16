@@ -220,7 +220,7 @@ export default function EventCalendar() {
               padding: '2px 6px',
               fontSize: '12px',
               cursor: 'pointer',
-              fontFamily: 'Arial, sans-serif'
+              fontFamily: 'Times New Roman, Times, serif'
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = '#d0d0d0';
@@ -247,7 +247,7 @@ export default function EventCalendar() {
               padding: '2px 6px',
               fontSize: '12px',
               cursor: 'pointer',
-              fontFamily: 'Arial, sans-serif'
+              fontFamily: 'Times New Roman, Times, serif'
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = '#d0d0d0';
@@ -270,7 +270,7 @@ export default function EventCalendar() {
               padding: '2px 8px',
               fontSize: '12px',
               cursor: 'pointer',
-              fontFamily: 'Arial, sans-serif',
+              fontFamily: 'Times New Roman, Times, serif',
               fontWeight: 'bold'
             }}
             onMouseEnter={(e) => {
@@ -355,7 +355,7 @@ export default function EventCalendar() {
                     : '1px solid #000000',
                   fontSize: '11px',
                   cursor: hasEvent ? 'pointer' : 'default',
-                  fontFamily: 'Arial, sans-serif',
+                  fontFamily: 'Times New Roman, Times, serif',
                   padding: '1px',
                   display: 'flex',
                   flexDirection: 'column',
@@ -518,7 +518,7 @@ export default function EventCalendar() {
                 padding: '2px 6px',
                 fontSize: '12px',
                 cursor: 'pointer',
-                fontFamily: 'Arial, sans-serif',
+                fontFamily: 'Times New Roman, Times, serif',
                 fontWeight: 'bold'
               }}
               onMouseEnter={(e) => {
@@ -576,7 +576,7 @@ export default function EventCalendar() {
                 fontSize: '14px',
                 fontWeight: 'bold',
                 margin: 0,
-                fontFamily: 'Arial, sans-serif'
+                fontFamily: 'Times New Roman, Times, serif'
               }}>
                 {selectedEvent.title}
               </h3>
@@ -592,7 +592,7 @@ export default function EventCalendar() {
                   padding: '2px 6px',
                   fontSize: '12px',
                   cursor: 'pointer',
-                  fontFamily: 'Arial, sans-serif'
+                  fontFamily: 'Times New Roman, Times, serif'
                 }}
               >
                 ×
@@ -628,7 +628,7 @@ export default function EventCalendar() {
                   fontSize: '12px',
                   fontWeight: 'bold',
                   textDecoration: 'none',
-                  fontFamily: 'Arial, sans-serif'
+                  fontFamily: 'Times New Roman, Times, serif'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.background = '#d0d0d0';
@@ -653,7 +653,7 @@ export default function EventCalendar() {
                   fontSize: '12px',
                   fontWeight: 'bold',
                   cursor: 'pointer',
-                  fontFamily: 'Arial, sans-serif'
+                  fontFamily: 'Times New Roman, Times, serif'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.background = '#d0d0d0';

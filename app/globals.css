@@ -26,14 +26,28 @@
   --geocities-button-bg: #e0e0e0;
   --geocities-button-hover: #d0d0d0;
   --geocities-button-active: #c0c0c0;
+  
+  /* Spacing constants from spacing.ts */
+  --viewport-top-margin: 18px;
+  --center-content-padding: 15px;
+  --sidebar-left-width: 180px;
+  --sidebar-right-width: 200px;
+  --sidebar-horizontal-gap: 10px;
+  --sidebar-section-gap: 10px;
+  --container-max-width: 1200px;
+  
+  /* Independent top spacing for each column */
+  --left-sidebar-top-padding: 15px;
+  --center-content-top-padding: 15px;
+  --right-sidebar-top-padding: 15px;
 }
 
-/* Using web-safe fallback fonts instead of custom font files */
-/* Chicago font fallback: Impact, Arial Black, sans-serif */
-/* Geneva font fallback: Helvetica Neue, Arial, sans-serif */
+/* Using classic serif fonts for retro aesthetic */
+/* Chicago font fallback: Times New Roman, Times, serif */
+/* Geneva font fallback: Times New Roman, Times, serif */
 
 body {
-  font-family: 'Arial', 'Helvetica', sans-serif;
+  font-family: 'Times New Roman', 'Times', serif;
   /* Background image set inline in layout.tsx to support basePath */
   color: var(--geocities-text);
   min-height: 100vh;
@@ -45,7 +59,7 @@ body {
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
   image-rendering: pixelated;
-  font-size: 17px;
+  font-size: 24px;
 }
 
 /* Fix background-attachment: fixed on mobile devices for better performance */
@@ -55,15 +69,20 @@ body {
   }
 }
 
+/* Banner styling */
+.banner {
+  margin-top: 20px;
+}
+
 /* Three-Column Retro Layout Styles */
 .retro-layout {
   width: 100%;
-  max-width: 1200px;
+  max-width: var(--container-max-width);
   margin: 0 auto;
   border-collapse: collapse;
   border-spacing: 0;
   background: transparent;
-  table-layout: fixed;
+  table-layout: auto;
 }
 
 .retro-layout td {
@@ -73,36 +92,66 @@ body {
 }
 
 .left-sidebar {
-  width: 180px;
+  width: var(--sidebar-left-width);
   background: transparent;
   border-right: none;
-  padding: 10px;
+  padding: 0 var(--sidebar-horizontal-gap) 0 0;
   /* Position sticky with fallback for older browsers */
   position: -webkit-sticky;
   position: sticky;
   top: 0;
   height: 100vh;
   overflow-y: auto;
+  /* Align sidebar content with center content using flexbox */
+  display: flex;
+  flex-direction: column;
 }
 
 .center-content {
-  width: auto;
+  width: 100%;
   background: transparent;
-  padding: 20px;
+  padding-top: var(--center-content-top-padding);
+  padding-right: var(--center-content-padding);
+  padding-bottom: var(--center-content-padding);
+  padding-left: var(--center-content-padding);
   min-height: 600px;
+  /* Create a reference point for sidebar alignment */
+  position: relative;
 }
 
 .right-sidebar {
-  width: 200px;
+  width: var(--sidebar-right-width);
   background: transparent;
   border-left: none;
-  padding: 10px;
+  padding: 0 0 0 var(--sidebar-horizontal-gap);
   /* Position sticky with fallback for older browsers */
   position: -webkit-sticky;
   position: sticky;
   top: 0;
   height: 100vh;
   overflow-y: auto;
+  /* Align sidebar content with center content using flexbox */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Sidebar content wrapper - aligns with center content start */
+.sidebar-content {
+  /* No additional padding needed - alignment handled by sidebar padding */
+  padding: 0 var(--center-content-padding) var(--center-content-padding) var(--center-content-padding);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sidebar-section-gap);
+  flex: 1;
+}
+
+/* Apply independent top spacing directly to sidebar content wrappers */
+.left-sidebar > .sidebar-content {
+  padding-top: var(--left-sidebar-top-padding);
+}
+
+.right-sidebar > .sidebar-content {
+  padding-top: var(--right-sidebar-top-padding);
 }
 
 /* Classic GeoCities Layout Styles (for backward compatibility) */
@@ -136,7 +185,7 @@ body {
 
 .geocities-section h3 {
   color: #4682b4;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: bold;
   margin-bottom: 10px;
   text-decoration: underline;
@@ -160,7 +209,7 @@ body {
   margin: 2px;
   text-decoration: none;
   color: #000000;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: bold;
   cursor: pointer;
 }
@@ -277,7 +326,7 @@ input, textarea {
   padding: 10px;
   margin: 8px 0;
   color: #000000;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.4;
   position: relative;
   /* Clip-path with vendor prefixes for cross-browser support */
@@ -310,7 +359,7 @@ input, textarea {
 }
 
 .postit-note h3 {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: bold;
   color: #000000;
   margin: 0 0 8px 0;
@@ -587,9 +636,9 @@ body::before {
   background-position: center;
 }
 
-/* Chicago font for headings */
+/* Classic serif font for headings */
 h1, h2, h3, .chicago {
-  font-family: 'Impact', 'Arial Black', sans-serif;
+  font-family: 'Times New Roman', 'Times', serif;
   font-weight: normal;
   letter-spacing: 0.5px;
 }
@@ -717,7 +766,7 @@ a, button, [role="button"], .mac-button {
 
 /* GeoCities-specific styling */
 .geocities-title {
-  font-family: 'Arial Black', 'Arial', sans-serif;
+  font-family: 'Times New Roman', 'Times', serif;
   font-size: 24px;
   color: var(--geocities-accent-pink);
   text-shadow: 2px 2px 0 var(--geocities-border);
@@ -860,7 +909,7 @@ img {
   box-shadow: none !important;
   font-weight: bold !important;
   text-align: center !important;
-  font-family: 'Arial', sans-serif !important;
+  font-family: 'Times New Roman', 'Times', serif !important;
   font-size: 11px !important;
   padding: 3px 8px !important;
   min-height: 18px !important;
@@ -885,7 +934,7 @@ img {
 .blog-content h2,
 .blog-content h3,
 .blog-content h4 {
-  font-family: 'Impact', 'Arial Black', sans-serif;
+  font-family: 'Times New Roman', 'Times', serif;
   margin-top: 1.5em;
   margin-bottom: 0.75em;
 }

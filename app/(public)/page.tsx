@@ -1,4 +1,5 @@
 import { Commodore64Terminal } from "@/components/Commodore64Terminal";
+import { TYPOGRAPHY, BORDERS, SHADOWS, SPACING } from "@/lib/spacing";
 
 function Home() {
   return (
@@ -9,6 +10,30 @@ function Home() {
       height: '100%',
       overflow: 'hidden'
     }}>
+      {/* Main Banner */}
+      <div className="banner" style={{ 
+        width: '100%',
+        textAlign: 'center',
+        border: BORDERS.BORDER_OUTSET,
+        padding: '4px',
+        background: '#ffffff',
+        boxShadow: SHADOWS.SHADOW_SM,
+        boxSizing: 'border-box',
+      }}>
+        <img
+          src="/images/mnrtcbanner.png"
+          alt="Minnesota Retro Technology Club Banner"
+          style={{ 
+            imageRendering: 'pixelated',
+            width: '100%',
+            height: 'auto',
+            display: 'block',
+            border: `${BORDERS.BORDER_WIDTH_THIN}px solid #808080`,
+            boxSizing: 'border-box',
+          }}
+        />
+      </div>
+
       {/* Construction Banner */}
       <div style={{
         width: '100%',
@@ -34,7 +59,7 @@ function Home() {
         background: '#ffffff',
         border: '2px outset #cccccc',
         margin: '10px 0',
-        fontFamily: 'Arial, sans-serif'
+        fontFamily: 'Times New Roman, Times, serif'
       }}>
         <h2 style={{
           fontSize: '20px',
@@ -92,7 +117,7 @@ function Home() {
             fontWeight: 'bold',
             color: '#000000',
             marginBottom: '10px',
-            fontFamily: 'Arial, sans-serif'
+            fontFamily: 'Times New Roman, Times, serif'
           }}>
             WHY VINTAGE COMPUTERS?
           </h3>

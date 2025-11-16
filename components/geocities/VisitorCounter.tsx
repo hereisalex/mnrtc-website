@@ -107,7 +107,7 @@ export default function VisitorCounter({ className = '', style = {} }: VisitorCo
           fontSize: '12px', 
           fontWeight: 'bold',
           color: '#000000',
-          fontFamily: 'Arial, sans-serif',
+          fontFamily: 'Times New Roman, Times, serif',
           lineHeight: '1.2'
         }}>
           {error ? 'Visitor counter offline — check console' : 'visitors since 1995!'}
@@ -117,7 +117,7 @@ export default function VisitorCounter({ className = '', style = {} }: VisitorCo
             fontSize: '10px',
             color: '#cc0000',
             marginTop: '2px',
-            fontFamily: 'Arial, sans-serif'
+            fontFamily: 'Times New Roman, Times, serif'
           }}>
             {error}
           </div>
@@ -127,7 +127,7 @@ export default function VisitorCounter({ className = '', style = {} }: VisitorCo
             fontSize: '10px', 
             color: '#666666',
             marginTop: '2px',
-            fontFamily: 'Arial, sans-serif'
+            fontFamily: 'Times New Roman, Times, serif'
           }}>
             Last updated: {new Date().toLocaleTimeString()}
           </div>
